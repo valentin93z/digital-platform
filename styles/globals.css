@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+
+.top_center {
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.violet_gray_text {
+    color: #25213B;
+}
+
+.violet_gray_bg {
+    background: #25213B;
+}
+
+.violet_text {
+    color: #8B83BA;
+}
+
+.violet_bg {
+    background: #8B83BA;
+}
+
+.violet_text_light {
+    color: #6E6893;
+}
+
+.border_gray {
+    border-color: #C6C2DE;
+}
+
+.grid_cols_10 {
+    grid-template-columns: 15px 40px 2fr repeat(5, minmax(0, 1fr)) 1.5fr 20px;
+}
+
+.grid_cols_6 {
+    grid-template-columns: 15px 40px 2fr repeat(2, minmax(0, 1fr)) 20px;
+}
+
+.transition_open {
+    transition: max-height 1s linear;
+    max-height: 1500px;
+}
+
+.transition_close {
+    transition: max-height 1s linear;
+    max-height: 0px;
+}
+
+.black_opacity {
+    background: rgba(0, 0, 0, 0.5);
+}
