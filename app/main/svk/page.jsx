@@ -31,28 +31,10 @@ const TablePage = () => {
     setModalIsOpen(false);
   }
 
-  const handleSave = async (e) => {
-    try {
-      const response = await fetch('/api/video-control', {
-        method: "POST",
-        body: JSON.stringify({
-          date: newControlItem.date,
-          time: newControlItem.time,
-          store: newControlItem.store,
-          sector: newControlItem.sector,
-          seller: newControlItem.seller,
-          sellerPosition: newControlItem.sellerPosition,
-          answers: newControlItem.answers,
-          creator: newControlItem.creator,
-        }),
-      });
-      if (response.ok) {
-        setModalIsOpen(false);
-        handleReset();
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  const fetchCheckList = async () => {
+    const response = await fetch('/api/video-control');
+    const data = await response.json();
+    setCheckList(data);
   }
 
   const handleReset = (e) => {
@@ -70,20 +52,50 @@ const TablePage = () => {
     });
   }
 
-  useEffect(() => {
-    const fetchCheckList = async () => {
-      const response = await fetch('/api/video-control');
-      const data = await response.json();
-      setCheckList(data);
+  const handleSave = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/video-control', {
+        method: "POST",
+        body: JSON.stringify({
+          date: newControlItem.date,
+          time: newControlItem.time,
+          store: newControlItem.store,
+          sector: newControlItem.sector,
+          seller: newControlItem.seller,
+          sellerPosition: newControlItem.sellerPosition,
+          answers: newControlItem.answers,
+          creator: newControlItem.creator,
+        }),
+      });
+      if (response.ok) {
+        setModalIsOpen(false);
+        setNewControlItem({
+          date: null,
+          time: null,
+          store: '',
+          sector: '',
+          seller: '',
+          sellerPosition: '',
+          answers: [],
+          creator: 'Администратор',
+        });
+        fetchCheckList();
+      }
+    } catch (error) {
+      console.log(error);
     }
+  }
+
+  useEffect(() => {
     fetchCheckList();
   }, []);
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      return router.push('/');
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === 'unauthenticated') {
+  //     return router.push('/');
+  //   }
+  // }, [status]);
 
   return (
     <div className='w-full px-2 py-10 font-roboto'>

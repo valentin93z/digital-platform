@@ -20,12 +20,12 @@ const LoginPage = () => {
     console.log(res);
   }
 
-  useEffect(() => {
-    if (status === 'authenticated') router.push('/main');
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === 'authenticated') router.push('/main');
+  // }, [status]);
 
   return (
-    <section className='w-full min-h-screen flex justify-center items-center relative'>
+    <section className='font-rubik w-full min-h-screen flex justify-center items-center relative'>
       <form className='bg-neutral-200 dark:bg-neutral-800 py-5 px-5 rounded-sm flex flex-col gap-6' onSubmit={handleSubmit}>
         <h1 className='dark:text-white font-semibold text-3xl text-center'>Вход</h1>
         <div className='flex flex-col gap-1'>
@@ -42,7 +42,7 @@ const LoginPage = () => {
             setLoginData={setLoginData}
           />
         </div>
-        <button className='w-full p-2 text-white bg-violet-800 dark:bg-violet-500 rounded-sm text-lg mt-5' type='submit'>Войти</button>
+        <button className='w-full p-2 text-white bg-violet-500 dark:bg-violet-500 rounded-sm text-lg mt-5' type='submit'>Войти</button>
       </form>
       <div className='absolute top-5 right-5'>
         <ThemeSwitch />

@@ -15,6 +15,7 @@ module.exports = {
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
+        rubik: ['Rubik', 'sans-serif'],
       },
       transitionProperty: {
         'max-height': 'max-height',
