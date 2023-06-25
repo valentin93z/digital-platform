@@ -10,6 +10,10 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Поле password - обязательное'],
     },
+    role: {
+        type: String,
+        required: [true, 'Поле role - обязательное'],
+    },
     firstname: {
         type: String,
         required: [true, 'Поле firstname - обязательное'],

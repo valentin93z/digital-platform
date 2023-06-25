@@ -7,7 +7,7 @@ const HomeLayout = ({ children }) => {
       <Sidebar />
       <div className="pl-16">
         <Header />
-        <div>{children}</div>
+        <div className="w-full min-h-[calc(100vh-120px)]">{children}</div>
       </div>
     </div>
   )

@@ -5,6 +5,8 @@ const seller = {
     position: '',
 }
 
+const roles = ['seller-pk', 'seller-um', 'seller-zum', 'trainee'];
+
 const checklist = {
     name: '',
     position: '',
