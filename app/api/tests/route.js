@@ -3,14 +3,14 @@ import Test from "@models/test";
 
 
 export const GET = async (request) => {
-    try {
-      await connectToDB();
-      const TestList = await Test.find({});
-      return new Response(JSON.stringify(TestList), { status: 200 });
-    } catch (error) {
-      return new Response(JSON.stringify('Failed to fetch Test List'), { status: 500 });
-    }
+  try {
+    await connectToDB();
+    const TestList = await Test.find({});
+    return new Response(JSON.stringify(TestList), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify('Failed to fetch Test List'), { status: 500 });
   }
+}
 
 export const POST = async (request) => {
   const { title, forPosition, minPercentage, attempts, deadline, questions } = await request.json();

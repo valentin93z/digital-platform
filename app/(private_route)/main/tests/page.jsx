@@ -63,7 +63,7 @@ const TestsPage = () => {
         {testList.length !== 0 ? (
           <ul className='flex justify-start gap-10'>
             {testList.map((testItem) =>
-              <li className='max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
+              <li className='max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer' key={testItem._id}>
                 <Link href={`/main/tests/${testItem._id}/preview`}>
                   <Image
                     className='rounded-t-lg'

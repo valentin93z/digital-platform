@@ -6,7 +6,7 @@ export const metadata = {
   description: 'Демо-версия учебного портала',
 }
 
-const RootLayout = ({ children }) => {
+const RootLayout = async ({ children }) => {
   return (
     <html lang='ru'>
       <head>

@@ -1,9 +1,13 @@
 'use client';
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
 
 const Header = () => {
+
+  const { status, data } = useSession();
+  const isAuth = status === 'authenticated';
 
   const [dropMenuIsOpen, setDropMenuIsOpen] = useState(false);
 
@@ -25,7 +29,7 @@ const Header = () => {
           />
         </div>
         <div className="relative flex items-center cursor-pointer" onClick={() => setDropMenuIsOpen(!dropMenuIsOpen)}>
-          <p className="text-neutral-700 dark:text-white">Иван Петров</p>
+          <p className="text-neutral-700 dark:text-white">{data?.user?.firstname} {data?.user?.lastname}</p>
           <div>
             {dropMenuIsOpen ? (
               <svg className="fill-neutral-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 -960 960 960" width="28">
@@ -44,7 +48,12 @@ const Header = () => {
               </div>
               <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>Профиль</div>
               <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>Настройки</div>
-              <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>Выйти</div>
+              <div
+                className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'
+                onClick={() => signOut()}
+              >
+                Выйти
+              </div>
             </div>
           }
         </div>

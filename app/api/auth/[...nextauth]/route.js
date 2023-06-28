@@ -1,33 +1,77 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDB } from "@utils/database";
+import User from "@models/user";
 
 
-const handler = NextAuth({
+export const authOptions = {
     session: {
         strategy: 'jwt',
     },
     providers: [
         CredentialsProvider({
             name: 'Credentials',
-            credentials: {
-                // username: { label: 'Username', type: 'text', placeholder: 'Username' },
-                // password: { label: 'Password', type: 'password' },
-            },
-            authorize(credentials, req) {
+            credentials: {},
+            async authorize(credentials, req) {
+
                 const { username, password } = credentials;
-                //
-                // find user in db
-                //
-                //if not found...
-                if (username !== 'admin1' || password !== '1234') {
-                    return null;
-                }
-                // if true...
-                return { username: 'admin1', email: 'admin1@mail.ru', name: 'admin1' };
+                await connectToDB();
+
+                const user = await User.findOne({ username: username });
+                if (!user) throw Error('Неверный логин или пароль!');
+
+                const passwordMatch = await user.comparePassword(password);
+                if (!passwordMatch) throw Error('Неверный логин или пароль!');
+
+                return {
+                    id: user._id,
+                    username: user.username,
+                    role: user.role,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    middlename: user.middlename,
+                    email: user.email,
+                    phone: user.phone,
+                    birthday: user.birthday,
+                    image: user.image,
+                };
+            },
+        }),
+    ],
+    callbacks: {
+        jwt(params) {
+            if (params.user?.username) {
+                params.token.id = params.user.id;
+                params.token.username = params.user.username;
+                params.token.role = params.user.role;
+                params.token.firstname = params.user.firstname;
+                params.token.lastname = params.user.lastname;
+                params.token.middlename = params.user.middlename;
+                params.token.email = params.user.email;
+                params.token.phone = params.user.phone;
+                params.token.birthday = params.user.birthday;
+                params.token.image = params.user.image;
             }
-        })
-    ]
-});
+            return params.token;
+        },
+        session({ session, token }) {
+            if (session.user) {
+                session.user.id = token.id;
+                session.user.username = token.username;
+                session.user.role = token.role;
+                session.user.firstname = token.firstname;
+                session.user.lastname = token.lastname;
+                session.user.middlename = token.middlename;
+                session.user.email = token.email;
+                session.user.phone = token.phone;
+                session.user.birthday = token.birthday;
+                session.user.image = token.image;
+            }
+            return session;
+        },
+    },
+}
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
