@@ -2,10 +2,15 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from "@app/api/auth/[...nextauth]/route";
 import { redirect } from 'next/navigation';
 
-const GuestLayout = async ({ children }) => {
+const AdminLayout = async ({ children }) => {
+
   const session = await getServerSession(authOptions);
-  if (session) redirect('/main');
+  const user = session?.user;
+  const isAdmin = user?.role === 'admin';
+
+  if (!isAdmin) redirect('/login');
+
   return <>{children}</>
 }
 
-export default GuestLayout;
+export default AdminLayout;
