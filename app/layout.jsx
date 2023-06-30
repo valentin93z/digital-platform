@@ -10,6 +10,7 @@ const RootLayout = async ({ children }) => {
   return (
     <html lang='ru'>
       <head>
+        <link rel='manifest' href="manifest.json" />
         <link rel="icon" href="assets/icons/favicon.ico" sizes="any" />
       </head>
       <body>

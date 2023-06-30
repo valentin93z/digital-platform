@@ -7,7 +7,7 @@ const Sidebar = () => {
   const [currentPage, setCurrentPage] = useState('main');
 
   return (
-    <div className='min-h-screen flex flex-col justify-between items-center fixed top-0 left-0 bg-white dark:bg-neutral-800 shadow-md py-5'>
+    <div className='hidden min-h-screen md:flex flex-col justify-between items-center fixed top-0 left-0 bg-white dark:bg-neutral-800 shadow-md py-5'>
       <div>
         <div className='w-full flex justify-center items-center p-3'>
           <div className='w-full flex justify-center items-center'>

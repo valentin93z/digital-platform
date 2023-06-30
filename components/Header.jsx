@@ -3,22 +3,50 @@ import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
+import SidebarMobile from "./SidebarMobile";
 
 const Header = () => {
 
   const { status, data } = useSession();
-  const isAuth = status === 'authenticated';
-
   const [dropMenuIsOpen, setDropMenuIsOpen] = useState(false);
+  const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 
   return (
-    <div className="font-rubik w-full flex justify-between items-center px-20 py-10">
-      <Image
-        src='/assets/images/logo.png'
-        alt='logo'
-        width={190}
-        height={29}
-      />
+    <div className="font-rubik w-full flex justify-between items-center px-5 sm:px-10 md:px-20 md:py-10 py-5">
+
+      {burgerIsOpen && <SidebarMobile setBurgerIsOpen={setBurgerIsOpen} />}
+
+      <div className="flex items-center gap-5 md:hidden">
+        <div className="cursor-pointer" onClick={() => setBurgerIsOpen(!burgerIsOpen)}>
+          {burgerIsOpen ? (
+            <svg
+              className='fill-neutral-700 dark:fill-white'
+              xmlns="http://www.w3.org/2000/svg"
+              height="40"
+              viewBox="0 -960 960 960"
+              width="40"
+            >
+              <path d="m249-186-63-63 231-231-231-230 63-64 231 230 231-230 63 64-230 230 230 231-63 63-231-230-231 230Z"/>
+            </svg>
+          ) : (
+            <svg
+              className='fill-neutral-700 dark:fill-white'
+              xmlns="http://www.w3.org/2000/svg"
+              height="40"
+              viewBox="0 -960 960 960"
+              width="40"
+            >
+              <path d="M105-215v-91h750v91H105Zm0-219v-91h750v91H105Zm0-220v-92h750v92H105Z"/>
+            </svg>
+          )}
+        </div>
+        <Image
+          src='/assets/images/logo.png'
+          alt='logo'
+          width={190}
+          height={29}
+        />
+      </div>
       <div className="flex items-center gap-3">
         <div className='relative w-10 h-10 rounded-full bg-violet-500 flex justify-center items-center'>
           <Image
@@ -29,7 +57,7 @@ const Header = () => {
           />
         </div>
         <div className="relative flex items-center cursor-pointer" onClick={() => setDropMenuIsOpen(!dropMenuIsOpen)}>
-          <p className="text-neutral-700 dark:text-white">{data?.user?.firstname} {data?.user?.lastname}</p>
+          <p className="text-neutral-700 dark:text-white hidden sm:block">{data?.user?.firstname} {data?.user?.lastname}</p>
           <div>
             {dropMenuIsOpen ? (
               <svg className="fill-neutral-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 -960 960 960" width="28">
