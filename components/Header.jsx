@@ -16,55 +16,57 @@ const Header = () => {
 
       {burgerIsOpen && <SidebarMobile setBurgerIsOpen={setBurgerIsOpen} />}
 
-      <div className="flex items-center gap-5 md:hidden">
-        <div className="cursor-pointer" onClick={() => setBurgerIsOpen(!burgerIsOpen)}>
+      <div className="flex items-center gap-5">
+        <div className="md:hidden cursor-pointer unselectable" onClick={() => setBurgerIsOpen(!burgerIsOpen)}>
           {burgerIsOpen ? (
             <svg
-              className='fill-neutral-700 dark:fill-white'
+              className='w-[20px] md:w-[40px] h-[20px] md:h-[40px] fill-neutral-700 dark:fill-white'
               xmlns="http://www.w3.org/2000/svg"
-              height="40"
               viewBox="0 -960 960 960"
-              width="40"
             >
               <path d="m249-186-63-63 231-231-231-230 63-64 231 230 231-230 63 64-230 230 230 231-63 63-231-230-231 230Z"/>
             </svg>
           ) : (
             <svg
-              className='fill-neutral-700 dark:fill-white'
+              className='w-[20px] md:w-[40px] h-[20px] md:h-[40px] fill-neutral-700 dark:fill-white'
               xmlns="http://www.w3.org/2000/svg"
-              height="40"
               viewBox="0 -960 960 960"
-              width="40"
             >
               <path d="M105-215v-91h750v91H105Zm0-219v-91h750v91H105Zm0-220v-92h750v92H105Z"/>
             </svg>
           )}
         </div>
-        <Image
-          src='/assets/images/logo.png'
-          alt='logo'
-          width={190}
-          height={29}
-        />
-      </div>
-      <div className="flex items-center gap-3">
-        <div className='relative w-10 h-10 rounded-full bg-violet-500 flex justify-center items-center'>
+        <div className="relative w-[120px] md:w-[190px] h-[29px]">
           <Image
-            src='/assets/icons/person_white.svg'
-            alt='profile-photo'
-            width={28}
-            height={28}
+            className="object-contain"
+            src='/assets/images/logo.png'
+            alt='logo'
+            sizes="190px"
+            fill
           />
         </div>
-        <div className="relative flex items-center cursor-pointer" onClick={() => setDropMenuIsOpen(!dropMenuIsOpen)}>
+      </div>
+      <div className="flex items-center gap-1 md:gap-3 select-none unselectable" onClick={() => setDropMenuIsOpen(!dropMenuIsOpen)}>
+        <div className='relative w-5 md:w-10 h-5 md:h-10 rounded-full bg-violet-500 flex justify-center items-center'>
+          <div className="relative w-[14px] md:w-[28px] h-[14px] md:h-[28px]">
+            <Image
+              className="object-contain"
+              src='/assets/icons/person_white.svg'
+              alt='profile-photo'
+              sizes="28px"
+              fill
+            />
+          </div>
+        </div>
+        <div className="relative flex items-center cursor-pointer">
           <p className="text-neutral-700 dark:text-white hidden sm:block">{data?.user?.firstname} {data?.user?.lastname}</p>
           <div>
             {dropMenuIsOpen ? (
-              <svg className="fill-neutral-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 -960 960 960" width="28">
+              <svg className="w-[14px] md:w-[28px] h-[14px] md:h-[28px] fill-neutral-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <path d="M353-400q-20 0-27.5-18.5T332-451l128-129q5-5 10-6.5t11-1.5q6 0 11 1.5t10 6.5l128 129q14 14 6.5 32.5T609-400H353Z"/>
               </svg>
             ) : (
-              <svg className="fill-neutral-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" height="28" viewBox="0 -960 960 960" width="28">
+              <svg className="w-[14px] md:w-[28px] h-[14px] md:h-[28px] fill-neutral-700 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                 <path d="M459-381 332-508q-14-14-6.5-32.5T353-559h254q20 0 27.5 18.5T628-508L501-381q-5 5-10 7t-11 2q-6 0-11-2t-10-7Z"/>
               </svg>
             )}
