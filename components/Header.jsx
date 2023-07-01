@@ -72,7 +72,7 @@ const Header = () => {
             )}
           </div>
           {dropMenuIsOpen &&
-            <div className="absolute top-12 right-0 flex flex-col gap-2 text-right bg-white dark:bg-neutral-800 shadow-md rounded-md p-2">
+            <div className="absolute top-6 md:top-12 right-0 flex flex-col gap-2 text-right bg-white dark:bg-neutral-800 shadow-md rounded-md p-2 z-50">
               <div className='flex justify-end items-center'>
                 <ThemeSwitch />
               </div>
