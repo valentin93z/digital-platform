@@ -24,7 +24,7 @@ const ResultsPage = () => {
   return (
     <div className="font-rubik px-5 md:px-20">
       <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Мои результаты</h1>
-      <div className="flex items-center gap-2 md:gap-5 py-2 md:py-5">
+      <div className="flex items-center gap-2 md:gap-5 py-5">
         <div className="relative z-30">
           <input
             className="absolute w-0 h-0 opacity-0"
@@ -66,7 +66,7 @@ const ResultsPage = () => {
         <div>
           <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
             {resultsTests?.map((item) =>
-              <li className="w-full flex justify-between dark:bg-neutral-800 rounded-md p-2" key={item._id}>
+              <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
                 <div>{item.title}</div>
                 <div className="grid grid-cols-[25px_30px_70px] md:grid-cols-[50px_50px_100px] items-center gap-5 text-right">
                   <p>{item.trueAnswers}/{item.answers.length}</p>

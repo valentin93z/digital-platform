@@ -28,10 +28,10 @@ const TestPreviewPage = ({ params }) => {
   if (loading) return <CircleLoader />
 
   return (
-    <div className="font-rubik px-20">
-      <h1 className="text-4xl text-neutral-700 dark:text-white py-5">Тест: {testData.title}</h1>
+    <div className="font-rubik px-5 md:px-20">
+      <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Тест: {testData.title}</h1>
       <div className='max-w-[1000px] flex flex-col gap-5'>
-        <div className='flex flex-col gap-2 dark:bg-neutral-800 rounded-lg p-2'>
+        <div className='flex flex-col gap-2 text-sm bg-white dark:bg-neutral-800 rounded-lg p-2'>
           <div className='flex justify-between'>
             <p>Количество вопросов:</p>
             <p>{testData?.questions?.length}</p>

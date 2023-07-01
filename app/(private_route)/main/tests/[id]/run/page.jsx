@@ -62,12 +62,12 @@ const TestRunPage = ({ params }) => {
   if (loading || !testData.questions) return <CircleLoader />
 
   return (
-    <div className='w-full h-[calc(100vh-120px)] p-10'>
-      <div className='w-full h-[calc(100vh-200px)] bg-white dark:bg-neutral-800 rounded-xl'>
-        <div className='px-20 py-10'>
+    <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
+      <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl'>
+        <div className='p-5 md:px-20 md:py-10'>
           <p className='text-xl'>{testData.questions[questNum].question}</p>
         </div>
-        <div className='px-20 py-10'>
+        <div className='p-5 md:px-20 md:py-10'>
           {testData?.questions[questNum].answers.map((answer) =>
             <div className='flex items-center gap-3' key={answer.a_id}>
               <input
@@ -83,7 +83,7 @@ const TestRunPage = ({ params }) => {
             </div>
           )}
         </div>
-        <div className='flex gap-5 px-20 py-10'>
+        <div className='flex justify-end gap-5 p-5 md:px-20 md:py-10'>
           <button
             className='text-white bg-violet-500 hover:bg-violet-700 disabled:bg-neutral-300 dark:disabled:bg-neutral-700 disabled:hover:bg-neutral-300 dark:disabled:hover:bg-neutral-700 px-2 py-1 rounded-md'
             type='button'
@@ -102,7 +102,7 @@ const TestRunPage = ({ params }) => {
           </button>
         </div>
         {answers.length === testData.questions.length &&
-          <div className='px-20'>
+          <div className='flex justify-end px-5 md:px-20 pb-5 md:pb-10'>
             <button
               className='text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md'
               type='button'
