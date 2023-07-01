@@ -21,7 +21,7 @@ const SidebarMobile = ({ setBurgerIsOpen }) => {
           >
             <div
               className='w-full flex justify-center items-center cursor-pointer hover_parent'
-              onClick={() => setTimeout(() => (setBurgerIsOpen(false)), 100)}
+              onClick={() => setTimeout(() => (setBurgerIsOpen(false)), 300)}
             >
               <Link className='w-full flex items-center gap-3' href={icon.link}>
                 <icon.element width={20} height={20} currentPage={pathname} page={icon.link} />
