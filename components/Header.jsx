@@ -12,7 +12,7 @@ const Header = () => {
   const [burgerIsOpen, setBurgerIsOpen] = useState(false);
 
   return (
-    <div className="font-rubik fixed top-0 left-0 md:left-[64px] w-full md:w-[calc(100%-64px)] flex justify-between items-center bg-neutral-100 dark:bg-neutral-900 px-5 sm:px-10 md:px-20 md:py-10 py-5">
+    <div className="font-rubik fixed top-0 left-0 md:left-[64px] w-full md:w-[calc(100%-64px)] flex justify-between items-center bg-neutral-100 dark:bg-neutral-900 px-5 sm:px-10 md:px-20 md:py-10 py-5 z-40">
 
       {burgerIsOpen && <SidebarMobile setBurgerIsOpen={setBurgerIsOpen} />}
 

@@ -4,7 +4,7 @@ import CoursesList3 from "@components/CoursesList3";
 
 const CoursesPage = () => {
     return (
-      <div className="font-rubik px-5 md:px-20">
+      <div className="font-rubik px-5 md:px-20 unselectable">
         <div className="py-5 mb-5">
           <div className="flex items-center gap-5">
             <div className="flex items-center gap-2 bg-white dark:bg-neutral-800 shadow-md px-2 py-1 rounded-xl cursor-pointer">
