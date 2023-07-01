@@ -3,13 +3,13 @@ import Image from 'next/image';
 const CoursesList3 = () => {
   return (
     <div className='font-rubik'>
-      <div className='flex justify-between items-center'>
-        <div className='flex items-center gap-3 py-5'>
-          <h1 className='text-2xl text-neutral-700 dark:text-white'>Техника</h1>
-          <div>
+      <div className='flex justify-between items-center pb-5 md:pb-0'>
+        <div className='flex flex-col md:flex-row md:items-center md:gap-3 md:py-5'>
+          <h1 className='text-lg md:text-2xl text-neutral-700 dark:text-white'>Техника</h1>
+          <div className='hidden md:block'>
             {'>'}
           </div>
-          <p className='text-lg text-neutral-600 dark:text-neutral-400'>2 материала</p>
+          <p className='text-xs md:text-lg text-neutral-600 dark:text-neutral-400'>2 материала</p>
         </div>
         <div className='flex items-center gap-2'>
           <div className='bg-white dark:bg-neutral-800 hover:bg-violet-500 dark:hover:bg-violet-500 rounded-full shadow-md cursor-pointer'>
@@ -25,19 +25,19 @@ const CoursesList3 = () => {
         </div>
       </div>
 
-      <ul className='flex justify-start gap-10'>
+      <ul className='flex justify-start gap-5 md:gap-10'>
 
         <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
           <Image
             className='rounded-t-lg'
-            src='/assets/images/course_04.jpg'
+            src='/assets/images/course_10.jpg'
             alt='course-img'
             width={300}
             height={200}
           />
           <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2>Название курса 1</h2>
-            <div className='bg-violet-500 dark:bg-violet-500 text-white shadow-md rounded-2xl px-2 py-1'>новый</div>
+            <h2 className='text-sm md:text-base'>Название курса 1</h2>
+            <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>
           </div>
         </li>
 
@@ -50,8 +50,8 @@ const CoursesList3 = () => {
             height={200}
           />
           <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2>Название курса 2</h2>
-            <div className='bg-violet-500 dark:bg-violet-500 text-white rounded-2xl px-2 py-1'>новый</div>
+            <h2 className='text-sm md:text-base'>Название курса 2</h2>
+            <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base rounded-2xl px-2 py-1'>новый</div>
           </div>
         </li>
 

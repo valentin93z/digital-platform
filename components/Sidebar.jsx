@@ -1,5 +1,4 @@
 'use client';
-import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import NavIcons from './NavIcons';
@@ -7,7 +6,6 @@ import NavIcons from './NavIcons';
 const Sidebar = () => {
 
   const pathname = usePathname();
-  const [currentPage, setCurrentPage] = useState('main');
 
   return (
     <div className='hidden min-h-screen md:flex flex-col justify-between items-center fixed top-0 left-0 bg-white dark:bg-neutral-800 shadow-md py-5'>
@@ -42,13 +40,13 @@ const Sidebar = () => {
           </div>
         )}
       </div>
-      
+
       <div>
-        <div className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${currentPage === 'svk' && 'bg-violet-500 dark:bg-violet-500'}`}>
+        <div className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${pathname === '/main/svk' && 'bg-violet-500 dark:bg-violet-500'}`}>
           <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
-            <Link href='/main/svk' onClick={() => setCurrentPage('svk')}>
+            <Link href='/main/svk'>
               <svg
-                className={`transition-colors ${currentPage === 'svk' ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${currentPage !== 'svk' && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+                className={`transition-colors ${pathname === '/main/svk' ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname !== '/main/svk' && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
                 xmlns="http://www.w3.org/2000/svg"
                 height="40"
                 viewBox="0 -960 960 960"
