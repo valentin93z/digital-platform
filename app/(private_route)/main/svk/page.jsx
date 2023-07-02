@@ -91,12 +91,6 @@ const TablePage = () => {
     fetchCheckList();
   }, []);
 
-  // useEffect(() => {
-  //   if (status === 'unauthenticated') {
-  //     return router.push('/');
-  //   }
-  // }, [status]);
-
   return (
     <div className='w-full px-2 py-10 font-roboto'>
       {modalIsOpen && <Modal closeModal={closeModal} newControlItem={newControlItem} setNewControlItem={setNewControlItem} handleSave={handleSave} handleReset={handleReset} />}
