@@ -1,7 +1,7 @@
-const TestsIcon = ({ width, height, currentPage, page }) => {
+const TestsIcon = ({ width, height, className }) => {
     return (
       <svg
-        className={`transition-colors ${currentPage === {page} ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${currentPage !== {page} && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+        className={className}
         width={width}
         height={height}
         xmlns="http://www.w3.org/2000/svg"

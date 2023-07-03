@@ -33,7 +33,11 @@ const Sidebar = () => {
           >
             <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
               <Link href={icon.link}>
-                <icon.element width={40} height={40} currentPage={pathname} page={icon.link} />
+                <icon.element
+                  className={`transition-colors ${pathname === icon.link ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname !== icon.link && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+                  width={40}
+                  height={40}
+                />
               </Link>
             </div>
             <div className='absolute top-[50%] translate-y-[-50%] left-[80px] bg-white dark:bg-neutral-800 whitespace-nowrap p-1 cursor-default rounded-md hover_child transition-opacity duration-300 shadow-md'>{icon.title}</div>

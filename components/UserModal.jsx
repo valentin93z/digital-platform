@@ -94,7 +94,7 @@ const UserModal = ({ newUser, setNewUser, setModalIsOpen, handleSave, handleRese
           </div>
           <div className="grid grid-cols-2 gap-5">
             <OutlinedButton type='button' text='Отмена' onClick={handleReset} />
-            <FilledVioletButton type='submit' text='Добавить' />
+            <FilledVioletButton type='submit' text='Сохранить' />
           </div>
         </form>
       </div>
