@@ -1,7 +1,7 @@
 'use client';
 import { useState } from "react";
 
-const UserRow = ({ user }) => {
+const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen }) => {
 
   const [dropMenuIsOpen, setDropMenuIsOpen] = useState(false);
 
@@ -60,8 +60,33 @@ const UserRow = ({ user }) => {
 
         {dropMenuIsOpen &&
           <ul className="absolute bottom-[-75px] right-0 flex flex-col gap-1 bg-white dark:bg-neutral-800 shadow-xl rounded-md p-2 z-[68]">
-            <li className="text-black dark:text-white hover:text-violet-500 dark:hover:text-violet-500">Изменить</li>
-            <li className="text-black dark:text-white hover:text-violet-500 dark:hover:text-violet-500">Удалить</li>
+            <li
+              className="text-black dark:text-white hover:text-violet-500 dark:hover:text-violet-500"
+              onClick={() => {
+                setNewUser({
+                  _id: user._id,
+                  username: user.username,
+                  password: '',
+                  role: user.role,
+                  firstname: user.firstname,
+                  lastname: user.lastname,
+                  middlename: user.middlename,
+                  email: user.email,
+                  phone: user.phone,
+                  birthday: user.birthday,
+                  image: user.image,
+                });
+                setEditModalIsOpen(true);
+              }}
+            >
+              Изменить
+            </li>
+            <li
+              className="text-black dark:text-white hover:text-violet-500 dark:hover:text-violet-500"
+              onClick={() => handleDelete(user._id)}
+            >
+              Удалить
+            </li>
           </ul>
         }
       </div>

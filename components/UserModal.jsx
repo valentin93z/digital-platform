@@ -5,7 +5,7 @@ import OutlinedButton from "./buttons/OutlinedButton";
 import FilledVioletButton from "./buttons/FilledVioletButton";
 
 
-const UserModal = ({ newUser, setNewUser, setModalIsOpen, handleSave, handleReset }) => {
+const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSave, handleEdit, handleReset }) => {
   return (
     <div
       className="fixed top-0 left-0 bottom-0 right-0 black_opacity flex justify-center items-center px-0 sm:px-5 z-[60]"
@@ -15,8 +15,8 @@ const UserModal = ({ newUser, setNewUser, setModalIsOpen, handleSave, handleRese
         className='max-w-full sm:max-w-5xl max-h-[95vh] sm:max-h-[90vh] bg-white dark:bg-neutral-800 sm:rounded-2xl opacity-100 p-5'
         onClick={(e) => e.stopPropagation()}
       >
-        <h1 className="text-xl pb-5">Новый пользователь</h1>
-        <form className="flex flex-col gap-4" onSubmit={handleSave}>
+        <h1 className="text-xl pb-5">{title}</h1>
+        <form className="flex flex-col gap-4" onSubmit={type === 'new' ? handleSave : handleEdit}>
           <div>
             <NewFormInput
               type='text'
@@ -25,14 +25,16 @@ const UserModal = ({ newUser, setNewUser, setModalIsOpen, handleSave, handleRese
               onChange={(e) => setNewUser({...newUser, username: e.target.value})}
             />
           </div>
-          <div>
-            <NewFormInput
-              type='text'
-              placeholder='Пароль'
-              value={newUser.password}
-              onChange={(e) => setNewUser({...newUser, password: e.target.value})}
-            />
-          </div>
+          {type === 'new' &&
+            <div>
+              <NewFormInput
+                type='text'
+                placeholder='Пароль'
+                value={newUser.password}
+                onChange={(e) => setNewUser({...newUser, password: e.target.value})}
+              />
+            </div>
+          }
           <div>
             <NewFormSelect
               data={usersRoles}
