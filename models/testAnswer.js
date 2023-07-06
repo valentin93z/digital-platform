@@ -20,7 +20,11 @@ const TestAnswerSchema = new Schema({
   result: {
     type: Number,
     required: [true, 'Result is required'],
-  }
+  },
+  userId: {
+    type: String,
+    required: [true, 'UserId is required'],
+  },
 });
 
 const TestAnswer = models.TestAnswer || model('TestAnswer', TestAnswerSchema);

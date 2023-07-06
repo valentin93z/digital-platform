@@ -13,7 +13,7 @@ export const GET = async (request) => {
 }
 
 export const POST = async (request) => {
-    const { title, forPosition, answers } = await request.json();
+    const { title, forPosition, answers, userId } = await request.json();
     // testQuestion is imitated DB.
     let trueAnswers = 0;
     let result = 0;
@@ -35,7 +35,7 @@ export const POST = async (request) => {
 
   try {
     await connectToDB();
-    const testAnswersItem = new TestAnswer({ title, forPosition, answers: [...answers], trueAnswers, result });
+    const testAnswersItem = new TestAnswer({ title, forPosition, answers: [...answers], trueAnswers, result, userId });
     await testAnswersItem.save();
     return new Response(JSON.stringify(testAnswersItem), { status: 201 });
   } catch (error) {

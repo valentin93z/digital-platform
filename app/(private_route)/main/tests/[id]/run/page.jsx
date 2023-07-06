@@ -3,14 +3,18 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { checkTestQuest } from '@utils/checkQuest';
 import CircleLoader from '@components/loader/CircleLoader';
+import { useSession } from 'next-auth/react';
 
 const TestRunPage = ({ params }) => {
 
+  const { status, data } = useSession();
   const [loading, setLoading] = useState(false);
 
   const [testData, setTestData] = useState({});
   const [questNum, setQuestNum] = useState(0);
   const [answers, setAnswers] = useState([]);
+  const [startTime, setStartTime] = useState(null);
+  const [finishTime, setFinishTime] = useState(null);
 
   const router = useRouter();
 
@@ -45,17 +49,19 @@ const TestRunPage = ({ params }) => {
           title: testData.title,
           forPosition: ['seller-pk'],
           answers: answers,
+          userId: String(data?.user?.id),
+
         })
       })
-      const data = await response.json();
-
-      router.push(`/main/tests/${data._id}/finish`);
+      const answerData = await response.json();
+      router.push(`/main/tests/${answerData._id}/finish`);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
+    setStartTime(Date.now());
     fetchTestData();
   }, []);
 
