@@ -13,8 +13,8 @@ const TestRunPage = ({ params }) => {
   const [testData, setTestData] = useState({});
   const [questNum, setQuestNum] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [startTime, setStartTime] = useState(null);
-  const [finishTime, setFinishTime] = useState(null);
+  const [startTime, setStartTime] = useState(0);
+  const [finishTime, setFinishTime] = useState(0);
 
   const router = useRouter();
 
@@ -50,7 +50,8 @@ const TestRunPage = ({ params }) => {
           forPosition: ['seller-pk'],
           answers: answers,
           userId: String(data?.user?.id),
-
+          startTime: startTime,
+          finishTime: Date.now(),
         })
       })
       const answerData = await response.json();

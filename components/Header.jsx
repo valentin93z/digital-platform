@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <div className="font-rubik fixed top-0 left-0 md:left-[64px] w-full md:w-[calc(100%-64px)] flex justify-between items-center bg-neutral-100 dark:bg-neutral-900 px-5 sm:px-10 md:px-20 md:py-10 py-5 z-40">
 
-      {data?.user?.role === 'seller-pk' || data?.user?.role === 'seller-zum' || data?.user?.role === 'seller-um' || data?.user?.role === 'trainee' && burgerIsOpen && <SidebarMobile setBurgerIsOpen={setBurgerIsOpen} />}
+      {(data?.user?.role === 'seller-pk' || data?.user?.role === 'seller-zum' || data?.user?.role === 'seller-um' || data?.user?.role === 'trainee') && burgerIsOpen && <SidebarMobile setBurgerIsOpen={setBurgerIsOpen} />}
       {data?.user?.role === 'admin' && burgerIsOpen && <SidebarAdminMobile setBurgerIsOpen={setBurgerIsOpen} />}
 
       <div className="flex items-center gap-5">

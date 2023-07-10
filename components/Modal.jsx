@@ -9,7 +9,7 @@ import { sellersPositions, sectors, stores } from '@utils/NewFormSelectData';
 const Modal = ({ closeModal, newControlItem, setNewControlItem, handleSave, handleReset }) => {
 
   return (
-    <div className='fixed top-0 bottom-0 left-0 right-0 black_opacity flex justify-center items-center px-0 sm:px-5 z-10' onClick={closeModal}>
+    <div className='fixed top-0 bottom-0 left-0 right-0 black_opacity flex justify-center items-center px-0 sm:px-5 z-50' onClick={closeModal}>
         <div className='max-w-full sm:max-w-5xl max-h-[95vh] sm:max-h-[90vh] bg-white dark:bg-neutral-800 sm:rounded-2xl opacity-100 p-5 overflow-y-scroll' onClick={(e) => e.stopPropagation()}>
           <form className="" onSubmit={handleSave}>
             <div className='w-full sm:w-[50%] flex flex-col gap-5'>

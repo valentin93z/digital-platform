@@ -19,6 +19,6 @@ export const POST = async (request) => {
         await newVideoControlItem.save();
         return new Response(JSON.stringify(newVideoControlItem), { status: 201 });
     } catch (error) {
-        return new Response(JSON.stringify('Failed to vreate nes Video Control Item'), { status: 500 });
+        return new Response(JSON.stringify(`Failed to vreate nes Video Control Item: ${error}`), { status: 500 });
     }
 }

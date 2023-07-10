@@ -25,6 +25,14 @@ const TestAnswerSchema = new Schema({
     type: String,
     required: [true, 'UserId is required'],
   },
+  startTime: {
+    type: Number,
+    required: [true, 'startTime is required'],
+  },
+  finishTime: {
+    type: Number,
+    required: [true, 'finishTime is required'],
+  },
 });
 
 const TestAnswer = models.TestAnswer || model('TestAnswer', TestAnswerSchema);
