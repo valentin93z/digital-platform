@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const CoursesList = () => {
   return (
@@ -28,17 +29,19 @@ const CoursesList = () => {
       <ul className='flex justify-start gap-5 md:gap-10'>
 
         <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
-          <Image
-            className='rounded-t-lg'
-            src='/assets/images/course_01.jpg'
-            alt='course-img'
-            width={300}
-            height={200}
-          />
-          <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2 className='text-sm md:text-base'>Название курса 1</h2>
-            <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>
-          </div>
+          <Link href='main/courses/demo'>
+            <Image
+              className='rounded-t-lg'
+              src='/assets/images/course_iStore.png'
+              alt='course-img'
+              width={300}
+              height={200}
+            />
+            <div className='h-[100px] flex flex-col justify-between items-start p-3'>
+              <h2 className='text-sm md:text-base'>Техника продаж The iStore</h2>
+              <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>
+            </div>
+          </Link>
         </li>
 
         <li className='hidden md:block bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
