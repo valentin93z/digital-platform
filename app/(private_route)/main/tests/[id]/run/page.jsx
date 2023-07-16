@@ -14,7 +14,6 @@ const TestRunPage = ({ params }) => {
   const [questNum, setQuestNum] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [startTime, setStartTime] = useState(0);
-  const [finishTime, setFinishTime] = useState(0);
 
   const router = useRouter();
 

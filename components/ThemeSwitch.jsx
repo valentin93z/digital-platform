@@ -1,40 +1,24 @@
 'use client';
-import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Image from 'next/image';
+import LightModeIcon from './icons/LightModeIcon';
+import DarkModeIcon from './icons/DarkModeIcon';
 
 const ThemeSwitch = () => {
 
-    const { theme, setTheme, systemTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-
-    const currentTheme = theme === 'system' ? systemTheme : theme;
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) return null;
+  const { theme, setTheme, systemTheme } = useTheme();
+  const currentTheme = theme === 'system' ? systemTheme : theme;
 
   return (
     <div className='cursor-pointer'>
       {currentTheme === 'dark' ? (
-        <Image
-          src='/assets/icons/light_mode.svg'
-          alt='light'
-          width={20}
-          height={20}
-          onClick={() => setTheme('light')}
-        />
+        <div onClick={() => setTheme('light')}>
+          <LightModeIcon className='fill-black dark:fill-white' width='20px' height='20px' />
+        </div>
       ) : (
-        <Image
-          src='/assets/icons/dark_mode.svg'
-          alt='dark'
-          width={20}
-          height={20}
-          onClick={() => setTheme('dark')}
-        />
-      ) }
+        <div onClick={() => setTheme('dark')}>
+          <DarkModeIcon className='fill-black dark:fill-white' width='20px' height='20px' />
+        </div>
+      )}
     </div>
   )
 }

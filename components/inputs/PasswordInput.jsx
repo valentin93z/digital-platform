@@ -1,19 +1,11 @@
 'use client';
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import { useState } from "react";
+import VisibilityFalseIcon from "@components/icons/VisibilityFalseIcon";
+import VisibilityTrueIcon from "@components/icons/VisibilityTrueIcon";
 
 const PasswordInput = ({ loginData, setLoginData }) => {
 
     const [visibility, setVisibility] = useState(false);
-    const [mounted, setMounted] = useState(false);
-    const { theme, systemTheme } = useTheme();
-
-    const currentTheme = theme === 'system' ? systemTheme : theme;
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
 
     return (
       <div className="relative">
@@ -25,26 +17,13 @@ const PasswordInput = ({ loginData, setLoginData }) => {
           onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
         />
         <div
-          className='absolute top_center right-2'
+          className='absolute top_center right-2 cursor-pointer'
           onClick={() => setVisibility(!visibility)}
         >
-          {mounted && (
-            visibility ? (
-              <Image
-                src={currentTheme === 'dark' ? '/assets/icons/visibility_false_white.svg' : '/assets/icons/visibility_false_black.svg'}
-                alt='visibility'
-                width={25}
-                height={25}
-              />
-            ) : (
-              <Image
-                src={currentTheme === 'dark' ? '/assets/icons/visibility_true_white.svg' : '/assets/icons/visibility_true_black.svg'}
-                alt='visibility'
-                width={25}
-                height={25}
-              />
-            )
-          )}
+          {visibility
+            ? <VisibilityFalseIcon className='fill-black dark:fill-white' width='24px' height='24px' />
+            : <VisibilityTrueIcon className='fill-black dark:fill-white' width='24px' height='24px' />
+          }
         </div>
       </div>
     )
