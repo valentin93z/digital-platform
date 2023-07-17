@@ -12,11 +12,11 @@ const ThemeSwitch = () => {
     <div className='cursor-pointer'>
       {currentTheme === 'dark' ? (
         <div onClick={() => setTheme('light')}>
-          <LightModeIcon className='fill-black dark:fill-white' width='20px' height='20px' />
+          <LightModeIcon className='fill-black dark:fill-white hover:fill-violet-500 dark:hover:fill-violet-500' width='20px' height='20px' />
         </div>
       ) : (
         <div onClick={() => setTheme('dark')}>
-          <DarkModeIcon className='fill-black dark:fill-white' width='20px' height='20px' />
+          <DarkModeIcon className='fill-black dark:fill-white hover:fill-violet-500 dark:hover:fill-violet-500' width='20px' height='20px' />
         </div>
       )}
     </div>

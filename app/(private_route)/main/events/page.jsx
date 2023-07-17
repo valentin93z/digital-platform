@@ -1,7 +1,10 @@
+import DevelopPage from "@components/DevelopPage";
 
 const EventsPage = () => {
     return (
-      <div>EventsPage</div>
+      <div className="w-full font-rubik px-5 md:px-20 unselectable">
+        <DevelopPage />
+      </div>
     )
   }
   

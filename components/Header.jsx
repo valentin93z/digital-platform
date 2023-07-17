@@ -5,6 +5,7 @@ import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
 import SidebarMobile from "./SidebarMobile";
 import SidebarAdminMobile from "./SidebarAdminMobile";
+import Link from "next/link";
 
 const Header = () => {
 
@@ -78,8 +79,12 @@ const Header = () => {
               <div className='flex justify-end items-center'>
                 <ThemeSwitch />
               </div>
-              <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>Профиль</div>
-              <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>Настройки</div>
+              <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>
+                <Link href='/main/my-profile'>Профиль</Link>
+              </div>
+              <div className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'>
+                <Link href='/main/my-settings'>Настройки</Link>
+              </div>
               <div
                 className='text-neutral-700 dark:text-white hover:text-violet-500 dark:hover:text-violet-500'
                 onClick={() => signOut()}
