@@ -1,7 +1,5 @@
 'use client';
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import FilterTableButton from "@components/buttons/FilterTableButton";
 import SearchTableInput from "@components/inputs/SearchTableInput";
 import Modal from '@components/Modal';
@@ -10,9 +8,6 @@ import FilledVioletButton from "@components/buttons/FilledVioletButton";
 
 
 const TablePage = () => {
-
-  const { status, data } = useSession();
-  const router = useRouter();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [checkList, setCheckList] = useState([]);

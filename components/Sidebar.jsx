@@ -46,7 +46,7 @@ const Sidebar = () => {
       </div>
 
       <div>
-        <div className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${pathname === '/main/svk' && 'bg-violet-500 dark:bg-violet-500'}`}>
+        {/* <div className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${pathname === '/main/svk' && 'bg-violet-500 dark:bg-violet-500'}`}>
           <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
             <Link href='/main/svk'>
               <svg
@@ -61,7 +61,7 @@ const Sidebar = () => {
             </Link>
           </div>
           <div className='absolute top-[50%] translate-y-[-50%] left-[80px] bg-white dark:bg-neutral-800 whitespace-nowrap p-1 cursor-default rounded-md hover_child transition-opacity duration-300 shadow-md'>Видеоконтроль</div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

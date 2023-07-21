@@ -29,7 +29,7 @@ const CoursesList = () => {
       <ul className='flex justify-start gap-5 md:gap-10'>
 
         <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
-          <Link href='main/courses/demo'>
+          <Link href='course/demo'>
             <Image
               className='rounded-t-lg'
               src='/assets/images/course_iStore.png'
