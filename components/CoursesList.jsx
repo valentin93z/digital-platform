@@ -1,16 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-const CoursesList = () => {
+const CoursesList = ({ courseList }) => {
   return (
     <div className='font-rubik'>
       <div className='flex justify-between items-center pb-5 md:pb-0'>
         <div className='flex flex-col md:flex-row md:items-center md:gap-3 md:py-5'>
-          <h1 className='text-lg md:text-2xl text-neutral-700 dark:text-white'>Личная эффективность</h1>
+          <h1 className='text-lg md:text-2xl text-neutral-700 dark:text-white'>Продажи</h1>
           <div className='hidden md:block'>
             {'>'}
           </div>
-          <p className='text-xs md:text-lg text-neutral-600 dark:text-neutral-400'>8 материалов</p>
+          <p className='text-xs md:text-lg text-neutral-600 dark:text-neutral-400'>{courseList.length} материалов</p>
         </div>
         <div className='flex items-center gap-2'>
           <div className='bg-white dark:bg-neutral-800 hover:bg-violet-500 dark:hover:bg-violet-500 rounded-full shadow-md cursor-pointer'>
@@ -27,53 +27,24 @@ const CoursesList = () => {
       </div>
 
       <ul className='flex justify-start gap-5 md:gap-10'>
-
-        <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
-          <Link href='course/demo'>
-            <Image
-              className='rounded-t-lg'
-              src='/assets/images/course_iStore.png'
-              alt='course-img'
-              width={300}
-              height={200}
-            />
-            <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-              <h2 className='text-sm md:text-base'>Техника продаж The iStore</h2>
-              <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>
-            </div>
-          </Link>
-        </li>
-
-        <li className='hidden md:block bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
-          <Image
-            className='rounded-t-lg'
-            src='/assets/images/course_02.jpg'
-            alt='course-img'
-            width={300}
-            height={200}
-          />
-          <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2 className='text-sm md:text-base'>Название курса 2</h2>
-            <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base rounded-2xl px-2 py-1'>новый</div>
-          </div>
-        </li>
-
-        <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
-          <Image
-            className='rounded-t-lg'
-            src='/assets/images/course_03.jpg'
-            alt='course-img'
-            width={300}
-            height={200}
-          />
-          <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2 className='text-sm md:text-base'>Название курса 3</h2>
-            <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base rounded-2xl px-2 py-1'>новый</div>
-          </div>
-        </li>
-
+        {courseList.map((course) =>
+          <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer' key={course._id}>
+            <Link href={`main/courses/${course._id}/preview`}>
+              <Image
+                className='rounded-t-lg'
+                src={course.imageUrl}
+                alt='course-img'
+                width={300}
+                height={200}
+              />
+              <div className='h-[100px] flex flex-col justify-between items-start p-3'>
+                <h2 className='text-sm md:text-base'>{course.title}</h2>
+                <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>
+              </div>
+            </Link>
+          </li>
+        )}
       </ul>
-
     </div>
   )
 }

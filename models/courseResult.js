@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 
-const TestAnswerSchema = new Schema({
+const CourseResultSchema = new Schema({
   title: {
     type: String,
     required: [true, 'Title is required'],
@@ -9,16 +9,8 @@ const TestAnswerSchema = new Schema({
     type: Array,
     required: [true, 'ForPosition is required'],
   },
-  answers: {
-    type: Array,
-    required: [true, 'Questions is required'],
-  },
-  trueAnswers: {
-    type: Number,
-    required: [true, 'TrueAnswers is required'],
-  },
   result: {
-    type: Number,
+    type: Boolean,
     required: [true, 'Result is required'],
   },
   userId: {
@@ -35,5 +27,5 @@ const TestAnswerSchema = new Schema({
   },
 });
 
-const TestAnswer = models.TestAnswer || model('TestAnswer', TestAnswerSchema);
-export default TestAnswer;
+const CourseResult = models.CourseResult || model('CourseResult', CourseResultSchema);
+export default CourseResult;

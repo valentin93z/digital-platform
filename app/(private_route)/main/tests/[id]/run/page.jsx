@@ -42,7 +42,7 @@ const TestRunPage = ({ params }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/test-answers', {
+      const response = await fetch('/api/test-result', {
         method: 'POST',
         body: JSON.stringify({
           title: testData.title,

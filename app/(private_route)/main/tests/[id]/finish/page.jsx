@@ -11,7 +11,7 @@ const TestFinishPage = ({ params }) => {
   const fetchTestData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/test-answers/${params.id}`);
+      const response = await fetch(`/api/test-result/${params.id}`);
       const data = await response.json();
       setTestData(data);
     } catch (error) {

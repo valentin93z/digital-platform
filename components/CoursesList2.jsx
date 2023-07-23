@@ -5,7 +5,7 @@ const CoursesList2 = () => {
     <div className='font-rubik mb-10'>
       <div className='flex justify-between items-center pb-5 md:pb-0'>
         <div className='flex flex-col md:flex-row md:items-center md:gap-3 md:py-5'>
-          <h1 className='text-lg md:text-2xl text-neutral-700 dark:text-white'>Продажи</h1>
+          <h1 className='text-lg md:text-2xl text-neutral-700 dark:text-white'>Личная эффективность</h1>
           <div className='hidden md:block'>
             {'>'}
           </div>

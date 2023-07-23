@@ -1,14 +1,14 @@
 import { connectToDB } from "@utils/database";
-import TestAnswer from "@models/testAnswer";
+import TestResult from "@models/testResult";
 import { testQuestions } from "@models/examp";
 
 export const GET = async (request) => {
   try {
     await connectToDB();
-    const TestAnswersList = await TestAnswer.find({});
-    return new Response(JSON.stringify(TestAnswersList), { status: 200 });
+    const TestResultList = await TestResult.find({});
+    return new Response(JSON.stringify(TestResultList), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify('Failed to fetch Test Answers List'), { status: 500 });
+    return new Response(JSON.stringify('Failed to fetch Test Result List'), { status: 500 });
   }
 }
 
@@ -35,12 +35,12 @@ export const POST = async (request) => {
 
   try {
     await connectToDB();
-    const testAnswersItem = new TestAnswer({ title, forPosition, answers: [...answers], trueAnswers, result, userId, startTime, finishTime });
-    console.log(testAnswersItem);
-    await testAnswersItem.save();
-    return new Response(JSON.stringify(testAnswersItem), { status: 201 });
+    const testResultItem = new TestResult({ title, forPosition, answers: [...answers], trueAnswers, result, userId, startTime, finishTime });
+    console.log(testResultItem);
+    await testResultItem.save();
+    return new Response(JSON.stringify(testResultItem), { status: 201 });
   } catch (error) {
     console.log(error);
-    return new Response(JSON.stringify('Failed to POST test results'), { status: 500 });
+    return new Response(JSON.stringify('Failed to POST Test Result'), { status: 500 });
   }
 }

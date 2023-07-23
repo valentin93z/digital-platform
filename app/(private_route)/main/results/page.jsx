@@ -9,7 +9,7 @@ const ResultsPage = () => {
 
   const fetchResultsTests = async () => {
     try {
-      const response = await fetch('/api/test-answers');
+      const response = await fetch('/api/test-result');
       const data = await response.json();
       setResultsTests(data);
     } catch (error) {
@@ -17,8 +17,19 @@ const ResultsPage = () => {
     }
   }
 
+  const fetchResultsCourses = async () => {
+    try {
+      const response = await fetch('/api/course-result');
+      const data = await response.json();
+      setResultsCourses(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     fetchResultsTests();
+    fetchResultsCourses();
   }, []);
 
   return (
@@ -79,7 +90,18 @@ const ResultsPage = () => {
         </div>
       }
 
-      {currentTab === 'courses' && <div className="text-sm md:text-base mt-5">Здесь будут результаты курсов</div>}
+      {currentTab === 'courses' &&
+        <div>
+          <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
+            {resultsCourses?.map((item) =>
+            <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
+              <div>{item.title}</div>
+              <div className="text-right">{item.result ? 'Пройден' : 'Не пройден'}</div>
+            </li>
+            )}
+          </ul>
+        </div>
+      }
 
     </div>
   )

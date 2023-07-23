@@ -1,8 +1,34 @@
+'use client';
+import { useEffect, useState } from "react";
+import CircleLoader from "@components/loader/CircleLoader";
 import CoursesList from "@components/CoursesList";
 import CoursesList2 from "@components/CoursesList2";
 import CoursesList3 from "@components/CoursesList3";
 
 const CoursesPage = () => {
+
+  const [courseList, setCourseList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  const fetchCourseList = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/course');
+      const data = await response.json();
+      setCourseList(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchCourseList();
+  }, []);
+
+  if (loading) return <CircleLoader />
+
     return (
       <div className="font-rubik px-5 md:px-20 unselectable">
         <div className="py-5 mb-5">
@@ -17,7 +43,7 @@ const CoursesPage = () => {
           </div>
         </div>
         <div className="flex flex-col gap-10">
-          <CoursesList />
+          <CoursesList courseList={courseList} />
           <CoursesList3 />
           <CoursesList2 />
         </div>
