@@ -96,7 +96,10 @@ const ResultsPage = () => {
             {resultsCourses?.map((item) =>
             <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
               <div>{item.title}</div>
-              <div className="text-right">{item.result ? 'Пройден' : 'Не пройден'}</div>
+              <div className="flex gap-2">
+                <div>{`${new Date(item.finishTime).getDate()}/${new Date(item.finishTime).getMonth()}/${new Date(item.finishTime).getFullYear()}`}</div>
+                <div className="text-right">{item.result ? 'Пройден' : 'Не пройден'}</div>
+              </div>
             </li>
             )}
           </ul>

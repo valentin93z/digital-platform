@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useElementWidth } from "@hooks/useElementWidth";
 import { Document, Page, pdfjs } from "react-pdf";
+import Link from "next/link";
 import ArrowBackIOSIcon from "@components/icons/ArrowBackIOSIcon";
 import ArrowForwardIOSIcon from "@components/icons/ArrowForwardIOSIcon";
 import CircleLoader from "@components/loader/CircleLoader";
@@ -94,33 +95,57 @@ const RunCoursePage = ({ params }) => {
 
   return (
     <div className="w-full h-screen font-rubik px-20 unselectable">
-      <div className='relative max-w-[1730px] h-screen mx-auto' ref={ref}>
-        <Document className='w-full h-screen' file={courseData.path && require(`@public/pdf/${courseData.path}`)} onLoadSuccess={onDocumentLoadSuccess} loading={<CircleLoader/>}>
+      <div className='relative flex items-center max-w-[1600px] h-screen mx-auto' ref={ref}>
+        <Document className='relative w-full flex-shrink-0' file={courseData.path && require(`@public/pdf/${courseData.path}`)} onLoadSuccess={onDocumentLoadSuccess} loading={<CircleLoader/>}>
           <Page
-            className="w-full h-screen bg-neutral-100 dark:bg-neutral-900"
+            className="w-full h-full bg-neutral-100 dark:bg-neutral-900"
             loading={<CircleLoader/>}
             pageNumber={pageNumber}
             renderTextLayer={false}
             renderAnnotationLayer={false}
             width={width}
           />
+          <div className="absolute top-0 left-[-60px]">
+            <svg
+              className='block fill-neutral-700 dark:fill-white hover:fill-violet-500 dark:hover:fill-violet-500'
+              width="48"
+              height="48"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 -960 960 960"
+            >
+              <path d="M105-215v-91h750v91H105Zm0-219v-91h750v91H105Zm0-220v-92h750v92H105Z"/>
+            </svg>
+          </div>
+          <div className="absolute top-0 right-[-60px]">
+            <Link href="/main/courses">
+              <svg
+                className='block fill-neutral-700 dark:fill-white hover:fill-violet-500 dark:hover:fill-violet-500'
+                width="48"
+                height="48"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+              >
+                <path d="M180-120q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h269q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T449-780H180v600h269q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T449-120H180Zm545-330H390q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T390-510h333l-81-81q-9-9-8.5-21t9.5-21q9-9 21.5-9t21.5 9l133 133q9 9 9 21t-9 21L687-326q-8.8 9-20.9 8.5-12.1-.5-21.491-9.5Q636-336 636-348.5t9-21.5l80-80Z"/>
+              </svg>
+            </Link>
+          </div>
         </Document>
         <button
-          className="absolute left-[-4%] top-[50%]"
+          className="absolute left-[-60px] top-[50%]"
           type="button"
           onClick={handleDecrementPage}
           disabled={pageNumber <= 1}
         >
-          <ArrowBackIOSIcon className={`${pageNumber <= 1 ? 'fill-gray-700' : 'fill-black dark:fill-white '}`} width='48px' height='48px' />
+          <ArrowBackIOSIcon className={`${pageNumber <= 1 ? 'fill-gray-700' : 'fill-black dark:fill-white hover:fill-violet-500 dark:hover:fill-violet-500'}`} width='48px' height='48px' />
         </button>
 
         <button
-          className="absolute right-[-4%] top-[50%]"
+          className="absolute right-[-60px] top-[50%]"
           type="button"
           onClick={handleIncrementPage}
           disabled={pageNumber >= numPages}
         >
-          <ArrowForwardIOSIcon className={`${pageNumber >= numPages ? 'fill-gray-700' : 'fill-black dark:fill-white '}`} width='48px' height='48px' />
+          <ArrowForwardIOSIcon className={`${pageNumber >= numPages ? 'fill-gray-700' : 'fill-black dark:fill-white hover:fill-violet-500 dark:hover:fill-violet-500'}`} width='48px' height='48px' />
         </button>
         {pageNumber === numPages &&
           <button
