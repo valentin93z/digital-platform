@@ -23,6 +23,8 @@ const UsersPage = () => {
     image: 'none',
   });
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
   const fetchUsers = async () => {
     const response = await fetch('/api/users');
     const data = await response.json();
@@ -142,6 +144,18 @@ const UsersPage = () => {
     }
   }
 
+  const uploadImage = async () => {
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('upload_preset', 'rq1kizhr');
+    const response = await fetch('https://api.cloudinary.com/v1_1/douj8blag/image/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -168,7 +182,18 @@ const UsersPage = () => {
           <UserRow key={user._id} user={user} handleDelete={handleDelete} newUser={newUser} setNewUser={setNewUser} setEditModalIsOpen={setEditModalIsOpen} />
         )}
       </ul>
-      {newModalIsOpen && <UserModal type='new' title='Новый пользователь' newUser={newUser} setNewUser={setNewUser} setModalIsOpen={setNewModalIsOpen} handleSave={handleSave} handleReset={handleReset} />}
+      {newModalIsOpen &&
+        <UserModal
+          type='new'
+          title='Новый пользователь'
+          newUser={newUser}
+          setNewUser={setNewUser}
+          setModalIsOpen={setNewModalIsOpen}
+          handleSave={handleSave}
+          handleReset={handleReset}
+          setSelectedFile={setSelectedFile}
+          uploadImage={uploadImage}
+        />}
       {editModalIsOpen && <UserModal type="edit" title='Редактирование пользователя' newUser={newUser} setNewUser={setNewUser} setModalIsOpen={setEditModalIsOpen} handleEdit={handleEdit} handleReset={handleReset} />}
     </div>
   )

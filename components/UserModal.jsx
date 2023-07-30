@@ -5,7 +5,8 @@ import OutlinedButton from "./buttons/OutlinedButton";
 import FilledVioletButton from "./buttons/FilledVioletButton";
 
 
-const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSave, handleEdit, handleReset }) => {
+
+const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSave, handleEdit, handleReset, setSelectedFile, uploadImage }) => {
   return (
     <div
       className="fixed top-0 left-0 bottom-0 right-0 black_opacity flex justify-center items-center px-0 sm:px-5 z-[60]"
@@ -92,7 +93,12 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
             />
           </div>
           <div>
-            <input type='file' disabled/>
+            <input type='file' onChange={(e) => setSelectedFile(e.target.files[0])} />
+            <button
+              type="button"
+              onClick={uploadImage}
+            >
+              Прикрепить</button>
           </div>
           <div className="grid grid-cols-2 gap-5">
             <OutlinedButton type='button' text='Отмена' onClick={handleReset} />

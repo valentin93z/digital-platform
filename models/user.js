@@ -42,7 +42,15 @@ const UserSchema = new Schema({
         required: [true, 'Поле birthday - обязательное'],
     },
     image: {
-        type: String,
+        public_id: {
+            type: String,
+        },
+        secure_url: {
+            type: String,
+        },
+        url: {
+            type: String,
+        },
     },
 });
 

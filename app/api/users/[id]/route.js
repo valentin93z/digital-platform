@@ -17,15 +17,15 @@ export const PATCH = async (request, { params }) => {
     try {
         await connectToDB();
         const existingItem = await User.findById(params.id);
-        existingItem.username = username;
-        existingItem.role = role;
-        existingItem.firstname = firstname;
-        existingItem.lastname = lastname;
-        existingItem.middlename = middlename;
-        existingItem.email = email;
-        existingItem.phone = phone;
-        existingItem.birthday = birthday;
-        existingItem.image = image;
+        username && (existingItem.username = username);
+        role && (existingItem.role = role);
+        firstname && (existingItem.firstname = firstname);
+        lastname && (existingItem.lastname = lastname);
+        middlename && (existingItem.middlename = middlename);
+        email && (existingItem.email = email);
+        phone && (existingItem.phone = phone);
+        birthday && (existingItem.birthday = birthday);
+        image && (existingItem.image = image);
         await existingItem.save();
         return new Response(JSON.stringify(existingItem), { status: 200 });
     } catch (error) {
