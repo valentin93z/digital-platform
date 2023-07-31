@@ -41,7 +41,17 @@ const MyProfilePage = () => {
       }),
     });
     
-    update();
+    await update({
+      ...data,
+      user: {
+        ...data?.user,
+        image: {
+          public_id: uploadImageData.public_id,
+          secure_url: uploadImageData.secure_url,
+          url: uploadImageData.url,
+        },
+      },
+    });
   }
 
   console.log(data);
@@ -61,8 +71,11 @@ const MyProfilePage = () => {
             className='relative block max-w-[300px] bg-white dark:bg-neutral-800 cursor-pointer rounded-md overflow-hidden'
             htmlFor='profile-photo'
           >
-            <div>
-              <PersonIcon className='fill-black dark:fill-neutral-600' width='300px' height='300px' />
+            <div className='w-[300px] h-[300px]'>
+              {data?.user.image.public_id
+                ? <CldImage src={data?.user.image.public_id} sizes='300px' fill style={{objectFit: 'cover'}} alt='profile photo' />
+                : <PersonIcon className='fill-black dark:fill-neutral-600' width='300px' height='300px' />
+              }
             </div>
             <div className='absolute top-0 right-0 bottom-0 left-0 grid place-items-center opacity-0 hover:opacity-100 dark:hover:bg-[rgba(0,0,0,0.7)] transition-all'>
               <p className='text-center align-middle'>Загрузить фото</p>

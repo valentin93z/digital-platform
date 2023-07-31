@@ -52,6 +52,21 @@ export const authOptions = {
                 params.token.birthday = params.user.birthday;
                 params.token.image = params.user.image;
             }
+            
+            if (params.trigger === 'update') {
+                params.token.id = params.session.user.id;
+                params.token.username = params.session.user.username;
+                params.token.role = params.session.user.role;
+                params.token.firstname = params.session.user.firstname;
+                params.token.lastname = params.session.user.lastname;
+                params.token.middlename = params.session.user.middlename;
+                params.token.email = params.session.user.email;
+                params.token.phone = params.session.user.phone;
+                params.token.birthday = params.session.user.birthday;
+                params.token.image = params.session.user.image;
+                return params.token;
+            }
+
             return params.token;
         },
         session({ session, token }) {

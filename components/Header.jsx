@@ -1,6 +1,7 @@
 'use client';
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { CldImage } from "next-cloudinary";
 import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
 import SidebarMobile from "./SidebarMobile";
@@ -50,16 +51,16 @@ const Header = () => {
         </div>
       </div>
       <div className="flex items-center gap-1 md:gap-3 select-none unselectable" onClick={() => setDropMenuIsOpen(!dropMenuIsOpen)}>
-        <div className='relative w-5 md:w-10 h-5 md:h-10 rounded-full bg-violet-500 flex justify-center items-center'>
-          <div className="relative w-[14px] md:w-[28px] h-[14px] md:h-[28px]">
-            <Image
-              className="object-contain"
-              src='/assets/icons/person_white.svg'
-              alt='profile-photo'
-              sizes="28px"
-              fill
-            />
-          </div>
+        <div className='relative w-5 md:w-10 h-5 md:h-10 rounded-full bg-violet-500 flex justify-center items-center overflow-hidden'>
+            {data?.user.image.public_id
+              ?
+                <CldImage src={data?.user.image.public_id} sizes='60px' fill style={{objectFit: 'cover'}} alt='profile photo' />
+              : 
+                <div className="relative w-[14px] md:w-[28px] h-[14px] md:h-[28px]">
+                  <Image className="object-contain" src='/assets/icons/person_white.svg' alt='profile-photo' sizes="28px" fill />
+                </div>
+            }
+          
         </div>
         <div className="relative flex items-center cursor-pointer">
           <p className="text-neutral-700 dark:text-white hidden sm:block">{data?.user?.firstname} {data?.user?.lastname}</p>
