@@ -68,6 +68,10 @@
     opacity: 1;
 }
 
+.calendar_day_radio:checked ~ .calendar_day_label {
+    background: #8B5CF6;
+}
+
 .unselectable {
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none;   /* Chrome/Safari/Opera */

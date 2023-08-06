@@ -1,7 +1,11 @@
+import Calendar from "@components/Calendar";
 
 const EventsPage = () => {
   return (
-    <div>events page</div>
+    <div className="px-20">
+      <h1>events page</h1>
+      <Calendar />
+    </div>
   )
 }
 
