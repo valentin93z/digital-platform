@@ -15,6 +15,10 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Поле role - обязательное'],
     },
+    position: {
+        type: String,
+        required: [true, 'Поле position - обязательное'],
+    },
     firstname: {
         type: String,
         required: [true, 'Поле firstname - обязательное'],
@@ -40,6 +44,38 @@ const UserSchema = new Schema({
     birthday: {
         type: String,
         required: [true, 'Поле birthday - обязательное'],
+    },
+    courses: {
+        assigned: {
+            type: Array,
+        },
+        completed: {
+            type: Array,
+        },
+    },
+    tests: {
+        assigned: {
+            type: Array,
+        },
+        completed: {
+            type: Array,
+        },
+    },
+    polls: {
+        assigned: {
+            type: Array,
+        },
+        completed: {
+            type: Array,
+        },
+    },
+    motivation: {
+        balance: {
+            type: Number,
+        },
+        awards: {
+            type: Array,
+        },
     },
     image: {
         public_id: {

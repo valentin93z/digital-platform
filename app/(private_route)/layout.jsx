@@ -6,7 +6,7 @@ const PrivateLayout = async ({ children }) => {
 
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect('/login');
-  if (session?.user.role === 'admin') redirect('/dashboard');
+  if (session?.user.role === 'admin' || session?.user.role === 'office') redirect('/dashboard');
 
   return <>{children}</>
 }

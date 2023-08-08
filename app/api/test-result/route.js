@@ -1,12 +1,23 @@
 import { connectToDB } from "@utils/database";
 import TestResult from "@models/testResult";
 import { testQuestions } from "@models/examp";
+import User from "@models/user";
 
 export const GET = async (request) => {
+  // const { id } = await request.json();
   try {
     await connectToDB();
+    // const UserItem = await User.findById(id);
     const TestResultList = await TestResult.find({});
     return new Response(JSON.stringify(TestResultList), { status: 200 });
+    // if (UserItem.role === 'admin' || UserItem.role === 'office') {
+    //   const TestResultList = await TestResult.find({});
+    //   return new Response(JSON.stringify(TestResultList), { status: 200 });
+    // }
+    // if (UserItem.role === 'retail') {
+    //   const TestResultList = await TestResult.find({userId: id});
+    //   return new Response(JSON.stringify(TestResultList), { status: 200 });
+    // }
   } catch (error) {
     return new Response(JSON.stringify('Failed to fetch Test Result List'), { status: 500 });
   }
