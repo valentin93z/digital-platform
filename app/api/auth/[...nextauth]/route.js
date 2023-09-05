@@ -3,7 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDB } from "@utils/database";
 import User from "@models/user";
 
-
 export const authOptions = {
     session: {
         strategy: 'jwt',
@@ -17,7 +16,7 @@ export const authOptions = {
                 const { username, password } = credentials;
                 await connectToDB();
 
-                const user = await User.findOne({ username: username });
+                const user = await User.findOne({ username: username }) || await User.findOne({ phone: username }) || await User.findOne({ email: username });
                 if (!user) throw Error('Неверный логин или пароль!');
 
                 const passwordMatch = await user.comparePassword(password);
