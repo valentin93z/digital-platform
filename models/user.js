@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 const UserSchema = new Schema({
     username: {
         type: String,
-        unique: [true, 'Пользователь с таким username уже существует'],
+        unique: [true, 'Пользователь c таким username уже существует'],
         required: [true, 'Поле username - обязательное'],
     },
     password: {
@@ -18,6 +18,18 @@ const UserSchema = new Schema({
     position: {
         type: String,
         required: [true, 'Поле position - обязательное'],
+    },
+    direction: {
+        type: String || null,
+        required: [true, 'Поле direction - обязательное'],
+    },
+    sector: {
+        type: String || null,
+        required: [true, 'Поле sector - обязательное'],
+    },
+    store: {
+        type: String || null,
+        required: [true, 'Поле store - обязательное'],
     },
     firstname: {
         type: String,
@@ -33,12 +45,12 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        unique: [true, 'Пользователь с таким email уже существует'],
+        unique: [true, 'Пользователь c таким email уже существует'],
         required: [true, 'Поле email - обязательное'],
     },
     phone: {
         type: String,
-        unique: [true, 'Пользователь с таким phone уже существует'],
+        unique: [true, 'Пользователь c таким phone уже существует'],
         required: [true, 'Поле phone - обязательное'],
     },
     birthday: {
