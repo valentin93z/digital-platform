@@ -46,6 +46,14 @@
     grid-template-columns: 15px 40px 2fr repeat(2, minmax(0, 1fr)) 20px;
 }
 
+.grid_cols_2_stores {
+    grid-template-columns: 3fr 1fr;
+}
+
+.grid_cols_3_stores {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .transition_open {
     transition: max-height 1s linear;
     max-height: 1500px;
