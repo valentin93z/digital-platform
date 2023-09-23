@@ -18,7 +18,7 @@ const NewTestPage = () => {
   }
 
   return (
-    <div className="font-rubik px-5 md:px-20">
+    <div className="font-rubik text-neutral-700 dark:text-white px-5 md:px-20">
       <div className="mb-10">
         <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Создание нового теста</h1>
       </div>
@@ -27,7 +27,7 @@ const NewTestPage = () => {
           <div className="flex gap-3 justify-between items-center">
             <p>Название теста</p>
             <input
-              className='block w-[300px] rounded-md outline-violet-500 dark:outline-violet-500 p-2'
+              className='block w-[300px] rounded-md outline-violet-500 dark:outline-violet-500 p-2 shadow-md'
               type='text'
               placeholder=''
               value={testTitle}
@@ -58,7 +58,7 @@ const NewTestPage = () => {
           <div className="flex justify-between gap-3 items-center">
             <p>Количество попыток</p>
             <input
-              className='block w-[70px] rounded-md outline-violet-500 dark:outline-violet-500 p-2'
+              className='block w-[70px] rounded-md outline-violet-500 dark:outline-violet-500 p-2 shadow-md'
               type='number'
               min={0}
               max={10}
@@ -70,7 +70,7 @@ const NewTestPage = () => {
           <div className="flex justify-between gap-3 items-center">
             <p>Минимальный процент</p>
             <input
-              className='block w-[70px] rounded-md outline-violet-500 dark:outline-violet-500 p-2'
+              className='block w-[70px] rounded-md outline-violet-500 dark:outline-violet-500 p-2 shadow-md'
               type='number'
               min={0}
               max={100}
@@ -84,7 +84,7 @@ const NewTestPage = () => {
           <div className="flex items-center gap-10">
             <h1 className="text-2xl">Вопросы</h1>
             <button
-              className="bg-violet-500 text-white px-3 py-2 rounded-md hover:bg-violet-600"
+              className="bg-violet-500 text-white px-3 py-2 rounded-md hover:bg-violet-600 shadow-md"
               type="button"
               onClick={() => setNewQuestModal(true)}
             >
