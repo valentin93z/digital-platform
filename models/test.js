@@ -17,14 +17,13 @@ const TestSchema = new Schema({
     type: Number,
     required: [true, 'Attempts is required'],
   },
-  deadline: {
-    type: String,
-    required: [true, 'Deadline is required'],
+  image: {
+    type: Object,
   },
   questions: {
     type: Array,
     required: [true, 'Questions is required'],
-  }
+  },
 });
 
 const Test = models.Test || model('Test', TestSchema);

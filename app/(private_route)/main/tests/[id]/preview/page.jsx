@@ -41,10 +41,6 @@ const TestPreviewPage = ({ params }) => {
             <p>{testData.minPercentage}%</p>
           </div>
           <div className='flex justify-between'>
-            <p>Пройти до:</p>
-            <p>{testData.deadline}</p>
-          </div>
-          <div className='flex justify-between'>
             <p>Количество попыток:</p>
             <p>{testData.attempts}</p>
           </div>

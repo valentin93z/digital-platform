@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import CircleLoader from "@components/loader/CircleLoader";
+import { CldImage } from "next-cloudinary";
 
 const TestsPage = () => {
 
@@ -61,17 +62,30 @@ const TestsPage = () => {
       {currentTab === 'tests' &&
         <>
         {testList.length !== 0 ? (
-          <ul className='flex justify-start'>
+          <ul className='flex justify-start gap-5 shrink'>
             {testList.map((testItem) =>
-              <li className='max-w-[50%] md:max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer' key={testItem._id}>
+              <li className='max-w-[50%] md:max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl cursor-pointer' key={testItem._id}>
                 <Link href={`/main/tests/${testItem._id}/preview`}>
-                  <Image
-                    className='rounded-t-lg'
-                    src='/assets/images/math-course.jpg'
-                    alt='course-img'
-                    width={300}
-                    height={200}
-                  />
+                  {testItem.image
+                    ?
+                      <div className="relative w-[300px] h-[200px]">
+                        <CldImage
+                          src={testItem.image.public_id}
+                          sizes='300px'
+                          fill
+                          style={{objectFit: 'cover'}}
+                          alt='test-image'
+                        />
+                      </div>
+                    :
+                      <Image
+                        className='rounded-t-lg'
+                        src='/assets/images/math-course.jpg'
+                        alt='course-img'
+                        width={300}
+                        height={200}
+                      />
+                    }
                   <div className='h-auto md:h-[100px] flex flex-col gap-1 md:gap-0 justify-between items-start p-3'>
                     <h2 className="text-sm md:text-base">{testItem.title}</h2>
                     <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>

@@ -2,6 +2,7 @@ import { connectToDB } from "@utils/database";
 import TestResult from "@models/testResult";
 import { testQuestions } from "@models/examp";
 import User from "@models/user";
+import Test from "@models/test";
 
 export const GET = async (request) => {
   // const { id } = await request.json();
@@ -24,12 +25,33 @@ export const GET = async (request) => {
 }
 
 export const POST = async (request) => {
-    const { title, forPosition, answers, userId, startTime, finishTime } = await request.json();
+    const { test_id, title, forPosition, answers, userId, startTime, finishTime } = await request.json();
+    
     // testQuestion is imitated DB.
+    // answers.forEach((answer) => {
+    //   testQuestions.forEach((quest) => {
+    //     quest.answers.forEach((a) => {
+    //       if (a.a_id === answer.answerId) {
+    //         trueAnswers = trueAnswers + a.value;
+    //         if (a.value === 1) {
+    //           answer.isTrue = true;
+    //         } else {
+    //           answer.isTrue = false;
+    //         }
+    //       }
+    //     })
+    //   })
+    // })
+
+  try {
+    await connectToDB();
+    const existTest = await Test.findById(test_id);
+
     let trueAnswers = 0;
     let result = 0;
+
     answers.forEach((answer) => {
-      testQuestions.forEach((quest) => {
+      existTest.questions.forEach((quest) => {
         quest.answers.forEach((a) => {
           if (a.a_id === answer.answerId) {
             trueAnswers = trueAnswers + a.value;
@@ -44,8 +66,6 @@ export const POST = async (request) => {
     })
     result = (100 / answers.length * trueAnswers).toFixed(1);
 
-  try {
-    await connectToDB();
     const testResultItem = new TestResult({ title, forPosition, answers: [...answers], trueAnswers, result, userId, startTime, finishTime });
     console.log(testResultItem);
     await testResultItem.save();

@@ -42,9 +42,10 @@ const TestRunPage = ({ params }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch('/api/test-result', {
+      const response = await fetch(`/api/test-result`, {
         method: 'POST',
         body: JSON.stringify({
+          test_id: params.id,
           title: testData.title,
           forPosition: ['seller-pk'],
           answers: answers,
@@ -71,7 +72,7 @@ const TestRunPage = ({ params }) => {
     <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
       <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl'>
         <div className='p-5 md:px-20 md:py-10'>
-          <p className='text-xl'>{testData.questions[questNum].question}</p>
+          <p className='text-xl'>{testData.questions[questNum].quest}</p>
         </div>
         <div className='p-5 md:px-20 md:py-10'>
           {testData?.questions[questNum].answers.map((answer) =>
@@ -82,7 +83,7 @@ const TestRunPage = ({ params }) => {
                 id={answer.a_id}
                 name={testData.questions[questNum].q_id}
                 value={answer.text}
-                onChange={() => setAnswers(checkTestQuest ? [...answers.filter((i) => i.q_id !== testData.questions[questNum].q_id), { q_id: testData.questions[questNum].q_id, question: testData.questions[questNum].question, answerId: answer.a_id, answerText: answer.text }] : [...answers, { q_id: testData.questions[questNum].q_id, question: testData.questions[questNum].question, answerId: answer.a_id, answerText: answer.text }])}
+                onChange={() => setAnswers(checkTestQuest ? [...answers.filter((i) => i.q_id !== testData.questions[questNum].q_id), { q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }] : [...answers, { q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }])}
                 checked={answers.length !== 0 && answers?.filter((a) => a.answerId === answer.a_id)[0]?.answerId === answer.a_id}
               />
               <label className='text-xl' htmlFor={answer.a_id}>{answer.text}</label>

@@ -89,11 +89,11 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
                   >
                     <div>
                       <input
+                        className='cursor-pointer'
                         type='radio'
                         id={`radio-${answer.a_id}`}
                         name='answer-group'
-                        value={answer.a_id}
-                        onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: e.target.value}]})}
+                        onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id).map((arr) => ({...arr, value: 0})), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 1}]})}
                       />
                       <label htmlFor={`radio-${answer.a_id}`}></label>
                     </div>
