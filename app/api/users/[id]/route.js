@@ -13,12 +13,16 @@ export const GET = async (request, { params }) => {
 }
 
 export const PATCH = async (request, { params }) => {
-    const { username, role, firstname, lastname, middlename, email, phone, birthday, image } = await request.json();
+    const { username, role, position, direction, sector, store, firstname, lastname, middlename, email, phone, birthday, image } = await request.json();
     try {
         await connectToDB();
         const existingItem = await User.findById(params.id);
         username && (existingItem.username = username);
         role && (existingItem.role = role);
+        position && (existingItem.position = position);
+        direction && (existingItem.direction = direction);
+        sector && (existingItem.sector = sector);
+        store && (existingItem.store = store);
         firstname && (existingItem.firstname = firstname);
         lastname && (existingItem.lastname = lastname);
         middlename && (existingItem.middlename = middlename);

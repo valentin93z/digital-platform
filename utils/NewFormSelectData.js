@@ -4,4 +4,6 @@ export const sectors = ['Белгород', 'СО', 'Курск 1', 'Курск 
 
 export const stores = ['Белгород ЦМ', 'Губкин ЦМ', 'Валуйки ЦМ', 'Волоконовка ЦМ', 'Вейделевка ЦМ', 'Ровеньки ЦМ', 'Курск ЦМ'];
 
-export const usersRoles = ['seller-pk', 'seller-zum', 'seller-um', 'trainee', 'admin'];
+export const usersRoles = ['retail', 'admin'];
+
+export const usersPosition = ['pk', 'zum', 'um', 'trainee', 'adapt'];

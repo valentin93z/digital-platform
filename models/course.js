@@ -13,13 +13,27 @@ const CourseSchema = new Schema({
     type: Array,
     required: [true, 'ForPosition is required'],
   },
-  imageUrl: {
-    type: String,
-    required: [true, 'imageUrl is required'],
+  image: {
+    public_id: {
+      type: String,
+    },
+    secure_url: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
   },
   path: {
-    type: String,
-    required: [true, 'Path is required'],
+    public_id: {
+      type: String,
+    },
+    secure_url: {
+      type: String,
+    },
+    url: {
+      type: String,
+    },
   },
 });
 

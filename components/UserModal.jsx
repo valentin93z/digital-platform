@@ -1,19 +1,18 @@
-import { usersRoles } from "@utils/NewFormSelectData";
+import { usersPosition, usersRoles } from "@utils/NewFormSelectData";
 import NewFormInput from "./inputs/NewFormInput";
 import NewFormSelect from "./selects/NewFormSelect";
 import OutlinedButton from "./buttons/OutlinedButton";
 import FilledVioletButton from "./buttons/FilledVioletButton";
 
 
-
-const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSave, handleEdit, handleReset, setSelectedFile, uploadImage }) => {
+const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSave, handleEdit, handleReset, setSelectedFile, uploadImage, directionList, sectorList, storeList }) => {
   return (
     <div
       className="fixed top-0 left-0 bottom-0 right-0 black_opacity flex justify-center items-center px-0 sm:px-5 z-[60]"
       onClick={() => setModalIsOpen(false)}
     >
       <div
-        className='max-w-full sm:max-w-5xl max-h-[95vh] sm:max-h-[90vh] bg-white dark:bg-neutral-800 sm:rounded-2xl opacity-100 p-5'
+        className='max-w-full sm:max-w-5xl max-h-[95vh] sm:max-h-[90vh] bg-white dark:bg-neutral-800 sm:rounded-2xl opacity-100 p-5 overflow-y-scroll'
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="text-xl pb-5">{title}</h1>
@@ -42,6 +41,42 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
               value={newUser}
               setValue={setNewUser}
               exist='role'
+            />
+          </div>
+          <div>
+            <NewFormSelect
+              data={usersPosition}
+              value={newUser}
+              setValue={setNewUser}
+              exist='position'
+            />
+          </div>
+          {newUser.role === 'retail' &&
+            <div>
+              <NewFormSelect
+                data={directionList}
+                value={newUser}
+                setValue={setNewUser}
+                exist='direction'
+              />
+            </div>
+          }
+          {newUser.direction === 'ЦМ' &&
+            <div>
+              <NewFormSelect
+                data={sectorList}
+                value={newUser}
+                setValue={setNewUser}
+                exist='sector'
+              />
+            </div>
+          }
+          <div>
+            <NewFormSelect
+              data={storeList}
+              value={newUser}
+              setValue={setNewUser}
+              exist='store'
             />
           </div>
           <div>

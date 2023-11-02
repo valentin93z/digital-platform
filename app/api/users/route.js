@@ -13,10 +13,10 @@ export const GET = async (request) => {
 }
 
 export const POST = async (request) => {
-  const { username, password, role, position, firstname, lastname, middlename, email, phone, birthday, courses, tests, polls, motivation, image } = await request.json();
+  const { username, password, role, position, direction, sector, store, firstname, lastname, middlename, email, phone, birthday, courses, tests, polls, motivation, image } = await request.json();
   try {
     await connectToDB();
-    const userItem = new User({ username, password, role, position, firstname, lastname, middlename, email, phone, birthday, courses, tests, polls, motivation, image });
+    const userItem = new User({ username, password, role, position, direction, sector, store, firstname, lastname, middlename, email, phone, birthday, courses, tests, polls, motivation, image });
     await userItem.save();
     return new Response(JSON.stringify(userItem), { status: 201 });
   } catch (error) {

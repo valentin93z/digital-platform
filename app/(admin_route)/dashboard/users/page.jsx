@@ -8,19 +8,39 @@ const UsersPage = () => {
   const [newModalIsOpen, setNewModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
+  const [directionList, setDirectionList] = useState([]);
+  const [sectorList, setSectorList] = useState([]);
+  const [storeList, setStoreList] = useState([]);
+
+  const fetchData = async () => {
+    const directionResponse = await fetch('/api/direction');
+    const sectorResponse = await fetch('/api/sector');
+    const storeResponse = await fetch('/api/store');
+    const directionData = await directionResponse.json();
+    const sectorData = await sectorResponse.json();
+    const storeData = await storeResponse.json();
+    setDirectionList(directionData.map((d) => d.title));
+    setSectorList(sectorData.map((s) => s.title));
+    setStoreList(storeData.map((s) => s.title));
+  }
+  
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState({
     _id: '',
     username: '',
     password: '',
     role: '',
+    position: '',
+    direction: '',
+    sector: '',
+    store: '',
     firstname: '',
     lastname: '',
     middlename: '',
     email: '',
     phone: '',
     birthday: '',
-    image: 'none',
+    image: {},
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -39,13 +59,17 @@ const UsersPage = () => {
       username: '',
       password: '',
       role: '',
+      position: '',
+      direction: '',
+      sector: '',
+      store: '',
       firstname: '',
       lastname: '',
       middlename: '',
       email: '',
       phone: '',
       birthday: '',
-      image: 'none',
+      image: {},
     });
   }
 
@@ -58,6 +82,10 @@ const UsersPage = () => {
           username: newUser.username,
           password: newUser.password,
           role: newUser.role,
+          position: newUser.position,
+          direction: newUser.direction,
+          sector: newUser.sector,
+          store: newUser.store,
           firstname: newUser.firstname,
           lastname: newUser.lastname,
           middlename: newUser.middlename,
@@ -74,13 +102,17 @@ const UsersPage = () => {
           username: '',
           password: '',
           role: '',
+          position: '',
+          direction: '',
+          sector: '',
+          store: '',
           firstname: '',
           lastname: '',
           middlename: '',
           email: '',
           phone: '',
           birthday: '',
-          image: 'none',
+          image: {},
         });
         fetchUsers();
       }
@@ -97,6 +129,10 @@ const UsersPage = () => {
         body: JSON.stringify({
           username: newUser.username,
           role: newUser.role,
+          position: newUser.position,
+          direction: newUser.direction,
+          sector: newUser.sector,
+          store: newUser.store,
           firstname: newUser.firstname,
           lastname: newUser.lastname,
           middlename: newUser.middlename,
@@ -113,13 +149,17 @@ const UsersPage = () => {
           username: '',
           password: '',
           role: '',
+          position: '',
+          direction: '',
+          sector: '',
+          store: '',
           firstname: '',
           lastname: '',
           middlename: '',
           email: '',
           phone: '',
           birthday: '',
-          image: 'none',
+          image: {},
         });
         fetchUsers();
       }
@@ -158,6 +198,7 @@ const UsersPage = () => {
 
   useEffect(() => {
     fetchUsers();
+    fetchData();
   }, []);
 
   return (
@@ -193,8 +234,23 @@ const UsersPage = () => {
           handleReset={handleReset}
           setSelectedFile={setSelectedFile}
           uploadImage={uploadImage}
+          directionList={directionList}
+          sectorList={sectorList}
+          storeList={storeList}
         />}
-      {editModalIsOpen && <UserModal type="edit" title='Редактирование пользователя' newUser={newUser} setNewUser={setNewUser} setModalIsOpen={setEditModalIsOpen} handleEdit={handleEdit} handleReset={handleReset} />}
+      {editModalIsOpen &&
+        <UserModal
+          type="edit"
+          title='Редактирование пользователя'
+          newUser={newUser}
+          setNewUser={setNewUser}
+          setModalIsOpen={setEditModalIsOpen}
+          handleEdit={handleEdit}
+          handleReset={handleReset}
+          directionList={directionList}
+          sectorList={sectorList}
+          storeList={storeList}
+        />}
     </div>
   )
 }

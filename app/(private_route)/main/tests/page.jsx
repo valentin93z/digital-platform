@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import CircleLoader from "@components/loader/CircleLoader";
 import { CldImage } from "next-cloudinary";
+import { useSession } from "next-auth/react";
 
 const TestsPage = () => {
 
+  const { data, status } = useSession();
   const [currentTab, setCurrentTab] = useState('tests');
   const [loading, setLoading] = useState(false);
 
@@ -16,8 +18,8 @@ const TestsPage = () => {
     try {
       setLoading(true);
       const response = await fetch('/api/tests');
-      const data = await response.json();
-      setTestList(data);
+      const testData = await response.json();
+      setTestList(testData.filter((test) => test?.forPosition?.includes(data?.user?.position)));
     } catch (error) {
       console.log(error);
     } finally {
