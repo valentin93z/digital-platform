@@ -35,6 +35,9 @@ const CourseSchema = new Schema({
       type: String,
     },
   },
+  attached_test: {
+    type: String,
+  }
 });
 
 const Course = models.Course || model('Course', CourseSchema);

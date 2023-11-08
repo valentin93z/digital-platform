@@ -1,3 +1,4 @@
+import { CldImage } from 'next-cloudinary';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -30,13 +31,26 @@ const CoursesList = ({ courseList }) => {
         {courseList.map((course) =>
           <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer' key={course._id}>
             <Link href={`main/courses/${course._id}/preview`}>
-              <Image
-                className='rounded-t-lg'
-                src={course.imageUrl}
-                alt='course-img'
-                width={300}
-                height={200}
-              />
+              {course.image
+                ?
+                  <div className="relative w-[300px] h-[200px]">
+                    <CldImage
+                      src={course.image.public_id}
+                      sizes='300px'
+                      fill
+                      style={{objectFit: 'cover'}}
+                      alt='course-image'
+                    />
+                  </div>
+                :
+                  <Image
+                    className='rounded-t-lg'
+                    src='/assets/images/math-course.jpg'
+                    alt='course-img'
+                    width={300}
+                    height={200}
+                  />
+              }
               <div className='h-[100px] flex flex-col justify-between items-start p-3'>
                 <h2 className='text-sm md:text-base'>{course.title}</h2>
                 <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>

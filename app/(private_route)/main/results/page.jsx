@@ -1,7 +1,11 @@
 'use client';
+import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
 const ResultsPage = () => {
+
+  const { data } = useSession();
+  console.log(data);
 
   const [currentTab, setCurrentTab] = useState('common');
   const [resultsTests, setResultsTests] = useState([]);
@@ -10,8 +14,9 @@ const ResultsPage = () => {
   const fetchResultsTests = async () => {
     try {
       const response = await fetch('/api/test-result');
-      const data = await response.json();
-      setResultsTests(data);
+      const testData = await response.json();
+      setResultsTests(testData?.filter((test) => test?.userId === data?.user.id));
+      console.log(testData);
     } catch (error) {
       console.log(error);
     }
@@ -20,8 +25,8 @@ const ResultsPage = () => {
   const fetchResultsCourses = async () => {
     try {
       const response = await fetch('/api/course-result');
-      const data = await response.json();
-      setResultsCourses(data);
+      const courseData = await response.json();
+      setResultsCourses(courseData);
     } catch (error) {
       console.log(error);
     }
@@ -30,7 +35,7 @@ const ResultsPage = () => {
   useEffect(() => {
     fetchResultsTests();
     fetchResultsCourses();
-  }, []);
+  }, [data]);
 
   return (
     <div className="font-rubik px-5 md:px-20">
@@ -76,9 +81,18 @@ const ResultsPage = () => {
       {currentTab === 'tests' &&
         <div>
           <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
-            {resultsTests?.map((item) =>
+            {resultsTests?.sort((a, b) => b.finishTime - a.finishTime).map((item) =>
               <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
-                <div>{item.title}</div>
+                <div className="grid grid-cols-[90px_1fr]">
+                  <p>
+                    {new Date(item.finishTime).getDate() < 10 ? `0${new Date(item.finishTime).getDate()}` : new Date(item.finishTime).getDate()}
+                    .
+                    {new Date(item.finishTime).getMonth() < 10 ? `0${new Date(item.finishTime).getMonth()}` : new Date(item.finishTime).getMonth()}
+                    .
+                    {new Date(item.finishTime).getFullYear()}
+                  </p>
+                  <p>{item.title}</p>
+                </div>
                 <div className="grid grid-cols-[25px_30px_70px] md:grid-cols-[50px_50px_100px] items-center gap-5 text-right">
                   <p>{item.trueAnswers}/{item.answers.length}</p>
                   <p>{item.result}%</p>

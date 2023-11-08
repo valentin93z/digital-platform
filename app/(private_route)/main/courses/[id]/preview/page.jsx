@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import CircleLoader from '@components/loader/CircleLoader';
+import { CldImage } from 'next-cloudinary';
 
 
 const CoursePreviewPage = ({ params }) => {
@@ -27,6 +28,8 @@ const CoursePreviewPage = ({ params }) => {
     fetchCourseData();
   }, []);
 
+  console.log(courseData);
+
   if (loading) return <CircleLoader />
 
   return (
@@ -35,12 +38,15 @@ const CoursePreviewPage = ({ params }) => {
       <div className='max-w-[1000px] flex flex-col gap-5'>
         <div className='flex gap-5 text-sm bg-white dark:bg-neutral-800 rounded-lg p-5'>
           <div className='flex-shrink-0 flex justify-center items-center'>
-            <Image
-              src={courseData.imageUrl}
-              alt='course-img'
-              width={300}
-              height={200}
-            />
+            <div className="relative w-[300px] h-[200px]">
+                <CldImage
+                  src={courseData?.image?.public_id}
+                  sizes='300px'
+                  fill
+                  style={{objectFit: 'cover'}}
+                  alt='course-image'
+                />
+            </div>
           </div>
           <div>
             <h2 className='text-lg mb-3'>Описание курса:</h2>

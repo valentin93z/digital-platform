@@ -1,7 +1,34 @@
+'use client';
+import { useState, useEffect } from "react";
 import CreateIcon from "@components/icons/CreateIcon";
 import Link from "next/link";
+import CircleLoader from "@components/loader/CircleLoader";
+import CoursesList from "@components/CoursesList";
 
 const CoursesPageAdmin = () => {
+
+  const [courseList, setCourseList] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  const fetchCourseList = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/course');
+      const data = await response.json();
+      setCourseList(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    fetchCourseList();
+  }, []);
+
+  if (loading) return <CircleLoader />
+
   return (
     <div className="font-rubik px-5 md:px-20">
       <div className="flex justify-between items-center">
@@ -11,6 +38,9 @@ const CoursesPageAdmin = () => {
           <p className="text-lg mt-1">Создать</p>
         </Link>
       </div>
+      <div className="flex flex-col gap-10">
+          <CoursesList courseList={courseList} />
+        </div>
     </div>
   )
 }

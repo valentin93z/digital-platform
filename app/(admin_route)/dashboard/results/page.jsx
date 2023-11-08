@@ -79,7 +79,7 @@ const ResultsPage = () => {
       {currentTab === 'tests' &&
         <div>
           <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
-            {resultsTests?.map((item) =>
+            {resultsTests?.sort((a, b) => b.finishTime - a.finishTime).map((item) =>
               <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
                 <div>{item.title}</div>
                 <div className="grid grid-cols-[25px_30px_70px] md:grid-cols-[50px_50px_100px] items-center gap-5 text-right">

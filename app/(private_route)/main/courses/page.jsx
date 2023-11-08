@@ -27,6 +27,8 @@ const CoursesPage = () => {
     fetchCourseList();
   }, []);
 
+  console.log(courseList);
+
   if (loading) return <CircleLoader />
 
     return (

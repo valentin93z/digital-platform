@@ -5,6 +5,7 @@ import { getSignature } from "@utils/getSignature";
 import NewQuestModal from "@components/NewQuestModal";
 import DeleteIcon from "@components/icons/DeleteIcon";
 import EditIcon from "@components/icons/EditIcon";
+import { useRouter } from "next/navigation";
 
 const NewTestPage = () => {
 
@@ -16,6 +17,8 @@ const NewTestPage = () => {
   const [minPercentage, setMinPercentage] = useState(0);
   const [image, setImage] = useState(null);
   const [question, setQuestion] = useState([]);
+
+  const router = useRouter();
 
   const closeModal = () => {
     setNewQuestModal(false);
@@ -72,6 +75,7 @@ const NewTestPage = () => {
             }
           })
         })
+        router.push(`/dashboard/education/tests`);
       }
     } catch (error) {
       console.log(error);

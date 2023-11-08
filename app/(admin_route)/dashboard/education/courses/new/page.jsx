@@ -1,6 +1,7 @@
 'use client';
 import { getSignature } from "@utils/getSignature";
 import { positions } from "@utils/positions";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const NewCoursePage = () => {
@@ -10,6 +11,8 @@ const NewCoursePage = () => {
     const [forPosition, setForPosition] = useState([]);
     const [document, setDocument] = useState(null);
     const [image, setImage] = useState(null);
+
+    const router = useRouter();
 
 
     const uploadFile = async (file, path) => {
@@ -30,7 +33,7 @@ const NewCoursePage = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('', {
+      const response = await fetch('/api/course', {
         method: 'POST',
         body: JSON.stringify({ title, description, forPosition }),
       });
@@ -38,8 +41,24 @@ const NewCoursePage = () => {
       if (response.ok) {
         const docRes = await uploadFile(document, 'documents');
         const imgRes = await uploadFile(image, 'course-images');
-        ////////////////
         
+        const res = await fetch(`/api/course/${data._id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            image: {
+              public_id: imgRes.public_id,
+              secure_url: imgRes.secure_url,
+              url: imgRes.url,
+            },
+            path: {
+              public_id: docRes.public_id,
+              secure_url: docRes.secure_url,
+              url: docRes.url,
+            },
+          })
+        })
+        const totalData = await res.json();
+        router.push(`/dashboard/education/courses`);
       }
     } catch(error) {
         console.log(error);
@@ -103,7 +122,7 @@ const NewCoursePage = () => {
         <button
           className="bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md"
           type="button"
-          onClick={() => {}}
+          onClick={handleSubmit}
         >
           Save
         </button>
