@@ -1,5 +1,6 @@
 'use client';
 import UserModal from "@components/UserModal";
+import UserMoreModal from "@components/UserMoreModal";
 import UserRow from "@components/UserRow";
 import { useState, useEffect } from "react";
 
@@ -7,6 +8,7 @@ const UsersPage = () => {
 
   const [newModalIsOpen, setNewModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [moreModalIsOpen, setMoreModalIsOpen] = useState(false);
 
   const [directionList, setDirectionList] = useState([]);
   const [sectorList, setSectorList] = useState([]);
@@ -24,6 +26,7 @@ const UsersPage = () => {
     setStoreList(storeData.map((s) => s.title));
   }
   
+  const [existUser, setExistUser] = useState({});
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState({
     _id: '',
@@ -220,7 +223,16 @@ const UsersPage = () => {
       </div>
       <ul className="flex flex-col items-start gap-1">
         {users?.map((user) =>
-          <UserRow key={user._id} user={user} handleDelete={handleDelete} newUser={newUser} setNewUser={setNewUser} setEditModalIsOpen={setEditModalIsOpen} />
+          <UserRow
+            key={user._id}
+            user={user}
+            handleDelete={handleDelete}
+            newUser={newUser}
+            setNewUser={setNewUser}
+            setEditModalIsOpen={setEditModalIsOpen}
+            setMoreModalIsOpen={setMoreModalIsOpen}
+            setExistUser={setExistUser}
+          />
         )}
       </ul>
       {newModalIsOpen &&
@@ -237,7 +249,8 @@ const UsersPage = () => {
           directionList={directionList}
           sectorList={sectorList}
           storeList={storeList}
-        />}
+        />
+      }
       {editModalIsOpen &&
         <UserModal
           type="edit"
@@ -250,7 +263,14 @@ const UsersPage = () => {
           directionList={directionList}
           sectorList={sectorList}
           storeList={storeList}
-        />}
+        />
+      }
+      {moreModalIsOpen &&
+        <UserMoreModal
+          setModalIsOpen={setMoreModalIsOpen}
+          existUser={existUser}
+        />
+      }
     </div>
   )
 }

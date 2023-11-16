@@ -1,4 +1,5 @@
 'use client';
+import ResultModal from "@components/ResultModal";
 import { useState, useEffect } from "react";
 
 
@@ -7,6 +8,11 @@ const ResultsPage = () => {
   const [currentTab, setCurrentTab] = useState('common');
   const [resultsTests, setResultsTests] = useState([]);
   const [resultsCourses, setResultsCourses] = useState([]);
+
+  const [modalResultIsOpen, setModalResultIsOpen] = useState(false);
+  const [existResult, setExistResult] = useState({});
+  const [resultType, setResultType] = useState('');
+  const [user, setUser] = useState({});
 
   const fetchResultsTests = async () => {
     try {
@@ -28,11 +34,23 @@ const ResultsPage = () => {
     }
   }
 
+  const fetchUser = async (id) => {
+    const res = await fetch(`/api/users/${id}`);
+    const userData = await res.json();
+    setUser(userData);
+  }
+
+  const handleOpenModal = (res, type) => {
+    setModalResultIsOpen(true);
+    setExistResult(res);
+    setResultType(type);
+    fetchUser(res.userId);
+  }
+
   useEffect(() => {
     fetchResultsTests();
     fetchResultsCourses();
   }, []);
-
 
   return (
     <div className="font-rubik px-5 md:px-20">
@@ -80,7 +98,11 @@ const ResultsPage = () => {
         <div>
           <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
             {resultsTests?.sort((a, b) => b.finishTime - a.finishTime).map((item) =>
-              <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
+              <li
+                className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2 cursor-pointer"
+                key={item._id}
+                onClick={() => handleOpenModal(item, 'test')}
+              >
                 <div>{item.title}</div>
                 <div className="grid grid-cols-[25px_30px_70px] md:grid-cols-[50px_50px_100px] items-center gap-5 text-right">
                   <p>{item.trueAnswers}/{item.answers.length}</p>
@@ -97,7 +119,11 @@ const ResultsPage = () => {
         <div>
           <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
             {resultsCourses?.map((item) =>
-            <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
+            <li
+              className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2 cursor-pointer"
+              key={item._id}
+              onClick={() => handleOpenModal(item, 'course')}
+            >
               <div>{item.title}</div>
               <div className="flex gap-2">
                 <div>{`${new Date(item.finishTime).getDate()}/${new Date(item.finishTime).getMonth()}/${new Date(item.finishTime).getFullYear()}`}</div>
@@ -108,6 +134,14 @@ const ResultsPage = () => {
           </ul>
         </div>
       }
+
+      {modalResultIsOpen &&
+        <ResultModal
+          setModalResultIsOpen={setModalResultIsOpen}
+          resultType={resultType}
+          existResult={existResult}
+          user={user}
+        />}
 
     </div>
   )

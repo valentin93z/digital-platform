@@ -1,22 +1,27 @@
 'use client';
 import { useState } from "react";
 
-const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen }) => {
+const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen, setMoreModalIsOpen, setExistUser }) => {
 
   const [dropMenuIsOpen, setDropMenuIsOpen] = useState(false);
+
+  const modalIsOpen = () => {
+    setMoreModalIsOpen(true);
+    setExistUser(user);
+  }
 
   const translateRole = (role) => {
     switch (role) {
         case 'admin':
             return 'Адм.';
             break;
-        case 'seller-pk':
+        case 'pk':
             return 'ПК';
             break;
-        case 'seller-zum':
+        case 'zum':
             return 'ЗУМ';
             break;
-        case 'seller-um':
+        case 'um':
             return 'УМ';
             break;
         case 'trainee':
@@ -28,7 +33,10 @@ const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen }
   }
 
   return (
-    <li className="font-rubik text-sm grid grid-cols-[40px_200px_120px_80px_260px_40px] items-center gap-2 bg-white dark:bg-neutral-800 shadow-lg p-2 rounded-md">
+    <li
+      className="font-rubik text-sm grid grid-cols-[40px_200px_120px_80px_260px_40px] items-center gap-2 bg-white dark:bg-neutral-800 shadow-lg p-2 rounded-md cursor-pointer"
+      onClick={modalIsOpen}
+    >
       <div className="flex justify-center items-center">
         <div className="w-[32px] h-[32px] flex justify-center items-center bg-violet-500 rounded-full">
           <svg className="w-[24px] h-[24px] fill-white dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">

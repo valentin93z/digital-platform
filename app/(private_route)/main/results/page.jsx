@@ -1,4 +1,5 @@
 'use client';
+import ResultModal from "@components/ResultModal";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
@@ -82,7 +83,10 @@ const ResultsPage = () => {
         <div>
           <ul className="flex flex-col gap-2 text-xs md:text-base mb-10">
             {resultsTests?.sort((a, b) => b.finishTime - a.finishTime).map((item) =>
-              <li className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2" key={item._id}>
+              <li
+                className="w-full flex justify-between bg-white dark:bg-neutral-800 rounded-md p-2"
+                key={item._id}
+              >
                 <div className="grid grid-cols-[90px_1fr]">
                   <p>
                     {new Date(item.finishTime).getDate() < 10 ? `0${new Date(item.finishTime).getDate()}` : new Date(item.finishTime).getDate()}
