@@ -13,7 +13,7 @@ export const GET = async (request, { params }) => {
 }
 
 export const PATCH = async (request, { params }) => {
-    const { username, role, position, direction, sector, store, firstname, lastname, middlename, email, phone, birthday, image } = await request.json();
+    const { username, password, role, position, direction, sector, store, firstname, lastname, middlename, email, phone, birthday, courses, tests, polls, motivation, image } = await request.json();
     try {
         await connectToDB();
         const existingItem = await User.findById(params.id);
@@ -29,6 +29,10 @@ export const PATCH = async (request, { params }) => {
         email && (existingItem.email = email);
         phone && (existingItem.phone = phone);
         birthday && (existingItem.birthday = birthday);
+        courses && (existingItem.courses = courses);
+        tests && (existingItem.tests = tests);
+        polls && (existingItem.polls = polls);
+        motivation && (existingItem.motivation = motivation);
         image && (existingItem.image = image);
         await existingItem.save();
         return new Response(JSON.stringify(existingItem), { status: 200 });
