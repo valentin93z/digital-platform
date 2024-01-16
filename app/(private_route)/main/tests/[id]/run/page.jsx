@@ -70,7 +70,7 @@ const TestRunPage = ({ params }) => {
 
   return (
     <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
-      <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl'>
+      <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl mx-auto'>
         <div className='p-5 md:px-20 md:py-10'>
           <p className='text-xl'>{testData.questions[questNum].quest}</p>
         </div>

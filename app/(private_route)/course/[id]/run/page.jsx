@@ -48,7 +48,11 @@ const RunCoursePage = ({ params }) => {
         })
       })
       const courseResult = await response.json();
-      router.push(`/course/${courseResult._id}/finish`);
+      if (courseData.attached_test.id) {
+        router.push(`/main/tests/${courseData.attached_test.id}/preview`);
+      } else {
+        router.push(`/course/${courseResult._id}/finish`);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -155,7 +159,7 @@ const RunCoursePage = ({ params }) => {
             type="button"
             onClick={handleSave}
           >
-            Завершить курс
+            {courseData.attached_test.id ? 'Перейти к тесту' : 'Завершить курс'}
           </button>}
       </div>
     </div>

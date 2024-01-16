@@ -13,6 +13,10 @@ const CourseSchema = new Schema({
     type: Array,
     required: [true, 'ForPosition is required'],
   },
+  forDirection: {
+    type: Array,
+    required: [true, 'ForDirection is required'],
+  },
   image: {
     public_id: {
       type: String,
@@ -36,7 +40,12 @@ const CourseSchema = new Schema({
     },
   },
   attached_test: {
-    type: String,
+    id: {
+      type: String,
+    },
+    title: {
+      type: String,
+    }
   }
 });
 

@@ -12,10 +12,10 @@ export const GET = async (request) => {
 }
 
 export const POST = async (request) => {
-  const { title, description, forPosition, imageUrl, path } = await request.json();
+  const { title, description, forPosition, forDirection, attached_test, imageUrl, path } = await request.json();
   try {
     await connectToDB();
-    const CourseItem = new Course({ title, description, forPosition, imageUrl, path });
+    const CourseItem = new Course({ title, description, forPosition, forDirection, attached_test, imageUrl, path });
     await CourseItem.save();
     return new Response(JSON.stringify(CourseItem), { status: 201 });
   } catch (error) {
