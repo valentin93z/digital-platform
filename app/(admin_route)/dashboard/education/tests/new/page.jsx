@@ -145,7 +145,7 @@ const NewTestPage = () => {
           <div className="flex justify-between items-center gap-10 mb-5">
             <h1 className="text-2xl">Вопросы</h1>
             <button
-              className="bg-violet-500 text-white px-3 py-2 rounded-md hover:bg-violet-600 shadow-md"
+              className="bg-violet-500 text-white px-3 py-2 rounded-md hover:bg-violet-600 hover:shadow-xl shadow-lg"
               type="button"
               onClick={() => setNewQuestModal(true)}
             >
@@ -178,16 +178,21 @@ const NewTestPage = () => {
               </div>
             </li>)}
           </ul>
-          <div>
-            <input
-              className=''
-              type='file'
-              id='test-image'
-              onChange={(e) => setImage(e.target.files[0])}
-              accept='.jpg, .jpeg, .png'
-            />
+          <div className="flex justify-between items-center gap-5 mt-10">
+            <p>Обложка теста</p>
+            <div>
+              <input
+                className=''
+                type='file'
+                id='test-image'
+                onChange={(e) => setImage(e.target.files[0])}
+                accept='.jpg, .jpeg, .png'
+              />
+            </div>
+          </div>
+          <div className="flex justify-end mt-10">
             <button
-              className="bg-violet-500 hover:bg-violet-600 text-white px-3 py-2 rounded-md shadow-md"
+              className="bg-violet-500 hover:bg-violet-600 hover:shadow-xl text-white px-3 py-2 rounded-md shadow-lg"
               type="button"
               onClick={handleSubmit}
             >

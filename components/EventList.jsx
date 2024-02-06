@@ -1,15 +1,21 @@
-const EventList = ({ events }) => {
+import { getMonthName } from "@utils/getMonthName";
+import TimerIcon from "./icons/TimerIcon";
+
+const EventList = ({ events, newEvent }) => {
   return (
-    <div>
-      <div className='flex justify-between items-end'>
-        <h2 className='text-xl'>Запланированные мероприятия: {events.length}</h2>
-        <p className='text-xl'>25 августа 2023г.</p>
+    <div className="text-neutral-800 dark:text-white">
+      <div className='flex flex-col gap-5'>
+        <h1 className='text-xl text-center'>{`${newEvent.day} ${getMonthName(newEvent.month)} ${newEvent.year}г.`}</h1>
+        <div className="flex justify-between items-center gap-5">
+          <h2 className='text-xl'>Запланированные мероприятия:</h2>
+          <h2 className='text-xl'>{events.length}</h2>
+        </div>
       </div>
-      <ul>
+      <ul className="flex flex-col justify-start gap-3 mt-5">
         {events.map((event) =>
-          <li className="border-b-2 border-white border-solid p-3" key={event._id}>
+          <li className="border-solid border border-violet-500 dark:border-white shadow-lg rounded-md p-3" key={event._id}>
             <div className="flex justify-between items-center">
-              <div>
+              <div className="flex flex-col justify-center items-center">
                 <p className="text-4xl">
                   {event.hours < 10 ? `0${event.hours}` : event.hours}
                   :
@@ -23,14 +29,12 @@ const EventList = ({ events }) => {
                   {event.year < 10 ? `0${event.year}` : event.year}
                 </p>
               </div>
-              <div>
+              <div className="flex flex-col justify-center items-center">
+                <TimerIcon className='block fill-neutral-800 dark:fill-white' width={32} height={32} />
                 <p className="text-sm text-right">{event.duration}</p>
               </div>
               <div>
                 <p>{event.title}</p>
-              </div>
-              <div>
-                <p>Перейти</p>
               </div>
             </div>
           </li>

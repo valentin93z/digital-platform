@@ -1,14 +1,15 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
 import NewFormSelect from './selects/NewFormSelect';
 import CloseIcon from './icons/CloseIcon';
 import AddIcon from './icons/AddIcon';
 import DeleteIcon from './icons/DeleteIcon';
+import { checkTestAnswer } from '@utils/checkAnswer';
 
 const NewQuestModal = ({ closeModal, question, setQuestion }) => {
 
-    const [newQuest, setNewQuest] = useState({quest: '', q_queue: question.length + 1, type: '', answers: []});
+    const [newQuest, setNewQuest] = useState({quest: '', q_queue: question.length + 1, type: 'Единственный выбор', answers: []});
 
 
     const handleAddAnswer = () => {
@@ -23,6 +24,12 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
       setQuestion([...question, {...newQuest, q_id: nanoid()}]);
       closeModal();
     }
+
+    useEffect(() => {
+      setNewQuest({...newQuest, answers: []});
+    }, [newQuest.type]);
+
+    console.log(newQuest);
 
   return (
     <div className='fixed top-0 bottom-0 left-0 right-0 black_opacity flex justify-center items-center px-0 sm:px-5 z-50' onClick={closeModal}>
@@ -51,10 +58,11 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
             <div className='w-full flex justify-between items-center gap-3'>
               <h1 className='w-full'>Тип вопроса:</h1>
               <NewFormSelect
-                data={['Единственный выбор', 'Множественный выбор']}
+                data={['Единственный выбор', 'Множественный выбор', 'Открытый вопрос', 'Соотнесение', 'Порядок', 'Прикрепление файла', 'Шкала от 1 до 10', 'Пропущенное слово']}
                 value={newQuest}
                 setValue={setNewQuest}
                 exist={'type'}
+                onChange={(e) => setNewQuest({...newQuest, type: e.target.value})}
               />
             </div>
             <div className='flex flex-col gap-3'>
@@ -68,65 +76,151 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
               />
             </div>
           </div>
+
+
           <div className='w-full h-auto'>
-            <div className='h-full flex flex-col justify-between gap-3'>
-              <div className='flex flex-col gap-3'>
-                <div className='flex justify-between items-center'>
-                  <h1>Варианты ответов:</h1>
+
+            {newQuest.type === 'Единственный выбор' &&
+              <div className='h-full flex flex-col justify-between gap-3'>
+                <div className='flex flex-col gap-3'>
+                  <div className='flex justify-between items-center'>
+                    <h1>Варианты ответов:</h1>
+                    <button
+                      className='text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl'
+                      type='button'
+                      onClick={handleAddAnswer}
+                    >
+                      Добавить
+                    </button>
+                  </div>
+                  <ul className='flex flex-col gap-3'>
+                    {newQuest.answers?.sort((a, b) => a.queue - b.queue).map((answer) =>
+                    <li
+                      className='flex items-center gap-5'
+                      key={answer.a_id}
+                    >
+                      <div>
+                        <input
+                          className='cursor-pointer'
+                          type='radio'
+                          id={`radio-${answer.a_id}`}
+                          name='answer-group'
+                          onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id).map((arr) => ({...arr, value: 0})), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 1}]})}
+                        />
+                        <label htmlFor={`radio-${answer.a_id}`}></label>
+                      </div>
+                      <div className='w-full'>
+                        <input
+                          className='w-full bg-white dark:bg-neutral-900 rounded-md shadow-md outline-none px-3 py-2'
+                          type='text'
+                          value={newQuest.answers.filter((a) => a.a_id === answer.a_id)[0].text}
+                          onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], text: e.target.value }]})}
+                        />
+                      </div>
+                      <div>
+                        <button
+                          className='block bg-red-500 hover:bg-red-600 p-1 rounded-md shadow-xl'
+                          onClick={() => handleDeleteAnswer(answer.a_id)}
+                        >
+                          <DeleteIcon className='fill-white' width='24px' height='24px' />
+                        </button>
+                      </div>
+                    </li>)}
+                  </ul>
+                </div>
+                <div className='flex justify-end'>
                   <button
                     className='text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl'
                     type='button'
-                    onClick={handleAddAnswer}
+                    onClick={handleAddQuest}
                   >
-                    Добавить
+                    Ок
                   </button>
                 </div>
-                <ul className='flex flex-col gap-3'>
-                  {newQuest.answers?.sort((a, b) => a.queue - b.queue).map((answer) =>
-                  <li
-                    className='flex items-center gap-5'
-                    key={answer.a_id}
-                  >
-                    <div>
-                      <input
-                        className='cursor-pointer'
-                        type='radio'
-                        id={`radio-${answer.a_id}`}
-                        name='answer-group'
-                        onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id).map((arr) => ({...arr, value: 0})), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 1}]})}
-                      />
-                      <label htmlFor={`radio-${answer.a_id}`}></label>
-                    </div>
-                    <div className='w-full'>
-                      <input
-                        className='w-full bg-white dark:bg-neutral-900 rounded-md shadow-md outline-none px-3 py-2'
-                        type='text'
-                        value={newQuest.answers.filter((a) => a.a_id === answer.a_id)[0].text}
-                        onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], text: e.target.value }]})}
-                      />
-                    </div>
-                    <div>
-                      <button
-                        className='block bg-red-500 hover:bg-red-600 p-1 rounded-md shadow-xl'
-                        onClick={() => handleDeleteAnswer(answer.a_id)}
-                      >
-                        <DeleteIcon className='fill-white' width='24px' height='24px' />
-                      </button>
-                    </div>
-                  </li>)}
-                </ul>
               </div>
-              <div className='flex justify-end'>
-                <button
-                  className='text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl'
-                  type='button'
-                  onClick={handleAddQuest}
-                >
-                  Ок
-                </button>
+            }
+
+            {newQuest.type === 'Множественный выбор' &&
+              <div className='h-full flex flex-col justify-between gap-3'>
+                <div className='flex flex-col gap-3'>
+                  <div className='flex justify-between items-center'>
+                    <h1>Варианты ответов:</h1>
+                    <button
+                      className='text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl'
+                      type='button'
+                      onClick={handleAddAnswer}
+                    >
+                      Добавить
+                    </button>
+                  </div>
+                  <ul className='flex flex-col gap-3'>
+                    {newQuest.answers?.sort((a, b) => a.queue - b.queue).map((answer) =>
+                    <li
+                      className='flex items-center gap-5'
+                      key={answer.a_id}
+                    >
+                      <div>
+                        <input
+                          className='cursor-pointer'
+                          type='checkbox'
+                          id={`checkbox-${answer.a_id}`}
+                          name='checkbox-answer-group'
+
+                          // Добавление нескольких правильных ответов
+                          onChange={(e) => setNewQuest(answer.value === 1 ? ({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), {...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 0}]}) : ({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), {...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 1}]}))}
+                          //////////////////////
+                        />
+                        <label htmlFor={`checkbox-${answer.a_id}`}></label>
+                      </div>
+                      <div className='w-full'>
+                        <input
+                          className='w-full bg-white dark:bg-neutral-900 rounded-md shadow-md outline-none px-3 py-2'
+                          type='text'
+                          value={newQuest.answers.filter((a) => a.a_id === answer.a_id)[0].text}
+                          onChange={(e) => setNewQuest({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), { ...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], text: e.target.value }]})}
+                        />
+                      </div>
+                      <div>
+                        <button
+                          className='block bg-red-500 hover:bg-red-600 p-1 rounded-md shadow-xl'
+                          onClick={() => handleDeleteAnswer(answer.a_id)}
+                        >
+                          <DeleteIcon className='fill-white' width='24px' height='24px' />
+                        </button>
+                      </div>
+                    </li>)}
+                  </ul>
+                </div>
+                <div className='flex justify-end'>
+                  <button
+                      className='text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl'
+                      type='button'
+                      onClick={handleAddQuest}
+                    >
+                      Ок
+                    </button>
+                </div>
               </div>
-            </div>
+            }
+
+            {newQuest.type === 'Открытый вопрос' || newQuest.type === 'Прикрепление файла' || newQuest.type === 'Шкала от 1 до 10' || newQuest.type === 'Пропущенное слово' ?
+              <div className='h-full flex flex-col justify-between gap-3'>
+                <div></div>
+                <div className='flex justify-end'>
+                  <button
+                      className='text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl'
+                      type='button'
+                      onClick={handleAddQuest}
+                    >
+                      Ок
+                    </button>
+                </div>
+              </div> : ''
+            }
+
           </div>
+
+
         </div>
       </div>
     </div>

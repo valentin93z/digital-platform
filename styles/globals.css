@@ -78,6 +78,7 @@
 
 .calendar_day_radio:checked ~ .calendar_day_label {
     background: #8B5CF6;
+    color: #FFFFFF;
 }
 
 .unselectable {

@@ -37,9 +37,9 @@ const Calendar = ({ newEvent, setNewEvent }) => {
   return (
     <div className='font-rubik w-full h-full'>
       <div className='flex justify-between items-center mb-5'>
-        <button className='text-3xl font-light cursor-pointer pl-[40px]' onClick={decrementMonth}>{'<'}</button>
+        <button className='text-3xl font-light cursor-pointer pl-[40px] hover:text-violet-500' onClick={decrementMonth}>{'<'}</button>
         <p className='text-xl'>{`${monthName} ${year}г.`}</p>
-        <button className='text-3xl font-light cursor-pointer pr-[40px]' onClick={incrementMonth}>{'>'}</button>
+        <button className='text-3xl font-light cursor-pointer pr-[40px] hover:text-violet-500' onClick={incrementMonth}>{'>'}</button>
       </div>
       <div>
         <ul className='grid grid-cols-7'>
@@ -52,7 +52,7 @@ const Calendar = ({ newEvent, setNewEvent }) => {
         <ul className='grid grid-cols-7'>
           {days.map((day) =>
             <li
-              className='relative border-2 border-transparent hover:border-solid hover:border-violet-500 transition-colors rounded-md overflow-hidden'
+              className='relative border-2 border-transparent hover:border-solid hover:border-violet-500 hover:shadow-lg transition-colors rounded-md overflow-hidden'
               style={ day.dayOfMonth === 1 ? {gridColumn: day.dayOfWeek} : {}}
               key={`${day.dayOfMonth}_${day.month}_${day.year}`}
             >
@@ -78,5 +78,6 @@ const Calendar = ({ newEvent, setNewEvent }) => {
     </div>
   )
 }
+
 
 export default Calendar;
