@@ -6,97 +6,97 @@ import EditIcon from "@components/icons/EditIcon";
 import DeleteIcon from "@components/icons/DeleteIcon";
 import { getNoun } from "@utils/getNoun";
 
-const BelgorodStoresPage = () => {
+const StariyOskolStoresPage = () => {
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [storesList, setStoresList] = useState([]);
-  const [directionList, setDirectionList] = useState([]);
-  const [sectorList, setSectorList] = useState([]);
-  const [newStore, setNewStore] = useState({ title: '', direction: '', sector: '' });
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [storesList, setStoresList] = useState([]);
+    const [directionList, setDirectionList] = useState([]);
+    const [sectorList, setSectorList] = useState([]);
+    const [newStore, setNewStore] = useState({ title: '', direction: '', sector: '' });
 
-  const closeModal = () => {
-    setModalIsOpen(false);
-  }
-
-  const fetchStoresList = async () => {
-    const response = await fetch('/api/store');
-    const data = await response.json();
-    setStoresList(data.filter((store) => store.sector === 'Белгород'));
-  }
-
-  const fetchDirectionList = async () => {
-    const response = await fetch('/api/direction');
-    const data = await response.json();
-    const directionArr = data.map((item) => item.title);
-    setDirectionList(directionArr);
-  }
-
-  const fetchSectorList = async () => {
-    const response = await fetch('/api/sector');
-    const data = await response.json();
-    const sectorArr = data.map((item) => item.title);
-    setSectorList(sectorArr);
-  }
-
-  const handleReset = () => {
-    setModalIsOpen(false);
-    setNewStore({ title: '', direction: '', sector: '' });
-  }
-
-  const resetSector = () => {
-    if (newStore.direction !== 'ЦМ') {
-      setNewStore({...newStore, sector: ''});
+    const closeModal = () => {
+      setModalIsOpen(false);
     }
-  }
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/store', {
-        method: "POST",
-        body: JSON.stringify({
-          title: newStore.title,
-          direction: newStore.direction,
-          sector: newStore.sector,
-        }),
-      });
-      if (response.ok) {
-        setModalIsOpen(false);
-        handleReset();
-        fetchStoresList();
+    
+    const fetchStoresList = async () => {
+      const response = await fetch('/api/store');
+      const data = await response.json();
+      setStoresList(data.filter((store) => store.sector === 'СО'));
+    }
+    
+    const fetchDirectionList = async () => {
+      const response = await fetch('/api/direction');
+      const data = await response.json();
+      const directionArr = data.map((item) => item.title);
+      setDirectionList(directionArr);
+    }
+    
+    const fetchSectorList = async () => {
+      const response = await fetch('/api/sector');
+      const data = await response.json();
+      const sectorArr = data.map((item) => item.title);
+      setSectorList(sectorArr);
+    }
+    
+    const handleReset = () => {
+      setModalIsOpen(false);
+      setNewStore({ title: '', direction: '', sector: '' });
+    }
+    
+    const resetSector = () => {
+      if (newStore.direction !== 'ЦМ') {
+        setNewStore({...newStore, sector: ''});
       }
-    } catch(error) {
-      console.log(error);
     }
-  }
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(`/api/store/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        fetchStoresList();
+    
+    const handleSave = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch('/api/store', {
+          method: "POST",
+          body: JSON.stringify({
+            title: newStore.title,
+            direction: newStore.direction,
+            sector: newStore.sector,
+          }),
+        });
+        if (response.ok) {
+          setModalIsOpen(false);
+          handleReset();
+          fetchStoresList();
+        }
+      } catch(error) {
+        console.log(error);
       }
-    } catch(err) {
-      console.log(err);
     }
-  }
+    
+    const handleDelete = async (id) => {
+      try {
+        const response = await fetch(`/api/store/${id}`, {
+          method: "DELETE",
+        });
+        if (response.ok) {
+          fetchStoresList();
+        }
+      } catch(err) {
+        console.log(err);
+      }
+    }
+    
+    useEffect(() => {
+      fetchStoresList();
+      fetchDirectionList();
+      fetchSectorList();
+    }, []);
+    
+    useEffect(() => {
+      resetSector();
+    }, [newStore.direction]);
 
-  useEffect(() => {
-    fetchStoresList();
-    fetchDirectionList();
-    fetchSectorList();
-  }, []);
-
-  useEffect(() => {
-    resetSector();
-  }, [newStore.direction]);
-
-    return (
-      <div className="font-rubik px-5 md:px-20">
+  return (
+    <div className="font-rubik px-5 md:px-20">
         <div className="flex justify-between items-center mb-10">
-          <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">{`Сектор: Белгород - ${storesList.length} ${getNoun(storesList.length, 'торговая точка', 'торговых точки', 'торговых точек')}`}</h1>
+          <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">{`Сектор: Старый Оскол - ${storesList.length} ${getNoun(storesList.length, 'торговая точка', 'торговых точки', 'торговых точек')}`}</h1>
           <button
             className="flex items-center gap-3 bg-violet-500 rounded-md px-2 py-3 hover:bg-violet-600 shadow-lg hover:shadow-xl cursor-pointer"
             type="button"
@@ -154,7 +154,7 @@ const BelgorodStoresPage = () => {
             sectorList={sectorList}
           />}
       </div>
-    )
-  }
-  
-  export default BelgorodStoresPage;
+  )
+}
+
+export default StariyOskolStoresPage;
