@@ -9,13 +9,15 @@ import { getNoun } from "@utils/getNoun";
 const BelgorodStoresPage = () => {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [storesList, setStoresList] = useState([]);
   const [directionList, setDirectionList] = useState([]);
   const [sectorList, setSectorList] = useState([]);
-  const [newStore, setNewStore] = useState({ title: '', direction: '', sector: '' });
+  const [newStore, setNewStore] = useState({ id: '', title: '', direction: '', sector: '' });
 
   const closeModal = () => {
     setModalIsOpen(false);
+    setEditModalIsOpen(false);
   }
 
   const fetchStoresList = async () => {
@@ -40,7 +42,8 @@ const BelgorodStoresPage = () => {
 
   const handleReset = () => {
     setModalIsOpen(false);
-    setNewStore({ title: '', direction: '', sector: '' });
+    setEditModalIsOpen(false);
+    setNewStore({ id: '', title: '', direction: '', sector: '' });
   }
 
   const resetSector = () => {
@@ -70,6 +73,16 @@ const BelgorodStoresPage = () => {
     }
   }
 
+  const handleOpenEditWindow = (store) => {
+    setNewStore({
+      id: store._id,
+      title: store.title,
+      direction: store.direction,
+      sector: store.sector,
+    });
+    setEditModalIsOpen(true);
+  }
+
   const handleDelete = async (id) => {
     try {
       const response = await fetch(`/api/store/${id}`, {
@@ -80,6 +93,33 @@ const BelgorodStoresPage = () => {
       }
     } catch(err) {
       console.log(err);
+    }
+  }
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/api/store/${newStore.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          title: newStore.title,
+          direction: newStore.direction,
+          sector: newStore.sector,
+        })
+      });
+      if (response.ok) {
+        setEditModalIsOpen(false);
+        fetchStoresList();
+        setNewUser({
+          id: '',
+          title: '',
+          direction: '',
+          sector: '',
+        });
+        fetchStoresList();
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -127,6 +167,7 @@ const BelgorodStoresPage = () => {
                   <button
                     className="bg-neutral-400 hover:bg-neutral-500 dark:bg-neutral-600 dark:hover:bg-neutral-700 text-white shadow-md hover:shadow-lg rounded-md p-2"
                     type='button'
+                    onClick={() => handleOpenEditWindow(store)}
                   >
                     <EditIcon className='block fill-white' width={20} height={20} />
                   </button>
@@ -142,17 +183,31 @@ const BelgorodStoresPage = () => {
             )}
           </ul>
         </div>
+
         {modalIsOpen &&
           <NewStoreModal
+            type='new'
             closeModal={closeModal}
             newStore={newStore}
             setNewStore={setNewStore}
             handleReset={handleReset}
             handleSave={handleSave}
-            handleDelete={handleDelete}
             directionList={directionList}
             sectorList={sectorList}
           />}
+
+          {editModalIsOpen &&
+            <NewStoreModal
+              type='edit'
+              newStore={newStore}
+              setNewStore={setNewStore}
+              handleReset={handleReset}
+              closeModal={closeModal}
+              handleSave={handleEdit}
+              directionList={directionList}
+              sectorList={sectorList}
+            />
+          }
       </div>
     )
   }

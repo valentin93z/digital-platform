@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { checkTestQuest } from '@utils/checkQuest';
+import { checkAnswerVariants, checkTestQuest } from '@utils/checkQuest';
 import CircleLoader from '@components/loader/CircleLoader';
 import { useSession } from 'next-auth/react';
 
@@ -70,25 +70,64 @@ const TestRunPage = ({ params }) => {
 
   return (
     <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
-      <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl mx-auto'>
+      <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl mx-auto shadow-lg'>
         <div className='p-5 md:px-20 md:py-10'>
           <p className='text-xl'>{testData.questions[questNum].quest}</p>
         </div>
         <div className='p-5 md:px-20 md:py-10'>
-          {testData?.questions[questNum].answers.map((answer) =>
-            <div className='flex items-center gap-3' key={answer.a_id}>
-              <input
-                className='w-5 h-5'
-                type='radio'
-                id={answer.a_id}
-                name={testData.questions[questNum].q_id}
-                value={answer.text}
-                onChange={() => setAnswers(checkTestQuest ? [...answers.filter((i) => i.q_id !== testData.questions[questNum].q_id), { q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }] : [...answers, { q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }])}
-                checked={answers.length !== 0 && answers?.filter((a) => a.answerId === answer.a_id)[0]?.answerId === answer.a_id}
-              />
-              <label className='text-xl' htmlFor={answer.a_id}>{answer.text}</label>
-            </div>
-          )}
+
+          {testData.questions[questNum].type === 'Единственный выбор' &&
+            testData?.questions[questNum].answers.map((answer) =>
+              <div className='flex items-center gap-3' key={answer.a_id}>
+                <input
+                  className='w-5 h-5'
+                  type='radio'
+                  id={answer.a_id}
+                  name={testData.questions[questNum].q_id}
+                  value={answer.text}
+                  onChange={() => setAnswers(checkTestQuest ? [...answers.filter((i) => i.q_id !== testData.questions[questNum].q_id), { type: testData.questions[questNum].type, q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }] : [...answers, { type: testData.questions[questNum].type, q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }])}
+                  checked={answers.length !== 0 && answers?.filter((a) => a.answerId === answer.a_id)[0]?.answerId === answer.a_id}
+                />
+                <label className='text-xl' htmlFor={answer.a_id}>{answer.text}</label>
+              </div>
+            )
+          }
+
+          {testData.questions[questNum].type === 'Множественный выбор' &&
+            testData?.questions[questNum].answers.map((answer) =>
+              <div className='flex items-center gap-3' key={answer.a_id}>
+                <input
+                  className='w-5 h-5'
+                  type='checkbox'
+                  id={answer.a_id}
+                  name={testData.questions[questNum].q_id}
+                  value={answer.text}
+                  onChange={() => setAnswers(
+
+                    checkTestQuest(answers, testData.questions[questNum].q_id)
+
+                      ? [...answers.filter((a) => a.q_id !== testData.questions[questNum].q_id), {
+                          type: testData.questions[questNum].type,
+                          q_id: testData.questions[questNum].q_id,
+                          quest: testData.questions[questNum].quest,
+                          variants:
+                            checkAnswerVariants(answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants, answer.a_id)
+                              ? [...answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants.filter((v) => v.answerId !== answer.a_id)]
+                              : [...answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants, { answerId: answer.a_id, answerText: answer.text, test: 'second' }]
+                        }]
+
+                      : [...answers, {
+                          type: testData.questions[questNum].type,
+                          q_id: testData.questions[questNum].q_id,
+                          quest: testData.questions[questNum].quest,
+                          variants: [{ answerId: answer.a_id, answerText: answer.text, test: 'first' }]
+                        }]
+                  )}
+                />
+                <label className='text-xl' htmlFor={answer.a_id}>{answer.text}</label>
+              </div>
+            )
+          }
         </div>
         <div className='flex justify-end gap-5 p-5 md:px-20 md:py-10'>
           <button
