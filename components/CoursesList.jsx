@@ -29,7 +29,7 @@ const CoursesList = ({ courseList }) => {
 
       <ul className='flex justify-start gap-5 md:gap-10'>
         {courseList.map((course) =>
-          <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer' key={course._id}>
+          <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer overflow-hidden' key={course._id}>
             <Link href={`main/courses/${course._id}/preview`}>
               {course.image
                 ?

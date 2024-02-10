@@ -82,7 +82,7 @@ const MyProfilePage = () => {
             </div>
           </label>
           <button
-            className='block w-full bg-violet-500 p-2 rounded-md mt-5 disabled:bg-neutral-500 cursor-pointer'
+            className='block w-full bg-violet-500 p-2 rounded-md mt-5 disabled:bg-neutral-500 cursor-pointer shadow-lg'
             type='button'
             onClick={uploadImage}
             disabled={!selectedImage}
@@ -91,7 +91,7 @@ const MyProfilePage = () => {
         </div>
         <div className='w-full'>
           <h1 className='text-4xl mb-10'>Мой профиль</h1>
-          <div className='flex flex-col gap-5 bg-white dark:bg-neutral-800 p-10 rounded-md'>
+          <div className='flex flex-col gap-5 bg-white dark:bg-neutral-800 p-10 rounded-md shadow-lg'>
             <div>
               <h2 className='text-2xl'>{data?.user?.lastname} {data?.user?.firstname} {data?.user?.middlename}</h2>
               <p className='text-neutral-400'>

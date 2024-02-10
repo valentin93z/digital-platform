@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import CircleLoader from '@components/loader/CircleLoader';
+import BarsLoader from '@components/loader/BarsLoader';
 
 const TestPreviewPage = ({ params }) => {
 
@@ -25,7 +25,7 @@ const TestPreviewPage = ({ params }) => {
     fetchTestData();
   }, []);
 
-  if (loading) return <CircleLoader />
+  if (loading) return <BarsLoader />
 
   return (
     <div className="font-rubik px-5 md:px-20">

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import CircleLoader from "@components/loader/CircleLoader";
+import BarsLoader from "@components/loader/BarsLoader";
 
 const TestFinishPage = ({ params }) => {
 
@@ -25,7 +25,7 @@ const TestFinishPage = ({ params }) => {
     fetchTestData();
   }, []);
 
-  if (loading || !testData) return <CircleLoader />
+  if (loading || !testData) return <BarsLoader />
 
   return (
     <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>

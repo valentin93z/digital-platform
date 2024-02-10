@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { checkAnswerVariants, checkTestQuest } from '@utils/checkQuest';
 import CircleLoader from '@components/loader/CircleLoader';
 import { useSession } from 'next-auth/react';
+import BarsLoader from '@components/loader/BarsLoader';
 
 const TestRunPage = ({ params }) => {
 
@@ -66,7 +67,7 @@ const TestRunPage = ({ params }) => {
     fetchTestData();
   }, []);
 
-  if (loading || !testData.questions) return <CircleLoader />
+  if (loading || !testData.questions) return <BarsLoader />
 
   return (
     <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
@@ -74,13 +75,13 @@ const TestRunPage = ({ params }) => {
         <div className='p-5 md:px-20 md:py-10'>
           <p className='text-xl'>{testData.questions[questNum].quest}</p>
         </div>
-        <div className='p-5 md:px-20 md:py-10'>
+        <div className='p-5 md:px-20 md:py-5 flex flex-col gap-5'>
 
           {testData.questions[questNum].type === 'Единственный выбор' &&
             testData?.questions[questNum].answers.map((answer) =>
-              <div className='flex items-center gap-3' key={answer.a_id}>
+              <div className='flex items-center gap-3 px-3 bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-white rounded-md shadow-md' key={answer.a_id}>
                 <input
-                  className='w-5 h-5'
+                  className='w-5 h-5 accent-violet-500'
                   type='radio'
                   id={answer.a_id}
                   name={testData.questions[questNum].q_id}
@@ -88,24 +89,22 @@ const TestRunPage = ({ params }) => {
                   onChange={() => setAnswers(checkTestQuest ? [...answers.filter((i) => i.q_id !== testData.questions[questNum].q_id), { type: testData.questions[questNum].type, q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }] : [...answers, { type: testData.questions[questNum].type, q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }])}
                   checked={answers.length !== 0 && answers?.filter((a) => a.answerId === answer.a_id)[0]?.answerId === answer.a_id}
                 />
-                <label className='text-xl' htmlFor={answer.a_id}>{answer.text}</label>
+                <label className='text-xl w-full py-3 cursor-pointer' htmlFor={answer.a_id}>{answer.text}</label>
               </div>
             )
           }
 
           {testData.questions[questNum].type === 'Множественный выбор' &&
             testData?.questions[questNum].answers.map((answer) =>
-              <div className='flex items-center gap-3' key={answer.a_id}>
+              <div className='flex items-center gap-3 px-3 bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-white rounded-md shadow-md' key={answer.a_id}>
                 <input
-                  className='w-5 h-5'
+                  className='w-5 h-5 accent-violet-500'
                   type='checkbox'
                   id={answer.a_id}
                   name={testData.questions[questNum].q_id}
                   value={answer.text}
                   onChange={() => setAnswers(
-
                     checkTestQuest(answers, testData.questions[questNum].q_id)
-
                       ? [...answers.filter((a) => a.q_id !== testData.questions[questNum].q_id), {
                           type: testData.questions[questNum].type,
                           q_id: testData.questions[questNum].q_id,
@@ -113,51 +112,60 @@ const TestRunPage = ({ params }) => {
                           variants:
                             checkAnswerVariants(answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants, answer.a_id)
                               ? [...answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants.filter((v) => v.answerId !== answer.a_id)]
-                              : [...answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants, { answerId: answer.a_id, answerText: answer.text, test: 'second' }]
+                              : [...answers.filter((a) => a.q_id === testData.questions[questNum].q_id)[0].variants, { answerId: answer.a_id, answerText: answer.text }]
                         }]
-
                       : [...answers, {
                           type: testData.questions[questNum].type,
                           q_id: testData.questions[questNum].q_id,
                           quest: testData.questions[questNum].quest,
-                          variants: [{ answerId: answer.a_id, answerText: answer.text, test: 'first' }]
+                          variants: [{ answerId: answer.a_id, answerText: answer.text }]
                         }]
                   )}
+                  checked={answers.length !== 0 && checkAnswerVariants(answers?.filter((a) => a.q_id === testData.questions[questNum].q_id)[0]?.variants, answer.a_id)}
                 />
-                <label className='text-xl' htmlFor={answer.a_id}>{answer.text}</label>
+                <label className='text-xl w-full py-3 cursor-pointer' htmlFor={answer.a_id}>{answer.text}</label>
               </div>
             )
           }
         </div>
-        <div className='flex justify-end gap-5 p-5 md:px-20 md:py-10'>
-          <button
-            className='text-white bg-violet-500 hover:bg-violet-700 disabled:bg-neutral-300 dark:disabled:bg-neutral-700 disabled:hover:bg-neutral-300 dark:disabled:hover:bg-neutral-700 px-2 py-1 rounded-md'
-            type='button'
-            disabled={questNum <= 0 && true}
-            onClick={() => changeQuest('dec')}
-          >
-            Пред.
-          </button>
-          <button
-            className='text-white bg-violet-500 hover:bg-violet-700 disabled:bg-neutral-300 dark:disabled:bg-neutral-700 disabled:hover:bg-neutral-300 dark:disabled:hover:bg-neutral-700 px-2 py-1 rounded-md'
-            type='button'
-            disabled={questNum >= testData.questions.length - 1 && true}
-            onClick={() => changeQuest('inc')}
-          >
-            След.
-          </button>
-        </div>
-        {answers.length === testData.questions.length &&
-          <div className='flex justify-end px-5 md:px-20 pb-5 md:pb-10'>
+
+
+        <div className='flex justify-between p-5 md:px-20 md:py-10'>
+
+          <div className='w-full'></div>
+
+          <div className='w-full flex justify-center gap-5'>
             <button
-              className='text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md'
+              className='text-white bg-violet-500 hover:bg-violet-700 disabled:bg-neutral-300 dark:disabled:bg-neutral-700 disabled:hover:bg-neutral-300 dark:disabled:hover:bg-neutral-700 px-2 py-1 rounded-md shadow-md'
               type='button'
-              onClick={handleSave}
+              disabled={questNum <= 0 && true}
+              onClick={() => changeQuest('dec')}
             >
-              Завершить тест
+              Пред.
+            </button>
+            <button
+              className='text-white bg-violet-500 hover:bg-violet-700 disabled:bg-neutral-300 dark:disabled:bg-neutral-700 disabled:hover:bg-neutral-300 dark:disabled:hover:bg-neutral-700 px-2 py-1 rounded-md shadow-md'
+              type='button'
+              disabled={questNum >= testData.questions.length - 1 && true}
+              onClick={() => changeQuest('inc')}
+            >
+              След.
             </button>
           </div>
-        }
+
+          <div className='w-full flex justify-end'>
+            {answers.length === testData.questions.length &&
+                <button
+                  className='text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md shadow-md'
+                  type='button'
+                  onClick={handleSave}
+                >
+                  Завершить тест
+                </button>
+            }
+          </div>
+        </div>
+        
       </div>
     </div>
   )

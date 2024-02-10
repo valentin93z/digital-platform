@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import CircleLoader from "@components/loader/CircleLoader";
 import { CldImage } from "next-cloudinary";
 import { useSession } from "next-auth/react";
+import BarsLoader from "@components/loader/BarsLoader";
 
 const TestsPage = () => {
 
@@ -31,7 +31,7 @@ const TestsPage = () => {
     fetchTestList();
   }, []);
 
-  if (loading) return <CircleLoader />
+  if (loading) return <BarsLoader />
 
   return (
     <div className="font-rubik px-5 md:px-20">

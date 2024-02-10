@@ -53,7 +53,7 @@ const SidebarAdmin = () => {
           <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
             <Link href='/dashboard/svk'>
               <svg
-                className={`transition-colors ${pathname === '/dashboard/svk' ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname !== '/dashboard/svk' && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+                className={`transition-colors ${pathname === '/dashboard/svk' ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname === '/dashboard/svk' && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
                 xmlns="http://www.w3.org/2000/svg"
                 height="40"
                 viewBox="0 -960 960 960"

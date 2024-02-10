@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from "react";
-import CircleLoader from "@components/loader/CircleLoader";
 import CoursesList from "@components/CoursesList";
 import CoursesList2 from "@components/CoursesList2";
 import CoursesList3 from "@components/CoursesList3";
+import BarsLoader from "@components/loader/BarsLoader";
 
 const CoursesPage = () => {
 
@@ -29,7 +29,7 @@ const CoursesPage = () => {
 
   console.log(courseList);
 
-  if (loading) return <CircleLoader />
+  if (loading) return <BarsLoader />
 
     return (
       <div className="font-rubik px-5 md:px-20 unselectable">

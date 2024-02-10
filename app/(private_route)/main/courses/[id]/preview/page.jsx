@@ -1,9 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import CircleLoader from '@components/loader/CircleLoader';
 import { CldImage } from 'next-cloudinary';
+import BarsLoader from '@components/loader/BarsLoader';
 
 
 const CoursePreviewPage = ({ params }) => {
@@ -30,7 +29,7 @@ const CoursePreviewPage = ({ params }) => {
 
   console.log(courseData);
 
-  if (loading) return <CircleLoader />
+  if (loading) return <BarsLoader />
 
   return (
     <div className="font-rubik px-5 md:px-20">

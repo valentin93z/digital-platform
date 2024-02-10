@@ -27,6 +27,7 @@ export const checkTestQuest = (array, qId) => {
 export const checkAnswerVariants = (array, a_id) => {
   let find = false;
 
+  if (typeof array === 'undefined') return false;
   if (array.length === 0) return false;
 
   array.forEach((item) => {
