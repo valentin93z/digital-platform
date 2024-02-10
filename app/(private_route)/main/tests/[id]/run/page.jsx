@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { checkAnswerVariants, checkTestQuest } from '@utils/checkQuest';
-import CircleLoader from '@components/loader/CircleLoader';
 import { useSession } from 'next-auth/react';
 import BarsLoader from '@components/loader/BarsLoader';
 
@@ -70,10 +69,10 @@ const TestRunPage = ({ params }) => {
   if (loading || !testData.questions) return <BarsLoader />
 
   return (
-    <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
+    <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10 unselectable'>
       <div className='max-w-[800px] bg-white dark:bg-neutral-800 rounded-xl mx-auto shadow-lg'>
         <div className='p-5 md:px-20 md:py-10'>
-          <p className='text-xl'>{testData.questions[questNum].quest}</p>
+          <p className='sm:text-xl'>{testData.questions[questNum].quest}</p>
         </div>
         <div className='p-5 md:px-20 md:py-5 flex flex-col gap-5'>
 
@@ -89,7 +88,7 @@ const TestRunPage = ({ params }) => {
                   onChange={() => setAnswers(checkTestQuest ? [...answers.filter((i) => i.q_id !== testData.questions[questNum].q_id), { type: testData.questions[questNum].type, q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }] : [...answers, { type: testData.questions[questNum].type, q_id: testData.questions[questNum].q_id, quest: testData.questions[questNum].quest, answerId: answer.a_id, answerText: answer.text }])}
                   checked={answers.length !== 0 && answers?.filter((a) => a.answerId === answer.a_id)[0]?.answerId === answer.a_id}
                 />
-                <label className='text-xl w-full py-3 cursor-pointer' htmlFor={answer.a_id}>{answer.text}</label>
+                <label className='sm:text-xl w-full py-3 cursor-pointer' htmlFor={answer.a_id}>{answer.text}</label>
               </div>
             )
           }
@@ -123,7 +122,7 @@ const TestRunPage = ({ params }) => {
                   )}
                   checked={answers.length !== 0 && checkAnswerVariants(answers?.filter((a) => a.q_id === testData.questions[questNum].q_id)[0]?.variants, answer.a_id)}
                 />
-                <label className='text-xl w-full py-3 cursor-pointer' htmlFor={answer.a_id}>{answer.text}</label>
+                <label className='sm:text-xl w-full py-3 cursor-pointer' htmlFor={answer.a_id}>{answer.text}</label>
               </div>
             )
           }
@@ -156,7 +155,7 @@ const TestRunPage = ({ params }) => {
           <div className='w-full flex justify-end'>
             {answers.length === testData.questions.length &&
                 <button
-                  className='text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md shadow-md'
+                  className='hidden sm:block text-white bg-green-500 hover:bg-green-600 px-2 py-1 rounded-md shadow-md'
                   type='button'
                   onClick={handleSave}
                 >
@@ -166,6 +165,18 @@ const TestRunPage = ({ params }) => {
           </div>
         </div>
         
+        <div className='sm:hidden w-full flex justify-center'>
+            {answers.length === testData.questions.length &&
+                <button
+                  className='text-white bg-green-500 hover:bg-green-600 px-2 py-1 mb-5 rounded-md shadow-md'
+                  type='button'
+                  onClick={handleSave}
+                >
+                  Завершить тест
+                </button>
+            }
+          </div>
+
       </div>
     </div>
   )

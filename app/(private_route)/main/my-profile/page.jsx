@@ -58,8 +58,9 @@ const MyProfilePage = () => {
 
   return (
     <div className="font-rubik px-5 md:px-20 unselectable">
-      <div className='flex gap-20'>
-        <div className='mt-20'>
+      <div className='md:flex gap-20'>
+        <h1 className='text-4xl mt-12 md:mt-0 md:hidden'>Мой профиль</h1>
+        <div className='mt-10 md:mt-20'>
           <input
             className='hidden'
             type='file'
@@ -68,7 +69,7 @@ const MyProfilePage = () => {
             accept='.jpg, .jpeg, .png'
           />
           <label
-            className='relative block max-w-[300px] bg-white dark:bg-neutral-800 cursor-pointer rounded-md overflow-hidden'
+            className='relative block max-w-full sm:max-w-[300px] mx-auto bg-white dark:bg-neutral-800 cursor-pointer rounded-md shadow-md overflow-hidden'
             htmlFor='profile-photo'
           >
             <div className='w-[300px] h-[300px]'>
@@ -77,68 +78,67 @@ const MyProfilePage = () => {
                 : <PersonIcon className='fill-black dark:fill-neutral-600' width='300px' height='300px' />
               }
             </div>
-            <div className='absolute top-0 right-0 bottom-0 left-0 grid place-items-center opacity-0 hover:opacity-100 dark:hover:bg-[rgba(0,0,0,0.7)] transition-all'>
-              <p className='text-center align-middle'>Загрузить фото</p>
+            <div className='absolute top-0 right-0 bottom-0 left-0 grid place-items-center opacity-0 hover:opacity-100 hover:bg-[rgba(0,0,0,0.4)] dark:hover:bg-[rgba(0,0,0,0.7)] transition-all'>
+              <p className='text-center text-white align-middle'>Загрузить фото</p>
             </div>
           </label>
           <button
-            className='block w-full bg-violet-500 p-2 rounded-md mt-5 disabled:bg-neutral-500 cursor-pointer shadow-lg'
+            className='block min-w-full sm:min-w-[300px] mx-auto text-white bg-violet-500 p-2 rounded-md mt-5 disabled:bg-neutral-500 cursor-pointer shadow-lg'
             type='button'
             onClick={uploadImage}
             disabled={!selectedImage}
           >
             Обновить фото</button>
         </div>
-        <div className='w-full'>
-          <h1 className='text-4xl mb-10'>Мой профиль</h1>
-          <div className='flex flex-col gap-5 bg-white dark:bg-neutral-800 p-10 rounded-md shadow-lg'>
+        <div className='w-full mt-10 md:mt-0 mb-10 md:mb-0'>
+          <h1 className='text-4xl mb-10 hidden md:block'>Мой профиль</h1>
+          <div className='flex flex-col gap-5 bg-white dark:bg-neutral-800 p-5 md:p-10 rounded-md shadow-lg'>
             <div>
-              <h2 className='text-2xl'>{data?.user?.lastname} {data?.user?.firstname} {data?.user?.middlename}</h2>
-              <p className='text-neutral-400'>
-                {data?.user?.role === 'seller-pk' && 'Продавец-консультант'}
-                {data?.user?.role === 'seller-zum' && 'Заместитель управляющего магазином'}
-                {data?.user?.role === 'seller-um' && 'Управляющий магазином'}
+              <h2 className='text-2xl text-left text-neutral-800 dark:text-white'>{data?.user?.lastname} {data?.user?.firstname} {data?.user?.middlename}</h2>
+              <p className='text-neutral-400 text-left'>
+                {data?.user?.position === 'pk' && 'Продавец-консультант'}
+                {data?.user?.position === 'zum' && 'Заместитель управляющего магазином'}
+                {data?.user?.position === 'um' && 'Управляющий магазином'}
               </p>
             </div>
             <div className='flex flex-col gap-5'>
               <div className='flex flex-col gap-5'>
                 <div className='flex justify-center items-center gap-5'>
                   <hr className='w-full dark:border-neutral-700' />
-                  <h3 className='text-xl text-neutral-400 flex-shrink-0'>Общие данные</h3>
+                  <h3 className='md:text-xl text-neutral-400 flex-shrink-0'>Общие данные</h3>
                   <hr className='w-full dark:border-neutral-700' />
                 </div>
                 <p className='flex gap-5'>
-                  <span className='text-neutral-400'>Дата рождения:</span>
-                  <span>{data?.user?.birthday}</span>
+                  <span className='text-neutral-400 text-sm'>Дата рождения:</span>
+                  <span className='text-neutral-800 dark:text-white text-sm md:text-base'>{data?.user?.birthday}</span>
                 </p>
                 <p className='flex gap-5'>
-                  <span className='text-neutral-400'>В компании:</span>
-                  <span>c Января 2020 года (3 года 7 месяцев)</span>
+                  <span className='text-neutral-400 text-sm md:text-base'>В компании:</span>
+                  <span className='text-neutral-800 dark:text-white text-sm md:text-base'>...</span>
                 </p>
                 <p className='flex gap-5'>
-                  <span className='text-neutral-400'>Стаж работы:</span>
-                  <span>3 года 7 месяцев</span>
+                  <span className='text-neutral-400 text-sm md:text-base'>Стаж работы:</span>
+                  <span className='text-neutral-800 dark:text-white text-sm md:text-base'>...</span>
                 </p>
               </div>
               <div className='flex flex-col gap-3'>
                 <div className='flex justify-center items-center gap-5'>
                   <hr className='w-full dark:border-neutral-700' />
-                  <h3 className='text-xl text-neutral-400 flex-shrink-0'>Контакты</h3>
+                  <h3 className='md:text-xl text-neutral-400 flex-shrink-0'>Контакты</h3>
                   <hr className='w-full dark:border-neutral-700' />
                 </div>
                 <p className='flex gap-5'>
-                  <span className='text-neutral-400'>Номер телефона:</span>
-                  <span> {data?.user?.phone}</span>
+                  <span className='text-neutral-400 text-sm md:text-base'>Номер телефона:</span>
+                  <span className='text-neutral-800 dark:text-white text-sm md:text-base'> {data?.user?.phone}</span>
                 </p>
                 <p className='flex gap-5'>
-                  <span className='text-neutral-400'>Электронная почта:</span>
-                  <span>{data?.user?.email}</span>
+                  <span className='text-neutral-400 text-sm md:text-base'>Email:</span>
+                  <span className='text-neutral-800 dark:text-white text-sm md:text-base'> {data?.user?.email}</span>
                 </p>
               </div>
             </div>
           </div>
         </div>
-        {/* <DevelopPage /> */}
       </div>
     </div>
   )

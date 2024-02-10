@@ -34,7 +34,7 @@ const TestsPage = () => {
   if (loading) return <BarsLoader />
 
   return (
-    <div className="font-rubik px-5 md:px-20">
+    <div className="font-rubik px-5 md:px-20 mb-10 sm:mb-0">
       <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Тесты и опросы</h1>
       <div className="flex items-center gap-5 py-5">
         <div className="relative">
@@ -64,13 +64,13 @@ const TestsPage = () => {
       {currentTab === 'tests' &&
         <>
         {testList.length !== 0 ? (
-          <ul className='flex justify-start gap-5 shrink'>
+          <ul className='flex flex-col sm:flex-row justify-start gap-5 shrink'>
             {testList.map((testItem) =>
-              <li className='max-w-[50%] md:max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl cursor-pointer' key={testItem._id}>
+              <li className='max-w-full sm:max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:scale-105 transition cursor-pointer' key={testItem._id}>
                 <Link href={`/main/tests/${testItem._id}/preview`}>
                   {testItem.image
                     ?
-                      <div className="relative w-[300px] h-[200px]">
+                      <div className="relative w-full sm:w-[300px] h-[200px]">
                         <CldImage
                           src={testItem.image.public_id}
                           sizes='300px'

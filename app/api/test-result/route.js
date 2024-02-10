@@ -1,6 +1,5 @@
 import { connectToDB } from "@utils/database";
 import TestResult from "@models/testResult";
-import { testQuestions } from "@models/examp";
 import User from "@models/user";
 import Test from "@models/test";
 
@@ -27,22 +26,6 @@ export const GET = async (request) => {
 export const POST = async (request) => {
     const { test_id, title, forPosition, answers, userId, startTime, finishTime } = await request.json();
     
-    // testQuestion is imitated DB.
-    // answers.forEach((answer) => {
-    //   testQuestions.forEach((quest) => {
-    //     quest.answers.forEach((a) => {
-    //       if (a.a_id === answer.answerId) {
-    //         trueAnswers = trueAnswers + a.value;
-    //         if (a.value === 1) {
-    //           answer.isTrue = true;
-    //         } else {
-    //           answer.isTrue = false;
-    //         }
-    //       }
-    //     })
-    //   })
-    // })
-
   try {
     await connectToDB();
     const existTest = await Test.findById(test_id);
@@ -51,19 +34,45 @@ export const POST = async (request) => {
     let result = 0;
 
     answers.forEach((answer) => {
-      existTest.questions.forEach((quest) => {
-        quest.answers.forEach((a) => {
-          if (a.a_id === answer.answerId) {
-            trueAnswers = trueAnswers + a.value;
-            if (a.value === 1) {
+
+      if (answer.type === 'Единственный выбор') {
+        existTest.questions.forEach((quest) => {
+          quest.answers.forEach((a) => {
+            if (a.a_id === answer.answerId) {
+              trueAnswers = trueAnswers + a.value;
+              if (a.value === 1) {
+                answer.isTrue = true;
+              } else {
+                answer.isTrue = false;
+              }
+            }
+          })
+        })
+      }
+
+      if (answer.type === 'Множественный выбор') {
+        existTest.questions.forEach((quest) => {
+          if (quest.q_id === answer.q_id) {
+            const sumValue = quest.answers.filter((a) => a.value === 1).length;
+            let resultValue = 0;
+            quest.answers.forEach((a) => {
+              answer.variants.forEach((variant) => {
+                if (variant.answerId === a.a_id) {
+                  resultValue = resultValue + a.value;
+                }
+              })
+            })
+            if (resultValue === sumValue) {
+              trueAnswers = trueAnswers + 1;
               answer.isTrue = true;
             } else {
               answer.isTrue = false;
             }
           }
         })
-      })
+      }
     })
+
     result = (100 / answers.length * trueAnswers).toFixed(1);
 
     const testResultItem = new TestResult({ title, forPosition, answers: [...answers], trueAnswers, result, userId, startTime, finishTime });

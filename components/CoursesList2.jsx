@@ -27,7 +27,7 @@ const CoursesList2 = () => {
 
       <ul className='flex justify-start gap-5 md:gap-10'>
 
-        <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
+        <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition cursor-pointer'>
           <Image
             className='rounded-t-lg'
             src='/assets/images/course_07.jpg'
@@ -36,12 +36,12 @@ const CoursesList2 = () => {
             height={200}
           />
           <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2 className='text-sm md:text-base'>Название курса 1</h2>
+            <h2 className='text-sm md:text-base'>Работа со сложными клиентами</h2>
             <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base shadow-md rounded-2xl px-2 py-1'>новый</div>
           </div>
         </li>
 
-        <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
+        <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition cursor-pointer'>
           <Image
             className='rounded-t-lg'
             src='/assets/images/course_08.jpg'
@@ -50,12 +50,12 @@ const CoursesList2 = () => {
             height={200}
           />
           <div className='h-[100px] flex flex-col justify-between items-start p-3'>
-            <h2 className='text-sm md:text-base'>Название курса 2</h2>
+            <h2 className='text-sm md:text-base'>Рпабота с плательщиками</h2>
             <div className='bg-violet-500 dark:bg-violet-500 text-white text-xs md:text-base rounded-2xl px-2 py-1'>новый</div>
           </div>
         </li>
 
-        <li className='hidden md:block bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl cursor-pointer'>
+        <li className='hidden md:block bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition cursor-pointer'>
           <Image
             className='rounded-t-lg'
             src='/assets/images/course_09.jpg'

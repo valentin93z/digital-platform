@@ -80,6 +80,7 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
 
           <div className='w-full h-auto'>
 
+            {/* Добавление вопроса с единственным выбором правильного ответа */}
             {newQuest.type === 'Единственный выбор' &&
               <div className='h-full flex flex-col justify-between gap-3'>
                 <div className='flex flex-col gap-3'>
@@ -140,6 +141,7 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
               </div>
             }
 
+            {/* Добавление вопроса с множественным выбором правильных ответов */}
             {newQuest.type === 'Множественный выбор' &&
               <div className='h-full flex flex-col justify-between gap-3'>
                 <div className='flex flex-col gap-3'>
@@ -167,7 +169,11 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
                           name='checkbox-answer-group'
 
                           // Добавление нескольких правильных ответов
-                          onChange={(e) => setNewQuest(answer.value === 1 ? ({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), {...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 0}]}) : ({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), {...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 1}]}))}
+                          onChange={(e) => setNewQuest(
+                            answer.value === 1
+                              ? ({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), {...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 0}]})
+                              : ({...newQuest, answers: [...newQuest.answers.filter((a) => a.a_id !== answer.a_id), {...newQuest.answers.filter((a) => a.a_id === answer.a_id)[0], value: 1}]})
+                          )}
                           //////////////////////
                         />
                         <label htmlFor={`checkbox-${answer.a_id}`}></label>
