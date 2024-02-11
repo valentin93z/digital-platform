@@ -1,5 +1,7 @@
 'use client';
 import { useState } from "react";
+import EditIcon from "./icons/EditIcon";
+import DeleteIcon from "./icons/DeleteIcon";
 
 const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen, setMoreModalIsOpen, setExistUser }) => {
 
@@ -34,7 +36,7 @@ const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen, 
 
   return (
     <li
-      className="font-rubik text-sm grid grid-cols-[40px_200px_120px_80px_260px_40px] items-center gap-2 bg-white dark:bg-neutral-800 shadow-lg p-2 rounded-md cursor-pointer"
+      className="font-rubik text-sm flex justify-between gap-2 bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg p-2 rounded-md cursor-pointer border border-solid border-neutral-300 hover:border-violet-500 dark:border-neutral-800 dark:hover:border-neutral-700"
       onClick={modalIsOpen}
     >
       <div className="flex justify-center items-center">
@@ -44,59 +46,57 @@ const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen, 
           </svg>
         </div>
       </div>
-      <div>
+      <div className="w-[200px]">
         <p>{user.lastname} {user.firstname}</p>
         <p>{user.middlename}</p>
       </div>
-      <div className="text-right">
+      <div className="hidden lg:block w-[120px] text-right">
         {translateRole(user.role)}
       </div>
-      <div className="text-right">
+      <div className="hidden sm:block w-[60px]">
+        <p>{user.direction ? user.direction : '-'}</p>
+        <p>{user.sector ? user.sector : ''}</p>
+      </div>
+      <div className="hidden sm:block w-[120px]">
+        <p>{user.store ? user.store : '-'}</p>
+      </div>
+      <div className="hidden xl:block w-[80px] text-right">
         <p>{user.birthday}</p>
       </div>
-      <div className="text-right">
+      <div className="hidden xl:block w-[260px] text-right">
         <p>{user.phone}</p>
         <p>{user.email}</p>
       </div>
-      <div
-        className="relative flex justify-center items-center cursor-pointer"
-        onClick={() => setDropMenuIsOpen(!dropMenuIsOpen)}
-      >
-        <svg className='w-[24px] h-[24px] fill-black dark:fill-white' xmlns="http://www.w3.org/2000/svg"viewBox="0 -960 960 960">
-          <path d="M480.5-114q-39.5 0-67.5-27.906T385-209q0-39.6 27.906-67.8Q440.812-305 480-305q40 0 67.5 28.075t27.5 67.5Q575-170 547.5-142t-67 28Zm0-271q-39.5 0-67.5-27.906T385-480q0-40 27.906-67.5T480-575q40 0 67.5 27.5t27.5 67q0 39.5-27.5 67.5t-67 28Zm0-270q-39.5 0-67.5-28.283t-28-68Q385-791 412.906-818.5T480-846q40 0 67.5 27.5t27.5 67.217q0 39.717-27.5 68T480.5-655Z"/>
-        </svg>
-
-        {dropMenuIsOpen &&
-          <ul className="absolute bottom-[-75px] right-0 flex flex-col gap-1 bg-white dark:bg-neutral-800 shadow-xl rounded-md p-2 z-[68]">
-            <li
-              className="text-black dark:text-white hover:text-violet-500 dark:hover:text-violet-500"
-              onClick={() => {
-                setNewUser({
-                  _id: user._id,
-                  username: user.username,
-                  password: '',
-                  role: user.role,
-                  firstname: user.firstname,
-                  lastname: user.lastname,
-                  middlename: user.middlename,
-                  email: user.email,
-                  phone: user.phone,
-                  birthday: user.birthday,
-                  image: user.image,
-                });
-                setEditModalIsOpen(true);
-              }}
-            >
-              Изменить
-            </li>
-            <li
-              className="text-black dark:text-white hover:text-violet-500 dark:hover:text-violet-500"
-              onClick={() => handleDelete(user._id)}
-            >
-              Удалить
-            </li>
-          </ul>
-        }
+      <div className="relative flex justify-center items-center gap-2" onClick={(e) => e.stopPropagation()}>
+        <button
+          className="bg-neutral-400 hover:bg-neutral-500 dark:bg-neutral-600 dark:hover:bg-neutral-700 text-white shadow-md hover:shadow-lg rounded-md p-2"
+          type='button'
+          onClick={() => {
+            setNewUser({
+              _id: user._id,
+              username: user.username,
+              password: '',
+              role: user.role,
+              firstname: user.firstname,
+              lastname: user.lastname,
+              middlename: user.middlename,
+              email: user.email,
+              phone: user.phone,
+              birthday: user.birthday,
+              image: user.image,
+            });
+            setEditModalIsOpen(true);
+          }}
+        >
+          <EditIcon className='block fill-white' width={20} height={20} />
+        </button>
+        <button
+          className="bg-red-600 hover:bg-red-700 text-white shadow-md hover:shadow-lg rounded-md p-2"
+          type='button'
+          onClick={() => handleDelete(user._id)}
+        >
+          <DeleteIcon className='block fill-white' width={20} height={20} />
+        </button>
       </div>
     </li>
   )

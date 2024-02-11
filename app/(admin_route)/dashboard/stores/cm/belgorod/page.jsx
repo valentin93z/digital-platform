@@ -155,9 +155,9 @@ const BelgorodStoresPage = () => {
             </div>
             <div className="min-w-[207px] text-right">Управление</div>
           </div>
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2 mb-10">
             {storesList.map((store) =>
-              <li className="grid grid_cols_2_stores justify-between items-center gap-10 bg-white dark:bg-neutral-800 shadow-lg p-2 rounded-md border border-solid border-neutral-300 dark:border-neutral-800" key={store._id}>
+              <li className="grid grid_cols_2_stores justify-between items-center gap-10 bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg p-2 rounded-md border cursor-pointer border-solid border-neutral-300 hover:border-violet-500 dark:border-neutral-800 dark:hover:border-neutral-700" key={store._id}>
                 <div className="grid grid_cols_3_stores gap-3">
                   <div>{store.title}</div>
                   <div>{store.direction}</div>
