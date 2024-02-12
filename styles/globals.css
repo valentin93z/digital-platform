@@ -47,7 +47,7 @@
 }
 
 .grid_cols_2_stores {
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr auto;
 }
 
 .grid_cols_3_stores {

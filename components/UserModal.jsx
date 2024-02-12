@@ -11,7 +11,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
       onClick={() => setModalIsOpen(false)}
     >
       <div
-        className='max-w-full sm:max-w-md max-h-[95vh] sm:max-h-[90vh] bg-neutral-100 dark:bg-neutral-800 sm:rounded-2xl opacity-100 px-8 py-5 overflow-y-scroll'
+        className='w-full sm:max-w-md max-h-[100vh] sm:max-h-[90vh] bg-neutral-100 dark:bg-neutral-800 sm:rounded-2xl opacity-100 px-8 py-5 overflow-y-scroll'
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="text-xl text-center text-neutral-800 dark:text-white pb-5">{title}</h1>

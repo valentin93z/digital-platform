@@ -23,9 +23,9 @@ const StoresPage = () => {
   }, []);
 
   return (
-    <div className="font-rubik px-5 md:px-20">
-      <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5 mb-10">Направления</h1>
-      <ul className="flex justify-start gap-10">
+    <div className="font-rubik px-5 md:px-20 mt-10 md:mt-0">
+      <h1 className="text-4xl text-neutral-700 dark:text-white py-5 mb-10">Направления</h1>
+      <ul className="flex sm:flex-row flex-col sm:justify-start justify-center items-center gap-10 flex-wrap mb-10">
         <li className='bg-white dark:bg-neutral-800 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 hover:text-violet-500 transition-all'>
           <Link href='/dashboard/stores/cm'>
             <div className="relative w-[300px] h-[200px]">

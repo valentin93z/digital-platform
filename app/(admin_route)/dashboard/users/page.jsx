@@ -57,6 +57,7 @@ const UsersPage = () => {
   const handleReset = (e) => {
     e.preventDefault();
     setNewModalIsOpen(false);
+    setEditModalIsOpen(false);
     setNewUser({
       _id: '',
       username: '',
@@ -238,7 +239,7 @@ const UsersPage = () => {
       {newModalIsOpen &&
         <UserModal
           type='new'
-          title='Добавление нового пользователя'
+          title='Добавление пользователя'
           newUser={newUser}
           setNewUser={setNewUser}
           setModalIsOpen={setNewModalIsOpen}

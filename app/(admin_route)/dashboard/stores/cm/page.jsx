@@ -22,11 +22,11 @@ const CmStoresPage = () => {
   }, []);
 
     return (
-      <div className="font-rubik px-5 md:px-20">
-        <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5 mb-10">Сектор</h1>
-        <ul className="flex items-start gap-5">
+      <div className="font-rubik px-5 md:px-20 mt-10 md:mt-0">
+        <h1 className="text-4xl text-neutral-700 dark:text-white py-5 mb-10">Сектор</h1>
+        <ul className="w-full flex flex-col sm:flex-row justify-start items-center gap-5 flex-wrap mb-10">
           <li>
-            <Link className="w-[300px] h-[200px] grid place-items-center bg-violet-700 rounded-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/belgorod'>
+            <Link className="w-[250px] h-[150px] grid place-items-center bg-violet-700 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/belgorod'>
               <div>
                 <p className="text-3xl text-center text-white">Белгород</p>
                 <p className="text-sm text-center text-neutral-200">{`${storesLength.belgorod} ${getNoun(storesLength.belgorod, 'торговая точка', 'торговых точки', 'торговых точек')}`}</p>
@@ -34,7 +34,7 @@ const CmStoresPage = () => {
             </Link>
           </li>
           <li>
-            <Link className="w-[300px] h-[200px] grid place-items-center bg-violet-700 rounded-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/stariy-oskol'>
+            <Link className="w-[250px] h-[150px] grid place-items-center bg-violet-700 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/stariy-oskol'>
               <div>
                 <p className="text-3xl text-center text-white">Старый Оскол</p>
                 <p className="text-sm text-center text-neutral-200">{`${storesLength.so} ${getNoun(storesLength.so, 'торговая точка', 'торговых точки', 'торговых точек')}`}</p>
@@ -42,7 +42,7 @@ const CmStoresPage = () => {
             </Link>
           </li>
           <li>
-            <Link className="w-[300px] h-[200px] grid place-items-center bg-violet-700 rounded-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/kursk1'>
+            <Link className="w-[250px] h-[150px] grid place-items-center bg-violet-700 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/kursk1'>
               <div>
                 <p className="text-3xl text-center text-white">Курск 1</p>
                 <p className="text-sm text-center text-neutral-200">{`${storesLength.kursk1} ${getNoun(storesLength.kursk1, 'торговая точка', 'торговых точки', 'торговых точек')}`}</p>
@@ -50,7 +50,7 @@ const CmStoresPage = () => {
             </Link>
           </li>
           <li>
-            <Link className="w-[300px] h-[200px] grid place-items-center bg-violet-700 rounded-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/kursk2'>
+            <Link className="w-[250px] h-[150px] grid place-items-center bg-violet-700 rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all" href='/dashboard/stores/cm/kursk2'>
               <div>
                 <p className="text-3xl text-center text-white">Курск 2</p>
                 <p className="text-sm text-center text-neutral-200">{`${storesLength.kursk2} ${getNoun(storesLength.kursk2, 'торговая точка', 'торговых точки', 'торговых точек')}`}</p>

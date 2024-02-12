@@ -134,9 +134,15 @@ const BelgorodStoresPage = () => {
   }, [newStore.direction]);
 
     return (
-      <div className="font-rubik px-5 md:px-20">
+      <div className="font-rubik px-5 md:px-20 mt-10 md:mt-0">
         <div className="flex justify-between items-center mb-10">
-          <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">{`Сектор: Белгород - ${storesList.length} ${getNoun(storesList.length, 'торговая точка', 'торговых точки', 'торговых точек')}`}</h1>
+          <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">
+            <span>Сектор: </span>
+            <span>Белгород </span>
+            <span className="hidden sm:inline">-</span>
+            <br className="block sm:hidden" />
+            <span>{` ${storesList.length} ${getNoun(storesList.length, 'торговая точка', 'торговых точки', 'торговых точек')}`}</span>
+          </h1>
           <button
             className="flex items-center gap-3 bg-violet-500 rounded-md px-2 py-3 hover:bg-violet-600 shadow-lg hover:shadow-xl cursor-pointer"
             type="button"
@@ -148,22 +154,28 @@ const BelgorodStoresPage = () => {
         </div>
         <div>
           <div className="grid grid_cols_2_stores justify-between items-center gap-10 p-2">
-            <div className="grid grid_cols_3_stores gap-3">
+            <div className="hidden xl:grid grid_cols_3_stores gap-3">
               <div>Название ТТ</div>
               <div>Направление</div>
               <div>Сектор</div>
             </div>
-            <div className="min-w-[207px] text-right">Управление</div>
+            <div className="block xl:hidden">
+              <div>Название ТТ</div>
+            </div>
+            <div className="min-w-[60px] text-right">Управление</div>
           </div>
           <ul className="flex flex-col gap-2 mb-10">
             {storesList.map((store) =>
               <li className="grid grid_cols_2_stores justify-between items-center gap-10 bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg p-2 rounded-md border cursor-pointer border-solid border-neutral-300 hover:border-violet-500 dark:border-neutral-800 dark:hover:border-neutral-700" key={store._id}>
-                <div className="grid grid_cols_3_stores gap-3">
+                <div className="hidden xl:grid grid_cols_3_stores gap-3">
                   <div>{store.title}</div>
                   <div>{store.direction}</div>
                   <div>{store.sector}</div>
                 </div>
-                <div className="flex justify-end items-center min-w-[207px] gap-3">
+                <div className="block xl:hidden">
+                  <div>{store.title}</div>
+                </div>
+                <div className="flex justify-end items-center min-w-[60px] gap-3">
                   <button
                     className="bg-neutral-400 hover:bg-neutral-500 dark:bg-neutral-600 dark:hover:bg-neutral-700 text-white shadow-md hover:shadow-lg rounded-md p-2"
                     type='button'
