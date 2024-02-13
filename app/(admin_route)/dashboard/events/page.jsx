@@ -34,7 +34,7 @@ const EventsPage = () => {
   return (
     <div className="font-rubik px-5 md:px-20 unselectable">
       <div className="mb-10">
-        <h1 className="text-3xl text-neutral-800 dark:text-white">Мероприятия</h1>
+        <h1 className="text-3xl text-neutral-700 dark:text-white">Мероприятия</h1>
       </div>
       <div className="grid grid-cols-2 gap-10 mb-10">
         <div className='bg-white dark:bg-neutral-800 shadow-xl p-10 rounded-xl'>

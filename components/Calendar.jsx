@@ -35,7 +35,7 @@ const Calendar = ({ newEvent, setNewEvent }) => {
 
 
   return (
-    <div className='font-rubik w-full h-full'>
+    <div className='font-rubik text-neutral-700 dark:text-white w-full h-full'>
       <div className='flex justify-between items-center mb-5'>
         <button className='text-3xl font-light cursor-pointer pl-[40px] hover:text-violet-500' onClick={decrementMonth}>{'<'}</button>
         <p className='text-xl'>{`${monthName} ${year}г.`}</p>

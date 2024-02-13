@@ -3,7 +3,7 @@ import TimerIcon from "./icons/TimerIcon";
 
 const EventList = ({ events, newEvent }) => {
   return (
-    <div className="text-neutral-800 dark:text-white">
+    <div className="text-neutral-700 dark:text-white">
       <div className='flex flex-col gap-5'>
         <h1 className='text-xl text-center'>{`${newEvent.day} ${getMonthName(newEvent.month)} ${newEvent.year}г.`}</h1>
         <div className="flex justify-between items-center gap-5">
@@ -30,7 +30,7 @@ const EventList = ({ events, newEvent }) => {
                 </p>
               </div>
               <div className="flex flex-col justify-center items-center">
-                <TimerIcon className='block fill-neutral-800 dark:fill-white' width={32} height={32} />
+                <TimerIcon className='block fill-neutral-700 dark:fill-white' width={32} height={32} />
                 <p className="text-sm text-right">{event.duration}</p>
               </div>
               <div>
