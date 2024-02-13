@@ -14,12 +14,12 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
         className='w-full sm:max-w-md max-h-[100vh] sm:max-h-[90vh] bg-neutral-100 dark:bg-neutral-800 sm:rounded-2xl opacity-100 px-8 py-5 overflow-y-scroll'
         onClick={(e) => e.stopPropagation()}
       >
-        <h1 className="text-xl text-center text-neutral-800 dark:text-white pb-5">{title}</h1>
+        <h1 className="text-xl text-center text-neutral-700 dark:text-white pb-5">{title}</h1>
         <form className="flex flex-col gap-4" onSubmit={type === 'new' ? handleSave : handleEdit}>
           <hr className="m-2 dark:border-neutral-900"/>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Логин'
               value={newUser.username}
@@ -29,7 +29,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           {type === 'new' &&
             <div>
               <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
                 type='text'
                 placeholder='Пароль'
                 value={newUser.password}
@@ -40,7 +40,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           <hr className="m-2 dark:border-neutral-900"/>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Фамилия'
               value={newUser.lastname}
@@ -49,7 +49,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           </div>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Имя'
               value={newUser.firstname}
@@ -58,7 +58,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           </div>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Отчество'
               value={newUser.middlename}
@@ -67,7 +67,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           </div>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Дата рождения'
               value={newUser.birthday}
@@ -77,7 +77,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           <hr className="m-2 dark:border-neutral-900"/>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Номер телефона'
               value={newUser.phone}
@@ -86,7 +86,7 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           </div>
           <div>
             <input
-              className="block w-full rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
+              className="block w-full text-neutral-700 dark:text-white rounded-md shadow-md bg-white dark:bg-neutral-900 outline-violet-500 dark:outline-violet-500 p-2"
               type='text'
               placeholder='Email'
               value={newUser.email}
@@ -155,7 +155,13 @@ const UserModal = ({ type, title, newUser, setNewUser, setModalIsOpen, handleSav
           </div> */}
 
           <div className="grid grid-cols-2 gap-5 mt-5">
-            <OutlinedButton type='button' text='Отмена' onClick={handleReset} />
+            <button
+              className="bg-neutral-500 hover:bg-neutral-600 text-white rounded-md px-3 py-2"
+              type='button'
+              onClick={handleReset} 
+            >
+              Отмена
+            </button>
             <FilledVioletButton type='submit' text='Сохранить' />
           </div>
         </form>

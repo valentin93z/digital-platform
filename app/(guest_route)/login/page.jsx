@@ -28,24 +28,29 @@ const LoginPage = () => {
   }, [status]);
 
   return (
-    <section className='font-rubik w-full min-h-screen flex justify-center items-center relative'>
-      <form className='bg-neutral-200 dark:bg-neutral-800 py-5 px-5 rounded-sm flex flex-col gap-6' onSubmit={handleSubmit}>
-        <h1 className='dark:text-white font-semibold text-3xl text-center'>Вход</h1>
+    <section className='font-rubik bg-neutral-200 dark:bg-neutral-900 w-full min-h-screen flex justify-center items-center relative unselectable'>
+      <form className='bg-neutral-100 dark:bg-neutral-800 py-5 px-5 rounded-md shadow-lg flex flex-col gap-6' onSubmit={handleSubmit}>
+        <h1 className='text-neutral-700 dark:text-white font-semibold text-3xl text-center'>Вход</h1>
         <div className='flex flex-col gap-1'>
-          <p className='text-lg'>Логин</p>
+          <p className='text-lg text-neutral-700 dark:text-white'>Логин</p>
           <LoginInput
             loginData={loginData}
             setLoginData={setLoginData}
           />
         </div>
         <div className='flex flex-col gap-1'>
-          <p className='text-lg'>Пароль</p>
+          <p className='text-lg text-neutral-700 dark:text-white'>Пароль</p>
           <PasswordInput
             loginData={loginData}
             setLoginData={setLoginData}
           />
         </div>
-        <button className='w-full p-2 text-white bg-violet-500 dark:bg-violet-500 rounded-sm text-lg mt-5' type='submit'>Войти</button>
+        <button
+          className='w-full p-2 text-white bg-violet-500 dark:bg-violet-500 rounded-md shadow-md hover:shadow-lg text-lg mt-5'
+          type='submit'
+        >
+          Войти
+        </button>
       </form>
       <div className='absolute top-5 right-5'>
         <ThemeSwitch />

@@ -16,12 +16,10 @@ const EducationPage = () => {
       const coursesRes = await fetch('/api/course');
       const coursesData = await coursesRes.json();
       setCoursesLength(coursesData.length);
-      console.log(coursesData)
 
       const testsRes = await fetch('/api/tests');
       const testsData = await testsRes.json();
       setTestsLength(testsData.length);
-      console.log(testsData)
     }
     fetchMaterialsLength();
   }, []);

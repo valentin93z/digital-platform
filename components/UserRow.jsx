@@ -36,7 +36,7 @@ const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen, 
 
   return (
     <li
-      className="font-rubik text-sm flex justify-between gap-2 bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg p-2 rounded-md cursor-pointer border border-solid border-neutral-300 hover:border-violet-500 dark:border-neutral-800 dark:hover:border-neutral-700"
+      className="font-rubik text-sm text-neutral-700 dark:text-white flex justify-between gap-2 bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg p-2 rounded-md cursor-pointer border border-solid border-neutral-300 hover:border-violet-500 dark:border-neutral-800 dark:hover:border-neutral-700"
       onClick={modalIsOpen}
     >
       <div className="flex justify-center items-center">
@@ -50,20 +50,20 @@ const UserRow = ({ user, handleDelete, newUser, setNewUser, setEditModalIsOpen, 
         <p>{user.lastname} {user.firstname}</p>
         <p>{user.middlename}</p>
       </div>
-      <div className="hidden lg:block w-[120px] text-right">
+      <div className="hidden lg:flex justify-center items-center w-[120px] text-right">
         {translateRole(user.role)}
       </div>
-      <div className="hidden sm:block w-[60px]">
+      <div className="hidden sm:flex flex-col justify-center items-start w-[60px]">
         <p>{user.direction ? user.direction : '-'}</p>
         <p>{user.sector ? user.sector : ''}</p>
       </div>
-      <div className="hidden sm:block w-[120px]">
+      <div className="hidden sm:flex justify-start items-center w-[120px]">
         <p>{user.store ? user.store : '-'}</p>
       </div>
-      <div className="hidden xl:block w-[80px] text-right">
+      <div className="hidden xl:flex justify-end items-center w-[80px]">
         <p>{user.birthday}</p>
       </div>
-      <div className="hidden xl:block w-[260px] text-right">
+      <div className="hidden xl:flex flex-col justify-center items-end w-[260px] text-right">
         <p>{user.phone}</p>
         <p>{user.email}</p>
       </div>

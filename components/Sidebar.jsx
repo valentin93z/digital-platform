@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import NavIcons from './NavIcons';
+import { existPathname } from '@utils/existPathname';
 
 const Sidebar = () => {
 
@@ -28,13 +29,13 @@ const Sidebar = () => {
       <div className='flex flex-col items-center'>
         {NavIcons.map((icon, index) =>
           <div
-            className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${pathname === icon.link && 'bg-violet-500 dark:bg-violet-500'}`}
+            className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${existPathname(pathname) === icon.link ? 'bg-violet-500 dark:bg-violet-500' : ''}`}
             key={index}
           >
             <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
               <Link href={icon.link}>
                 <icon.element
-                  className={`transition-colors ${pathname === icon.link ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname !== icon.link && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+                  className={`transition-colors ${existPathname(pathname) === icon.link ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${existPathname(pathname) !== icon.link && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
                   width={40}
                   height={40}
                 />

@@ -84,61 +84,60 @@ const NewCoursePage = () => {
     }
     getTestList();
   }, []);
-  
-  console.log(testList);
+
 
   return (
-    <div className="font-rubik text-neutral-700 dark:text-white px-5 md:px-20">
-      <div className="mb-10">
-        <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Создание нового курса</h1>
+    <div className="min-h-[100vh] bg-neutral-100 dark:bg-neutral-900 font-rubik text-neutral-700 dark:text-white px-5 md:px-20 pb-10">
+      <div className="sm:mb-10">
+        <h1 className="text-2xl md:text-4xl text-neutral-700 dark:text-white py-5">Создание нового курса</h1>
       </div>
-      <div className="max-w-[600px] flex flex-col gap-5 mx-auto">
-        <div className="flex items-center gap-5">
+      <div className="max-w-[600px] flex flex-col gap-8 mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
           <p className="flex-shrink-0">Название курса</p>
           <input
-            className="w-full p-2 outline-none rounded-md"
+            className="w-full p-2 outline-none rounded-md shadow-md"
             type="text"
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="flex justify-between items-center gap-10">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-10">
           <p>Целевая аудитория</p>
           <ul className="flex items-center gap-5">
             {positions.map((position) =>
               <li className="flex items-center gap-2" key={position.value}>
                 <input
-                  className="cursor-pointer"
+                  className="w-[20px] h-[20px] shadow-md hover:shadow-lg cursor-pointer accent-violet-500"
                   type="checkbox"
                   id={position.value}
                   name='position'
                   value={position.value}
                   onClick={() => setForPosition(forPosition.includes(position.value) ? [...forPosition.filter((pos) => pos !== position.value)] : [...forPosition, position.value])}
                 />
-                <label htmlFor={position.title}>{position.title}</label>
+                <label className="text-sm sm:text-base" htmlFor={position.title}>{position.title}</label>
               </li>)}
           </ul>
         </div>
-        <div className="flex justify-between items-center gap-10">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-10">
           <p>Направление</p>
           <ul className="flex items-center gap-5">
             {directions.map((direction) =>
               <li className="flex items-center gap-2" key={direction.value}>
                 <input
-                  className="cursor-pointer"
+                  className="w-[20px] h-[20px] shadow-md hover:shadow-lg cursor-pointer accent-violet-500"
                   type="checkbox"
                   id={direction.value}
                   name='direction'
                   value={direction.value}
                   onClick={() => setForDirection(forDirection.includes(direction.value) ? [...forDirection.filter((dir) => dir !== direction.value)] : [...forDirection, direction.value])}
                 />
-                <label htmlFor={direction.title}>{direction.title}</label>
+                <label className="text-sm sm:text-base" htmlFor={direction.title}>{direction.title}</label>
               </li>)}
           </ul>
         </div>
-        <div className="flex gap-5">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-5">
           <p>Описание курса</p>
           <textarea
-            className="p-2 outline-none rounded-md"
+            className="p-2 outline-none rounded-md shadow-md resize-none"
             cols={50}
             rows={5}
             onChange={(e) => setDescription(e.target.value)}
@@ -158,11 +157,11 @@ const NewCoursePage = () => {
             onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
-        <div className="flex flex-col gap-5 dark:bg-neutral-800 rounded-md p-3">
+        <div className="flex flex-col gap-5 rounded-md">
           <div className="flex justify-between items-center gap-5">
             <p>Прикрепленный тест</p>
             <button
-              className="bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md"
+              className="text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md"
               type="button"
               onClick={() => setTestModal(true)}
             >
@@ -174,20 +173,29 @@ const NewCoursePage = () => {
               <p>{attachedTest.title}</p>
               <button
                 type="button"
-                className="bg-red-500 py-1 px-2 rounded-md"
+                className="bg-red-500 py-1 px-2 rounded-md shadow-md hover:shadow-lg"
                 onClick={() => setAttachedTest({ id: '', title: '' })}
               >
                 Удалить
               </button>
             </div>}
         </div>
-        <button
-          className="bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md"
+        <div className="flex justify-between items-center gap-5">
+          <button
+            className="w-full bg-neutral-500 hover:bg-neutral-600 text-white rounded-md shadow-md hover:shadow-lg px-3 py-2"
+            type="button"
+            onClick={() => router.push(`/dashboard/education/courses`)}
+          >
+            Отмена
+          </button>
+          <button
+          className="w-full text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-md hover:shadow-lg"
           type="button"
           onClick={handleSubmit}
         >
-          Save
+          Сохранить
         </button>
+        </div>
       </div>
 
       {TestModal && 

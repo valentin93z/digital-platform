@@ -10,7 +10,7 @@ const PasswordInput = ({ loginData, setLoginData }) => {
     return (
       <div className="relative">
         <input
-          className='p-2 outline-violet-800 dark:outline-violet-500 rounded-sm text-lg'
+          className='text-neutral-700 dark:text-white p-2 outline-violet-500 dark:outline-violet-500 rounded-md shadow-md text-lg'
           type={visibility ? 'text' : 'password'}
           placeholder='Введите пароль'
           value={loginData.password}
@@ -21,8 +21,8 @@ const PasswordInput = ({ loginData, setLoginData }) => {
           onClick={() => setVisibility(!visibility)}
         >
           {visibility
-            ? <VisibilityFalseIcon className='fill-black dark:fill-white' width='24px' height='24px' />
-            : <VisibilityTrueIcon className='fill-black dark:fill-white' width='24px' height='24px' />
+            ? <VisibilityFalseIcon className='fill-neutral-700 dark:fill-white hover:fill-neutral-800' width='24px' height='24px' />
+            : <VisibilityTrueIcon className='fill-neutral-700 dark:fill-white hover:fill-neutral-800' width='24px' height='24px' />
           }
         </div>
       </div>

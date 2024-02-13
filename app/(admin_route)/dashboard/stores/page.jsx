@@ -17,7 +17,6 @@ const StoresPage = () => {
         istore: storesData.filter((store) => store.direction === 'The iStore').length,
         xiaomi: storesData.filter((store) => store.direction === 'Xiaomi').length,
       });
-      console.log(storesData);
     }
     fetchStoresLength();
   }, []);

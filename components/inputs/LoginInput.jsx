@@ -2,7 +2,7 @@ const LoginInput = ({ loginData, setLoginData }) => {
   return (
     <>
       <input
-        className='p-2 outline-violet-800 dark:outline-violet-500 rounded-sm text-lg'
+        className='text-neutral-700 dark:text-white p-2 outline-violet-500 dark:outline-violet-500 rounded-md shadow-md text-lg'
         type='text'
         placeholder='Введите логин'
         value={loginData.login}

@@ -2,6 +2,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import NavIconsAdmin from './NavIconsAdmin';
+import { existPathname } from '@utils/existPathname';
 
 const SidebarAdmin = () => {
 
@@ -30,13 +31,13 @@ const SidebarAdmin = () => {
         <div className='flex flex-col items-center'>
             {NavIconsAdmin.map((icon, index) =>
             <div
-                className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${pathname === icon.link && 'bg-violet-500 dark:bg-violet-500'}`}
+                className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${existPathname(pathname) === icon.link && 'bg-violet-500 dark:bg-violet-500'}`}
                 key={index}
             >
                 <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
                 <Link href={icon.link}>
                     <icon.element
-                      className={`transition-colors ${pathname === icon.link ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname !== icon.link && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+                      className={`transition-colors ${existPathname(pathname) === icon.link ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${existPathname(pathname) !== icon.link && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
                       width={40}
                       height={40}
                       />
@@ -49,11 +50,11 @@ const SidebarAdmin = () => {
       </div>
 
       <div>
-        <div className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${pathname === '/dashboard/svk' && 'bg-violet-500 dark:bg-violet-500'}`}>
+        <div className={`relative w-full flex justify-center items-center p-3 transition-colors duration-300 ${existPathname(pathname) === '/dashboard/svk' && 'bg-violet-500 dark:bg-violet-500'}`}>
           <div className='w-full flex justify-center items-center cursor-pointer hover_parent'>
             <Link href='/dashboard/svk'>
               <svg
-                className={`transition-colors ${pathname === '/dashboard/svk' ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${pathname === '/dashboard/svk' && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
+                className={`transition-colors ${existPathname(pathname) === '/dashboard/svk' ? 'fill-white dark:fill-white' : 'fill-neutral-700 dark:fill-white'} ${existPathname(pathname) === '/dashboard/svk' && 'hover:fill-violet-500 dark:hover:fill-violet-500'}`}
                 xmlns="http://www.w3.org/2000/svg"
                 height="40"
                 viewBox="0 -960 960 960"
