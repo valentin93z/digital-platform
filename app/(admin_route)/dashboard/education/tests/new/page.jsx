@@ -83,36 +83,36 @@ const NewTestPage = () => {
   }
 
   return (
-    <div className="font-rubik text-neutral-700 dark:text-white px-5 md:px-20">
-      <div className="mb-10">
-        <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Создание нового теста</h1>
+    <div className="bg-neutral-100 dark:bg-neutral-900 font-rubik text-neutral-700 dark:text-white px-5 md:px-20 mb-10">
+      <div className="mt-10 md:mt-0 mb-5 md:mb-5">
+        <h1 className="text-2xl md:text-4xl text-neutral-700 dark:text-white sm:py-8">Создание нового теста</h1>
       </div>
-      <div className="flex justify-between gap-20">
-        <div className="min-w-[400px] flex flex-col gap-5">
-          <div className="flex gap-3 justify-between items-center">
-            <p>Название теста</p>
+      <div className="max-w-[600px] flex flex-col gap-8 mx-auto">
+        <div className="w-full flex flex-col gap-8">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+            <p className="flex-shrink-0">Название теста</p>
             <input
-              className='block w-[300px] rounded-md outline-violet-500 dark:outline-violet-500 p-2 shadow-md'
+              className='block w-full rounded-md outline-violet-500 dark:outline-violet-500 p-2 shadow-md'
               type='text'
               placeholder=''
               value={testTitle}
               onChange={(e) => setTestTitle(e.target.value)}
             />
           </div>
-          <div className="flex justify-between items-center gap-10">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-10">
             <p>Целевая аудитория</p>
             <ul className="flex items-center gap-5">
               {positions.map((position) =>
               <li className="flex items-center gap-2" key={position.value}>
                 <input
-                  className="cursor-pointer"
+                  className="w-[20px] h-[20px] shadow-md hover:shadow-lg cursor-pointer accent-violet-500"
                   type="checkbox"
                   id={position.value}
                   name='position'
                   value={position.value}
                   onClick={() => setForPosition(forPosition.includes(position.value) ? [...forPosition.filter((pos) => pos !== position.value)] : [...forPosition, position.value])}
                 />
-                <label htmlFor={position.title}>{position.title}</label>
+                <label className="text-sm sm:text-base" htmlFor={position.title}>{position.title}</label>
               </li>)}
             </ul>
           </div>
@@ -141,8 +141,8 @@ const NewTestPage = () => {
             />
           </div>
         </div>
-        <div className="w-full">
-          <div className="flex justify-between items-center gap-10 mb-5">
+        <div className="w-full flex flex-col gap-5">
+          <div className="flex justify-between items-center gap-5 mt-5">
             <h1 className="text-2xl">Вопросы</h1>
             <button
               className="bg-violet-500 text-white px-3 py-2 rounded-md hover:bg-violet-600 hover:shadow-xl shadow-lg"
@@ -178,7 +178,7 @@ const NewTestPage = () => {
               </div>
             </li>)}
           </ul>
-          <div className="flex justify-between items-center gap-5 mt-10">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-10">
             <p>Обложка теста</p>
             <div>
               <input
@@ -190,9 +190,16 @@ const NewTestPage = () => {
               />
             </div>
           </div>
-          <div className="flex justify-end mt-10">
+          <div className="flex justify-between items-center gap-5">
             <button
-              className="bg-violet-500 hover:bg-violet-600 hover:shadow-xl text-white px-3 py-2 rounded-md shadow-lg"
+              className="w-full bg-neutral-500 hover:bg-neutral-600 text-white rounded-md shadow-md hover:shadow-lg px-3 py-2"
+              type="button"
+              onClick={() => router.push(`/dashboard/education/tests`)}
+            >
+              Отмена
+            </button>
+            <button
+              className="w-full bg-violet-500 hover:bg-violet-600 hover:shadow-xl text-white px-3 py-2 rounded-md shadow-lg"
               type="button"
               onClick={handleSubmit}
             >
