@@ -37,12 +37,14 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
     }
 
     const dragEndHandler = (e) => {
-      e.target.style.background = '#F5F5F5';
+      ///
+      e.target.style.background = '';
     }
 
     const dragOverHandler = (e) => {
       e.preventDefault();
-      e.target.style.background = 'lightgray';
+      ///
+      e.target.style.background = '';
     }
 
     const dropHandler = (e, item) => {
@@ -56,7 +58,8 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
         }
         return i;
       })]});
-      e.target.style.background = '#F5F5F5';
+      ///
+      e.target.style.background = '';
     }
 
 
@@ -245,7 +248,6 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
                         onDragEnd={(e) => dragEndHandler(e)}
                         onDragOver={(e) => dragOverHandler(e)}
                         onDrop={(e) => dropHandler(e, answer)}
-
                       >
                         <div className='w-full flex items-center gap-2'>
                           <DragHableIcon
@@ -291,7 +293,7 @@ const NewQuestModal = ({ closeModal, question, setQuestion }) => {
             className='w-full text-white bg-violet-500 hover:bg-violet-600 px-3 py-2 rounded-md shadow-xl disabled:bg-neutral-700'
             type='button'
             onClick={handleAddQuest}
-            disabled={(newQuest.type === 'Открытый вопрос' || newQuest.type === 'Прикрепление файла' || newQuest.type === 'Шкала от 1 до 10' || newQuest.type === 'Пропущенное слово') || newQuest.answers.length === 0}
+            disabled={(newQuest.type === newQuest.type === 'Прикрепление файла' || newQuest.type === 'Шкала от 1 до 10' || newQuest.type === 'Пропущенное слово') || (newQuest.type !== 'Открытый вопрос' && newQuest.answers.length === 0)}
           >
             Сохранить
           </button>
