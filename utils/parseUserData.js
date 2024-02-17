@@ -43,3 +43,11 @@ export const parseRole = (role) => {
             return 'Неизвестно';
     }
 }
+
+
+export const parseDateFormat = (date) => {
+    const day = new Date(date).getDate() < 10 ? `0${new Date(date).getDate()}` : `${new Date(date).getDate()}`;
+    const month = new Date(date).getMonth() < 10 ? `0${new Date(date).getMonth()}` : `${new Date(date).getMonth()}`;
+    const year = `${new Date(date).getFullYear()}`;
+    return `${day}.${month}.${year}`;
+}

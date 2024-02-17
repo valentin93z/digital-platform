@@ -1,12 +1,12 @@
 'use client';
-import { useState } from "react";
-import { parsePosition, parseRole } from "@utils/parseUserData";
+import { useEffect, useState } from "react";
+import { parseDateFormat, parsePosition, parseRole } from "@utils/parseUserData";
 
 
-const UserMoreModal = ({ setModalIsOpen, existUser }) => {
+const UserMoreModal = ({ setModalIsOpen, existUser, fetchUsers }) => {
 
-  const [courseTab, setCourseTab] = useState('completed');
-  const [testTab, setTestTab] = useState('completed');
+  const [courseTab, setCourseTab] = useState('assigned');
+  const [testTab, setTestTab] = useState('assigned');
 
   const [assignModal, setAssignModal] = useState(false);
   const [assignModalType, setAssignModalType] =useState('');
@@ -14,31 +14,78 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
   const [allTestList, setAllTestList] = useState([]);
   const [allCourseList, setAllCourseList] = useState([]);
 
+  const fetchTestsList = async () => {
+    const testResponse = await fetch('/api/tests');
+    const allTestData = await testResponse.json();
+    setAllTestList(allTestData);
+  }
 
-  console.log(existUser);
+  const fetchCoursesList = async () => {
+    const courseResponse = await fetch('/api/course');
+    const allCourseData = await courseResponse.json();
+    setAllCourseList(allCourseData);
+  }
 
   const handleAssign = async (type) => {
     if (type === 'test') {
       setAssignModalType('test');
-      const testResponse = await fetch('/api/tests');
-      const allTestData = await testResponse.json();
-      setAllTestList(allTestData);
+      fetchTestsList();
     }
     if (type === 'course') {
       setAssignModalType('course');
-      const courseResponse = await fetch('/api/course');
-      const allCourseData = await courseResponse.json();
-      setAllCourseList(allCourseData);
+      fetchCoursesList();
     }
     setAssignModal(true);
   }
 
-  const handleConfirm = async (type, testId, userId) => {
+  const handleConfirm = async (type, resourse_id, resourse_title, resourse_attempts, user) => {
     if (confirm(`Назначить ${type}?`)) {
 
+      if (type === 'тест') {
+        if (user.tests.assigned.filter((test) => test.assign_test_id === resourse_id).length >= 1) {
+          alert('Тест уже был назначен!');
+        } else {
+          await fetch(`/api/users/${user._id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+              tests: {
+                assigned: [...user.tests.assigned, {
+                  assign_test_id: resourse_id,
+                  assign_test_title: resourse_title,
+                  assign_date: Date.now(),
+                  attempts: resourse_attempts,
+                }],
+              }
+            })
+          })
+        }
+      }
+
+      if (type === 'курс') {
+        if (user.courses.assigned.filter((course) => course.assign_course_id === resourse_id).length >= 1) {
+          alert('Курс уже был назначен!');
+        } else {
+          await fetch(`/api/users/${user._id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+              courses: {
+                assigned: [...user.courses.assigned, {
+                  assign_course_id: resourse_id,
+                  assign_course_title: resourse_title,
+                  assign_date: Date.now(),
+                  attempts: resourse_attempts,
+                }],
+              }
+            })
+          })
+        }
+      }
+      fetchUsers();
       setAssignModal(false);
     }
   }
+
+
 
   return (
     <div
@@ -57,7 +104,7 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
               {allTestList.map((test) =>
                 <li
                   className="hover:text-violet-500 cursor-pointer p-2"
-                  onClick={() => handleConfirm('тест', test._id, existUser._id)}
+                  onClick={() => handleConfirm('тест', test._id, test.title, test.attempts, existUser)}
                 >
                   {test.title}
                 </li>)}
@@ -69,7 +116,7 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
               {allCourseList.map((course) =>
                 <li
                   className="hover:text-violet-500 cursor-pointer p-2"
-                  onClick={() => handleConfirm('курс', course._id, existUser._id)}
+                  onClick={() => handleConfirm('курс', course._id, course.title, course.attempts, existUser)}
                 >
                   {course.title}
                 </li>)}
@@ -78,13 +125,13 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
         </div>
       :
       <div
-        className='max-w-full sm:max-w-5xl max-h-[100vh] sm:max-h-[90vh] text-neutral-700 dark:text-white bg-neutral-100 dark:bg-neutral-800 rounded-md sm:rounded-2xl opacity-100 p-5 overflow-y-scroll'
+        className='w-full sm:w-[450px] max-h-[100vh] sm:max-h-[90vh] text-neutral-700 dark:text-white bg-neutral-100 dark:bg-neutral-800 rounded-md sm:rounded-2xl opacity-100 p-5 overflow-y-scroll'
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col gap-5 mb-10">
           <div className="mb-3">
             <p className="text-2xl">{existUser.lastname} {existUser.firstname} {existUser.middlename}</p>
-            <p className="text-right">{parsePosition(existUser.position)}</p>
+            <p>{parsePosition(existUser.position)}</p>
           </div>
           <div className="flex flex-col gap-2">
             {existUser.direction &&
@@ -156,7 +203,13 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
                   {existUser.courses.assigned.length === 0
                     ? <p>Нет назначенных курсов</p>
                     : existUser.courses.assigned.map((course, index) =>
-                      <li>Курс {index + 1} назначен</li>)
+                      <li className="flex justify-between items-center gap-5">
+                        <p>
+                          <span className="mr-2">{index + 1}.</span>
+                          <span>{course.assign_course_title}</span>
+                        </p>
+                        <p>{parseDateFormat(course.assign_date)}</p>
+                      </li>)
                   }
                 </ul>
               }
@@ -193,7 +246,7 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
                 <ul className={`relative bg-white dark:bg-neutral-900 p-2 rounded-b-md shadow-md ${testTab === 'completed' ? 'rounded-tl-md' : ''}`}>
                   {existUser.tests.completed.length === 0
                     ? <p>Нет пройденных тестов</p>
-                    : existUser.tests.completed.map((course, index) =>
+                    : existUser.tests.completed.map((test, index) =>
                       <li>Тест {index + 1} пройден</li>)
                   }
                 </ul>
@@ -201,8 +254,14 @@ const UserMoreModal = ({ setModalIsOpen, existUser }) => {
                 <ul className={`relative bg-white dark:bg-neutral-900 p-2 rounded-b-md shadow-md ${testTab === 'assigned' ? 'rounded-tr-md' : ''}`}>
                   {existUser.tests.assigned.length === 0
                     ? <p>Нет назначенных тестов</p>
-                    : existUser.tests.assigned.map((course, index) =>
-                      <li>Тест {index + 1} назначен</li>)
+                    : existUser.tests.assigned.map((test, index) =>
+                      <li className="flex justify-between items-center gap-5">
+                        <p>
+                          <span className="mr-2">{index + 1}.</span>
+                          <span>{test.assign_test_title}</span>
+                        </p>
+                        <p>{parseDateFormat(test.assign_date)}</p>
+                      </li>)
                   }
                 </ul>
               }

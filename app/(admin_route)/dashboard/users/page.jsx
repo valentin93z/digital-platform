@@ -28,6 +28,7 @@ const UsersPage = () => {
   
   const [existUser, setExistUser] = useState({});
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [newUser, setNewUser] = useState({
     _id: '',
     username: '',
@@ -200,6 +201,10 @@ const UsersPage = () => {
     console.log(data);
   }
 
+  // const filterUsers = () => {
+    
+  // }
+
   useEffect(() => {
     fetchUsers();
     fetchData();
@@ -221,6 +226,9 @@ const UsersPage = () => {
             <p className="text-sm md:text-base text-white">Новый пользователь</p>
           </button>
         </div>
+      </div>
+      <div>
+        {/* Фильтр пользователей: направление, сектор, ТТ, должность, роль */}
       </div>
       <ul className="flex flex-col gap-2">
         {users?.map((user) =>
@@ -270,6 +278,7 @@ const UsersPage = () => {
         <UserMoreModal
           setModalIsOpen={setMoreModalIsOpen}
           existUser={existUser}
+          fetchUsers={fetchUsers}
         />
       }
     </div>
