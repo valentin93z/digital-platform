@@ -1,5 +1,6 @@
 'use client';
 import DonutChart from "@components/DonutChart";
+import BarsLoader from "@components/loader/BarsLoader";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
@@ -7,36 +8,34 @@ const ResultsPage = () => {
 
   const { data } = useSession();
 
+  const [loading, setLoading] = useState(false);
   const [currentTab, setCurrentTab] = useState('common');
   const [resultsTests, setResultsTests] = useState([]);
   const [resultsCourses, setResultsCourses] = useState([]);
 
-  const fetchResultsTests = async () => {
+  const fetchResults = async () => {
     try {
-      const response = await fetch('/api/test-result');
-      const testData = await response.json();
+      setLoading(true);
+      // fetch test results
+      const testResponse = await fetch('/api/test-result');
+      const testData = await testResponse.json();
       setResultsTests(testData?.filter((test) => test?.userId === data?.user.id));
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const fetchResultsCourses = async () => {
-    try {
-      const response = await fetch('/api/course-result');
-      const courseData = await response.json();
+      // fetch course results
+      const courseResponse = await fetch('/api/course-result');
+      const courseData = await courseResponse.json();
       setResultsCourses(courseData);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   }
 
-    useEffect(() => {
-      fetchResultsTests();
-      fetchResultsCourses();
-    }, [data]);
+  useEffect(() => {
+    fetchResults();
+  }, [data]);
 
-    
+  if (loading) return <BarsLoader />
+
   return (
     <div className="font-rubik px-5 md:px-20">
       <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Мои результаты</h1>
@@ -78,8 +77,16 @@ const ResultsPage = () => {
 
       {currentTab === 'common' &&
         <div className="flex gap-5 text-sm md:text-base mt-5">
-          <DonutChart chartId={'donut-chart-courses'} title={'Курсы'} data={data?.user?.courses} />
-          <DonutChart chartId={'donut-chart-tests'} title={'Тесты'} data={data?.user?.tests} />
+          <DonutChart
+            chartId={'donut-chart-courses'}
+            title={'Курсы'}
+            data={data?.user?.courses}
+          />
+          <DonutChart
+            chartId={'donut-chart-tests'}
+            title={'Тесты'}
+            data={data?.user?.tests}
+          />
         </div>}
 
       {currentTab === 'tests' &&

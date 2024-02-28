@@ -55,6 +55,7 @@ const UserMoreModal = ({ setModalIsOpen, existUser, fetchUsers }) => {
                   assign_date: Date.now(),
                   attempts: resourse_attempts,
                 }],
+                completed: [...user.tests.completed],
               }
             })
           })
@@ -75,6 +76,7 @@ const UserMoreModal = ({ setModalIsOpen, existUser, fetchUsers }) => {
                   assign_date: Date.now(),
                   attempts: resourse_attempts,
                 }],
+                completed: [...user.courses.completed],
               }
             })
           })

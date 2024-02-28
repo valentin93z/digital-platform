@@ -1,8 +1,8 @@
 import ApexCharts from "apexcharts";
+import { useMemo } from "react";
 
 
 const DonutChart = ({ chartId, title, data }) => {
-
 
   const getChartOptions = () => {
     return {
@@ -93,7 +93,6 @@ const DonutChart = ({ chartId, title, data }) => {
     chart.render();
   }
   
-
   return (
     <div>
       <div className="max-w-[320px] w-full bg-white rounded-lg shadow dark:bg-neutral-800 p-4 md:p-6">
