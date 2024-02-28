@@ -7,13 +7,17 @@ const TestFinishPage = ({ params }) => {
 
   const [loading, setLoading] = useState(false);
   const [testData, setTestData] = useState({});
+  const [existTest, setExistTest] = useState({});
 
   const fetchTestData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/test-result/${params.id}`);
-      const data = await response.json();
-      setTestData(data);
+      const resultResponse = await fetch(`/api/test-result/${params.id}`);
+      const resultData = await resultResponse.json();
+      setTestData(resultData);
+      const existTestResponse = await fetch(`/api/tests/${resultData.test_id}`);
+      const existTestData = await existTestResponse.json();
+      setExistTest(existTestData);
     } catch (error) {
       console.log(error);
     } finally {
@@ -31,7 +35,7 @@ const TestFinishPage = ({ params }) => {
     <div className='w-full h-[calc(100vh-120px)] p-5 md:p-10'>
       <div className='w-full h-[calc(100vh-200px)] flex justify-center items-center bg-white dark:bg-neutral-800 rounded-xl'>
   
-        {testData.result >= 75 &&
+        {testData.result >= existTest.minPercentage &&
           <div className="flex flex-col items-center gap-5">
             <svg className="w-[80px] md:w-[150px] h-[80px] md:h-[150px] fill-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
               <path d="M0 0h24v24H0V0z" fill="none"/>
@@ -52,7 +56,7 @@ const TestFinishPage = ({ params }) => {
           </div>
         }
 
-        {testData.result < 75 &&
+        {testData.result < existTest.minPercentage &&
           <div className="flex flex-col items-center gap-5">
             <svg className="w-[80px] md:w-[150px] h-[80px] md:h-[150px] fill-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
               <path d="M0 0h24v24H0V0z" fill="none" opacity=".87"/>

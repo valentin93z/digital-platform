@@ -21,9 +21,17 @@ const TestResultSchema = new Schema({
     type: Number,
     required: [true, 'Result is required'],
   },
+  status: {
+    type: String,
+    required: [true, 'Status is required'],
+  },
   userId: {
     type: String,
     required: [true, 'UserId is required'],
+  },
+  test_id: {
+    type: String,
+    required: [true, 'test_id is required'],
   },
   startTime: {
     type: Number,

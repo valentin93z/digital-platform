@@ -1,11 +1,11 @@
 'use client';
+import DonutChart from "@components/DonutChart";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 
 const ResultsPage = () => {
 
   const { data } = useSession();
-  console.log(data);
 
   const [currentTab, setCurrentTab] = useState('common');
   const [resultsTests, setResultsTests] = useState([]);
@@ -16,7 +16,6 @@ const ResultsPage = () => {
       const response = await fetch('/api/test-result');
       const testData = await response.json();
       setResultsTests(testData?.filter((test) => test?.userId === data?.user.id));
-      console.log(testData);
     } catch (error) {
       console.log(error);
     }
@@ -32,11 +31,12 @@ const ResultsPage = () => {
     }
   }
 
-  useEffect(() => {
-    fetchResultsTests();
-    fetchResultsCourses();
-  }, [data]);
+    useEffect(() => {
+      fetchResultsTests();
+      fetchResultsCourses();
+    }, [data]);
 
+    
   return (
     <div className="font-rubik px-5 md:px-20">
       <h1 className="text-lg md:text-4xl text-neutral-700 dark:text-white py-5">Мои результаты</h1>
@@ -76,7 +76,11 @@ const ResultsPage = () => {
         </div>
       </div>
 
-      {currentTab === 'common' && <div className="text-sm md:text-base mt-5">Здесь будет общая статистика</div>}
+      {currentTab === 'common' &&
+        <div className="flex gap-5 text-sm md:text-base mt-5">
+          <DonutChart chartId={'donut-chart-courses'} title={'Курсы'} data={data?.user?.courses} />
+          <DonutChart chartId={'donut-chart-tests'} title={'Тесты'} data={data?.user?.tests} />
+        </div>}
 
       {currentTab === 'tests' &&
         <div>

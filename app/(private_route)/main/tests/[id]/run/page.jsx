@@ -7,7 +7,7 @@ import BarsLoader from '@components/loader/BarsLoader';
 
 const TestRunPage = ({ params }) => {
 
-  const { status, data } = useSession();
+  const { status, data, update } = useSession();
   const [loading, setLoading] = useState(false);
 
   const [testData, setTestData] = useState({});
@@ -55,6 +55,30 @@ const TestRunPage = ({ params }) => {
         })
       })
       const answerData = await response.json();
+      
+      console.log('Test is assigned', data.user.tests.assigned.filter((a) => a.assign_test_id === params.id)?.length >= 1);
+      if (data.user.tests.assigned.filter((a) => a.assign_test_id === params.id)?.length >= 1) {
+        await fetch(`/api/users/${data.user.id}`, {
+          method: 'PATCH',
+          body: JSON.stringify({
+            tests: {
+              assigned: [...data.user.tests.assigned.filter((test) => test.assign_test_id !== testData._id)],
+              completed: [...data.user.tests.completed, testData._id],
+            }
+          })
+        });
+        await update({
+          ...data,
+          user: {
+            ...data?.user,
+            tests: {
+              assigned: [...data.user.tests.assigned.filter((test) => test.assign_test_id !== testData._id)],
+              completed: [...data.user.tests.completed, testData._id],
+            }
+          }
+        });
+      }
+
       router.push(`/main/tests/${answerData._id}/finish`);
     } catch (error) {
       console.log(error);

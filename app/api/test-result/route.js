@@ -32,6 +32,7 @@ export const POST = async (request) => {
 
     let trueAnswers = 0;
     let result = 0;
+    let status = 'failed';
 
     answers.forEach((answer) => {
 
@@ -74,8 +75,11 @@ export const POST = async (request) => {
     })
 
     result = (100 / answers.length * trueAnswers).toFixed(1);
+    if (result >= existTest.minPercentage) {
+      status = 'passed';
+    }
 
-    const testResultItem = new TestResult({ title, forPosition, answers: [...answers], trueAnswers, result, userId, startTime, finishTime });
+    const testResultItem = new TestResult({ test_id, title, forPosition, answers: [...answers], trueAnswers, result, status, userId, startTime, finishTime });
     console.log(testResultItem);
     await testResultItem.save();
     return new Response(JSON.stringify(testResultItem), { status: 201 });
