@@ -77,13 +77,14 @@ const HomePage = () => {
           </div>
         }
 
+
         {/* Список назначенных тестов */}
         {data?.user.courses.assigned.length >= 1 &&
           <div>
             <h2 className='mb-5'>Назначенные тесты: {data?.user.tests.assigned.length}</h2>
             <ul className='flex flex-col sm:flex-row justify-start gap-5 md:gap-10'>
               {data?.user.tests.assigned.map((test) =>
-                <li className='bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition cursor-pointer overflow-hidden' key={test.assign_course_id}>
+                <li className='max-w-full sm:max-w-[300px] bg-white dark:bg-neutral-800 rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition cursor-pointer overflow-hidden' key={test.assign_course_id}>
                   <Link href={`main/tests/${test.assign_test_id}/preview`}>
                     {testList?.filter((i) => i._id === test.assign_test_id)[0]?.image
                       ?

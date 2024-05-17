@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { checkAnswerVariants, checkTestQuest } from '@utils/checkQuest';
 import { useSession } from 'next-auth/react';
 import BarsLoader from '@components/loader/BarsLoader';
+import DragHableIcon from '@components/icons/DragHableIcon';
+import { shuffleArray } from '@utils/shuffleArray';
 
 const TestRunPage = ({ params }) => {
 
@@ -33,6 +35,33 @@ const TestRunPage = ({ params }) => {
       const response = await fetch(`/api/tests/${params.id}`);
       const data = await response.json();
       setTestData(data);
+      // setTestData({...data,
+      //   questions: [
+      //     ...data.questions.filter((q) => q.type !== 'Порядок'),
+      //     ...data.questions.filter((q) => q.type === 'Порядок').map((q) => {
+      //       return {...q, answers: shuffleArray(q.answers)}
+      //     })],
+      // });
+      // setTestData({...data,
+      //   question: [
+      //     ...data.questions.filter((q) => q.type !== 'Порядок'),
+      //     ...data.questions.filter((q) => q.type === 'Порядок').map((q) => {
+      //       return {...q, answers: answers.map((a) => {})}
+      //       ///////
+      //     })
+      //   ]});
+
+      setAnswers([
+        ...answers,
+        ...data.questions.filter((q) => q.type === 'Порядок').map((q) => ({
+          type: q.type,
+          q_id: q.q_id,
+          quest: q.quest,
+          answers: shuffleArray(q.answers)
+        }))
+      ]);
+      // setAnswers([answers.map((q) => ({...q, answers: q.answers.map((a, index) => ({...a, order: index}))}))]);
+
     } catch (error) {
       console.log(error);
     } finally {
@@ -84,6 +113,65 @@ const TestRunPage = ({ params }) => {
       console.log(error);
     }
   }
+
+
+
+// Drag & Drop
+
+const [currentItem, setCurrentItem] = useState(null);
+
+const dragStartHandler = (e, item) => {
+  setCurrentItem(item);
+  console.log(item);
+}
+
+const dragEndHandler = (e) => {
+  ///
+  e.target.style.background = '';
+}
+
+const dragOverHandler = (e) => {
+  e.preventDefault();
+  ///
+  e.target.style.background = '';
+}
+
+const dropHandler = (e, item, quest_id) => {
+  e.preventDefault();
+  // setAnswers(answers.filter((answer) => answer.q_id === quest_id).length >= 1
+  //   ? [...answers.filter((a) => a.q_id !== quest_id), answers.filter((a) => a.q_id === quest_id)[0].answers.map((i) => {
+  //     if (i.a_id === item.a_id) {
+  //       return {...i, order: currentItem.order}
+  //     }
+  //     if (i.a_id === currentItem.a_id) {
+  //       return {...i, order: item.order}
+  //     }
+  //     return i;
+  //   })]
+  //   : [...answers, answers.filter((a) => a.q_id === quest_id)[0].answers.map((i) => {
+  //     if (i.a_id === item.a_id) {
+  //       return {...i, order: currentItem.order}
+  //     }
+  //     if (i.a_id === currentItem.a_id) {
+  //       return {...i, order: item.order}
+  //     }
+  //     return i;
+  // })]);
+  // setNewQuest({...newQuest, answers: [...newQuest.answers.map((i) => {
+  //   if (i.a_id === item.a_id) {
+  //     return {...i, order: currentItem.order}
+  //   }
+  //   if (i.a_id === currentItem.a_id) {
+  //     return {...i, order: item.order}
+  //   }
+  //   return i;
+  // })]});
+  ///
+  e.target.style.background = '';
+}
+
+//////////
+
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -150,6 +238,49 @@ const TestRunPage = ({ params }) => {
               </div>
             )
           }
+
+          {testData.questions[questNum].type === 'Порядок' &&
+
+            answers.filter((answer) => answer.q_id === testData.questions[questNum].q_id)[0]?.answers.map((answer) =>
+            <div
+              key={answer.a_id}
+              className='flex items-center gap-3 px-3 py-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-white rounded-md shadow-md cursor-grab'
+              draggable={true}
+              onDragStart={(e) => dragStartHandler(e, answer)}
+              onDragLeave={(e) => dragEndHandler(e)}
+              onDragEnd={(e) => dragEndHandler(e)}
+              onDragOver={(e) => dragOverHandler(e)}
+              onDrop={(e) => dropHandler(e, answer, testData.questions[questNum].q_id)}
+            >
+              <DragHableIcon
+                className='fill-neutral-700 dark:fill-white cursor-grab'
+                width='24px'
+                height='24px'
+              />
+              <p>{answer.text}</p>
+            </div>
+            )
+            // testData?.questions[questNum].answers.map((answer, index) =>
+            //   <div
+            //     key={answer.a_id}
+            //     className='flex items-center gap-3 px-3 py-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-800 dark:text-white rounded-md shadow-md cursor-grab'
+            //     draggable={true}
+            //     onDragStart={(e) => dragStartHandler(e, index, answer)}
+            //     onDragLeave={(e) => dragEndHandler(e)}
+            //     onDragEnd={(e) => dragEndHandler(e)}
+            //     onDragOver={(e) => dragOverHandler(e)}
+            //     onDrop={(e) => dropHandler(e, answer)}
+            //   >
+            //     <DragHableIcon
+            //       className='fill-neutral-700 dark:fill-white cursor-grab'
+            //       width='24px'
+            //       height='24px'
+            //     />
+            //     <p>{answer.text}</p>
+            //   </div>
+            // )
+          }
+
         </div>
 
 
