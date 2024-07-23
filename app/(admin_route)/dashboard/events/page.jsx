@@ -38,7 +38,7 @@ const EventsPage = () => {
       </div>
       <div className="grid grid-cols-2 gap-10 mb-10">
         <div className='bg-white dark:bg-neutral-800 shadow-xl p-10 rounded-xl'>
-          <Calendar newEvent={newEvent} setNewEvent={setNewEvent} />
+          <Calendar newEvent={newEvent} setNewEvent={setNewEvent} events={events} />
         </div>
         <div className='bg-white dark:bg-neutral-800 p-10 rounded-xl shadow-xl'>
           <EventList events={events} newEvent={newEvent} />

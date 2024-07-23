@@ -8,11 +8,11 @@ const EventList = ({ events, newEvent }) => {
         <h1 className='text-xl text-center'>{`${newEvent.day} ${getMonthName(newEvent.month)} ${newEvent.year}г.`}</h1>
         <div className="flex justify-between items-center gap-5">
           <h2 className='text-xl'>Запланированные мероприятия:</h2>
-          <h2 className='text-xl'>{events.length}</h2>
+          <h2 className='text-xl'>{events.filter((event) => event.day === newEvent.day && event.month === newEvent.month + 1 && event.year === newEvent.year).length}</h2>
         </div>
       </div>
       <ul className="flex flex-col justify-start gap-3 mt-5">
-        {events.map((event) =>
+        {events.filter((event) => event.day === newEvent.day && event.month === newEvent.month + 1 && event.year === newEvent.year).map((event) =>
           <li className="border-solid border border-violet-500 dark:border-white shadow-lg rounded-md p-3" key={event._id}>
             <div className="flex justify-between items-center">
               <div className="flex flex-col justify-center items-center">

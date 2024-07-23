@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import ThemeSwitch from '@components/ThemeSwitch';
 import LoginInput from '@components/inputs/LoginInput';
 import PasswordInput from '@components/inputs/PasswordInput';
+import NotificationMsg from '@components/NotificationMsg';
 
 
 const LoginPage = () => {

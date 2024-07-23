@@ -2,7 +2,7 @@
 import { getDaysOfMonth } from '@utils/getDaysOfMonth';
 import { useState, useEffect } from 'react';
 
-const Calendar = ({ newEvent, setNewEvent }) => {
+const Calendar = ({ newEvent, setNewEvent, events }) => {
 
   const [date, setDate] = useState(new Date().getTime());
   const [days, setDays] = useState([]);
@@ -33,6 +33,7 @@ const Calendar = ({ newEvent, setNewEvent }) => {
     setDays(getDaysOfMonth(year, new Date(date).getMonth()));
   }, [date]);
 
+  console.log();
 
   return (
     <div className='font-rubik text-neutral-700 dark:text-white w-full h-full'>
@@ -66,9 +67,13 @@ const Calendar = ({ newEvent, setNewEvent }) => {
                 checked={day.year === newEvent.year && day.month === newEvent.month && day.dayOfMonth === newEvent.day}
               />
               <label
-                className='block text-center w-full h-full cursor-pointer p-[10px] calendar_day_label transition-colors'
+                className='block relative text-center w-full h-full cursor-pointer p-[10px] calendar_day_label transition-colors'
                 htmlFor={`${day.dayOfMonth}_${day.month}_${day.year}`}
               >
+                {events.filter((event) => event.day === day.dayOfMonth && event.month === day.month + 1 && event.year === day.year).length > 0 ?
+                  <div className='absolute top-[2px] right-[2px] w-[10px] h-[10px] rounded-full bg-green-400 shadow-sm'></div> :
+                  <div className='absolute'></div>
+                }
                 <div className='text-xl'>{day.dayOfMonth}</div>
               </label>
             </li>
