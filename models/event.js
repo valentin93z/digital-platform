@@ -31,7 +31,6 @@ const EventSchema = new Schema({
   },
   description: {
     type: String,
-    required: [true, 'Description is required'],
   },
   duration: {
     type: String,
@@ -39,11 +38,9 @@ const EventSchema = new Schema({
   },
   members: {
     type: Array,
-    required: [true, 'Members is required'],
   },
   link: {
     type: String,
-    required: [true, 'Link is required'],
   },
 });
 
