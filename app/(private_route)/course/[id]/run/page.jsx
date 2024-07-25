@@ -102,7 +102,7 @@ const RunCoursePage = ({ params }) => {
   return (
     <div className="w-full h-screen font-rubik px-20 unselectable">
       <div className='relative flex items-center max-w-[1600px] h-screen mx-auto' ref={ref}>
-        <Document className='relative w-full flex-shrink-0' file={courseData.path && courseData.path.url} onLoadSuccess={onDocumentLoadSuccess} loading={<CircleLoader/>}>
+        <Document className='relative w-full flex-shrink-0' file={courseData.path && courseData.path.secure_url} onLoadSuccess={onDocumentLoadSuccess} loading={<CircleLoader/>}>
           <Page
             className="w-full h-full bg-neutral-100 dark:bg-neutral-900"
             loading={<CircleLoader/>}
